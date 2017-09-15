@@ -7,21 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3A18F349860E0A134DEF909 /* Pods_Mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */; };
+		D44382A41F5DA7A8005EBBF7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A31F5DA7A8005EBBF7 /* Global.swift */; };
+		D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */; };
+		D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A71F65BA51005EBBF7 /* CueCell.swift */; };
+		D44382AC1F698E61005EBBF7 /* TransitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382AB1F698E60005EBBF7 /* TransitionCell.swift */; };
+		D44382AE1F69B1BC005EBBF7 /* CueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44382AD1F69B1BC005EBBF7 /* CueCell.xib */; };
+		D44382B01F6C6878005EBBF7 /* TransitionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
-		D4B088DA1F5478B7003D2802 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ViewController.swift */; };
+		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
 		D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DB1F5478B7003D2802 /* Main.storyboard */; };
 		D4B088DF1F5478B7003D2802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DE1F5478B7003D2802 /* Assets.xcassets */; };
 		D4B088E21F5478B7003D2802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088E01F5478B7003D2802 /* LaunchScreen.storyboard */; };
+		D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2BA6B6065DD6C02687CB88B4 /* Pods-Mixer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.debug.xcconfig"; sourceTree = "<group>"; };
+		4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mixer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76775E98CECBB316DA87B3E7 /* Pods-Mixer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.release.xcconfig"; sourceTree = "<group>"; };
+		D44382A31F5DA7A8005EBBF7 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonBorder.swift; sourceTree = "<group>"; };
+		D44382A71F65BA51005EBBF7 /* CueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCell.swift; sourceTree = "<group>"; };
+		D44382AB1F698E60005EBBF7 /* TransitionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionCell.swift; sourceTree = "<group>"; };
+		D44382AD1F69B1BC005EBBF7 /* CueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CueCell.xib; sourceTree = "<group>"; };
+		D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransitionCell.xib; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D4B088D91F5478B7003D2802 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D4B088D91F5478B7003D2802 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
 		D4B088DC1F5478B7003D2802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D4B088DE1F5478B7003D2802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4B088E11F5478B7003D2802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4B088E31F5478B7003D2802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +47,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A18F349860E0A134DEF909 /* Pods_Mixer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		630DD0057B8BF475A5A082BC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2BA6B6065DD6C02687CB88B4 /* Pods-Mixer.debug.xcconfig */,
+				76775E98CECBB316DA87B3E7 /* Pods-Mixer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CA5BF14809C809F681F8EE73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D48365781F550B1A0029941F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		D4B088CB1F5478B7003D2802 = {
 			isa = PBXGroup;
 			children = (
 				D4B088D61F5478B7003D2802 /* Mixer */,
 				D4B088D51F5478B7003D2802 /* Products */,
+				630DD0057B8BF475A5A082BC /* Pods */,
+				CA5BF14809C809F681F8EE73 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,11 +100,19 @@
 			isa = PBXGroup;
 			children = (
 				D4B088D71F5478B7003D2802 /* AppDelegate.swift */,
-				D4B088D91F5478B7003D2802 /* ViewController.swift */,
+				D4B088D91F5478B7003D2802 /* ShowVC.swift */,
 				D4B088DB1F5478B7003D2802 /* Main.storyboard */,
+				D44382AD1F69B1BC005EBBF7 /* CueCell.xib */,
+				D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */,
+				D44382A71F65BA51005EBBF7 /* CueCell.swift */,
+				D44382AB1F698E60005EBBF7 /* TransitionCell.swift */,
+				D44382A31F5DA7A8005EBBF7 /* Global.swift */,
+				D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */,
 				D4B088DE1F5478B7003D2802 /* Assets.xcassets */,
+				D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */,
 				D4B088E01F5478B7003D2802 /* LaunchScreen.storyboard */,
 				D4B088E31F5478B7003D2802 /* Info.plist */,
+				D48365781F550B1A0029941F /* Resources */,
 			);
 			path = Mixer;
 			sourceTree = "<group>";
@@ -71,9 +124,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4B088E61F5478B7003D2802 /* Build configuration list for PBXNativeTarget "Mixer" */;
 			buildPhases = (
+				8CEB5C30DFBDF880C5A82BAB /* [CP] Check Pods Manifest.lock */,
 				D4B088D01F5478B7003D2802 /* Sources */,
 				D4B088D11F5478B7003D2802 /* Frameworks */,
 				D4B088D21F5478B7003D2802 /* Resources */,
+				F15D5984EEF8004613022B8E /* [CP] Embed Pods Frameworks */,
+				1BDC63BE64642A6554E52D4A /* [CP] Copy Pods Resources */,
+				D48365741F5501DC0029941F /* Feat */,
+				D48365751F5501F30029941F /* Fixme, Todo, Mark */,
 			);
 			buildRules = (
 			);
@@ -125,6 +183,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B088E21F5478B7003D2802 /* LaunchScreen.storyboard in Resources */,
+				D44382B01F6C6878005EBBF7 /* TransitionCell.xib in Resources */,
+				D44382AE1F69B1BC005EBBF7 /* CueCell.xib in Resources */,
 				D4B088DF1F5478B7003D2802 /* Assets.xcassets in Resources */,
 				D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */,
 			);
@@ -132,13 +192,94 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1BDC63BE64642A6554E52D4A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mixer/Pods-Mixer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CEB5C30DFBDF880C5A82BAB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D48365741F5501DC0029941F /* Feat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Feat;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"FEAT:\"\nfind \"${SRCROOT}/Mixer\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+		D48365751F5501F30029941F /* Fixme, Todo, Mark */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fixme, Todo, Mark";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:|MARK:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}/Mixer\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
+		};
+		F15D5984EEF8004613022B8E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mixer/Pods-Mixer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D4B088D01F5478B7003D2802 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B088DA1F5478B7003D2802 /* ViewController.swift in Sources */,
+				D44382A41F5DA7A8005EBBF7 /* Global.swift in Sources */,
+				D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */,
+				D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */,
 				D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */,
+				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
+				D44382AC1F698E61005EBBF7 /* TransitionCell.swift in Sources */,
+				D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +402,7 @@
 		};
 		D4B088E71F5478B7003D2802 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BA6B6065DD6C02687CB88B4 /* Pods-Mixer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F5CJM79424;
@@ -269,11 +411,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JBrahamApps.Mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		D4B088E81F5478B7003D2802 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76775E98CECBB316DA87B3E7 /* Pods-Mixer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F5CJM79424;
@@ -282,6 +426,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JBrahamApps.Mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -304,6 +449,7 @@
 				D4B088E81F5478B7003D2802 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
