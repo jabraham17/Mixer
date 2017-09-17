@@ -15,22 +15,28 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="oVa-M4-DPQ">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="transitionCell" id="oVa-M4-DPQ">
             <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Transiton" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5I-uA-1st">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Transiton" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5I-uA-1st">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="D5I-uA-1st" firstAttribute="leading" secondItem="oVa-M4-DPQ" secondAttribute="leading" id="7B8-zs-qY3"/>
+                <constraint firstItem="D5I-uA-1st" firstAttribute="top" secondItem="oVa-M4-DPQ" secondAttribute="top" id="OoA-GC-cJH"/>
+                <constraint firstAttribute="trailing" secondItem="D5I-uA-1st" secondAttribute="trailing" id="YOH-WO-5LK"/>
+                <constraint firstAttribute="bottom" secondItem="D5I-uA-1st" secondAttribute="bottom" id="pKU-Xx-bYk"/>
+            </constraints>
             <point key="canvasLocation" x="-13" y="79"/>
         </collectionViewCell>
     </objects>

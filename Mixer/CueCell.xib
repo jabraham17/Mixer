@@ -19,7 +19,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="UK2-tU-cfn">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cueCell" id="UK2-tU-cfn">
             <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -30,31 +30,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="378" height="130"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Pre Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tux-f9-FsO">
-                                <rect key="frame" x="0.0" y="0.0" width="378" height="26.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="378" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Cue 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTp-3y-DiB">
-                                <rect key="frame" x="0.0" y="26.5" width="378" height="26.5"/>
+                                <rect key="frame" x="0.0" y="26" width="378" height="26"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    Media Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqg-vk-pgQ">
-                                <rect key="frame" x="0.0" y="53" width="378" height="26.5"/>
+                                <rect key="frame" x="0.0" y="52" width="378" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    Script" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCs-mx-AlK">
-                                <rect key="frame" x="0.0" y="79.5" width="378" height="26.5"/>
+                                <rect key="frame" x="0.0" y="78" width="378" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Post Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCL-X9-TrP">
-                                <rect key="frame" x="0.0" y="106" width="378" height="26.5"/>
+                                <rect key="frame" x="0.0" y="104" width="378" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,10 +63,12 @@
                     </stackView>
                 </subviews>
             </view>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstItem="qde-2J-5Zs" firstAttribute="leading" secondItem="UK2-tU-cfn" secondAttribute="leading" id="TWR-96-kS4"/>
-                <constraint firstItem="qde-2J-5Zs" firstAttribute="top" secondItem="UK2-tU-cfn" secondAttribute="top" id="yAi-St-tLC"/>
-                <constraint firstAttribute="trailing" secondItem="qde-2J-5Zs" secondAttribute="trailing" constant="36" id="yhz-FH-htT"/>
+                <constraint firstAttribute="bottom" secondItem="qde-2J-5Zs" secondAttribute="bottom" id="o8s-Xe-Dpt"/>
+                <constraint firstItem="qde-2J-5Zs" firstAttribute="leading" secondItem="UK2-tU-cfn" secondAttribute="leading" id="pG3-95-dl3"/>
+                <constraint firstAttribute="trailing" secondItem="qde-2J-5Zs" secondAttribute="trailing" constant="36" id="uVm-M5-Fcc"/>
+                <constraint firstItem="qde-2J-5Zs" firstAttribute="top" secondItem="UK2-tU-cfn" secondAttribute="top" id="wLM-mT-SLR"/>
             </constraints>
             <point key="canvasLocation" x="140" y="77"/>
         </collectionViewCell>
