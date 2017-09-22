@@ -13,7 +13,7 @@ import SideMenu
 class ShowVC: UIViewController {
 
     //refrence to collection view, used to show and edit cells
-    @IBOutlet var cueView: UICollectionView!
+    @IBOutlet var cueView: CueCollectionView!
     //refrence to add button, used to toggle appearnace
     @IBOutlet var addButton: UIBarButtonItem!
     //refrence to play button, used to add pulse
@@ -39,7 +39,8 @@ class ShowVC: UIViewController {
         //add pulse to layer of button
         playButton.layer.add(pulseAnimation, forKey: nil)
     }
-    
+    //deleagte for cueView
+    let delegate = CueCollectionViewDelegate()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +53,7 @@ class ShowVC: UIViewController {
         menuNC.leftSide = true
         //add the menu to the manager
         SideMenuManager.menuLeftNavigationController = menuNC
+        SideMenuManager.menuRightNavigationController = menuNC
         
         //add gesture recognizors to the menu manager
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
@@ -61,6 +63,10 @@ class ShowVC: UIViewController {
         SideMenuManager.menuPresentMode = .menuSlideIn
         //force status bar to stay visible
         SideMenuManager.menuFadeStatusBar = false
+        
+        //set the coolection view deleagtes
+        cueView.delegate = delegate
+        cueView.dataSource = delegate
     }
     //catch and modify the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

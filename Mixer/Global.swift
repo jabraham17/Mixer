@@ -20,4 +20,6 @@ class Global {
     //the purple used by the app for the redo button
     static let purpleRedo = #colorLiteral(red: 0.720988961, green: 0.1572330074, blue: 0.7200371102, alpha: 1)
     
+    static let screenWidth = UIScreen.main.bounds.width
+    static let screenHeight = UIScreen.main.bounds.height
 }

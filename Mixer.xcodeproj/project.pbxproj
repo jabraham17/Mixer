@@ -15,6 +15,7 @@
 		D44382AE1F69B1BC005EBBF7 /* CueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44382AD1F69B1BC005EBBF7 /* CueCell.xib */; };
 		D44382B01F6C6878005EBBF7 /* TransitionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */; };
 		D44382B41F6E0E13005EBBF7 /* CueCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382B31F6E0E13005EBBF7 /* CueCollectionView.swift */; };
+		D45BF8AB1F74074900DB41AD /* CueCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45BF8AA1F74074900DB41AD /* CueCollectionViewDelegate.swift */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
 		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
 		D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DB1F5478B7003D2802 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		D44382AD1F69B1BC005EBBF7 /* CueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CueCell.xib; sourceTree = "<group>"; };
 		D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransitionCell.xib; sourceTree = "<group>"; };
 		D44382B31F6E0E13005EBBF7 /* CueCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCollectionView.swift; sourceTree = "<group>"; };
+		D45BF8AA1F74074900DB41AD /* CueCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4B088D91F5478B7003D2802 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
@@ -93,6 +95,23 @@
 			name = CustomCells;
 			sourceTree = "<group>";
 		};
+		D45BF8AC1F75575600DB41AD /* CustomCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				D44382B31F6E0E13005EBBF7 /* CueCollectionView.swift */,
+				D45BF8AA1F74074900DB41AD /* CueCollectionViewDelegate.swift */,
+			);
+			name = CustomCollectionView;
+			sourceTree = "<group>";
+		};
+		D45BF8AD1F75576300DB41AD /* CustomUIElements */ = {
+			isa = PBXGroup;
+			children = (
+				D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */,
+			);
+			name = CustomUIElements;
+			sourceTree = "<group>";
+		};
 		D48365781F550B1A0029941F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,8 +145,8 @@
 				D4B088DB1F5478B7003D2802 /* Main.storyboard */,
 				D44382B51F6E0E63005EBBF7 /* ViewControllers */,
 				D44382B61F6E0E81005EBBF7 /* CustomCells */,
-				D44382B31F6E0E13005EBBF7 /* CueCollectionView.swift */,
-				D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */,
+				D45BF8AC1F75575600DB41AD /* CustomCollectionView */,
+				D45BF8AD1F75576300DB41AD /* CustomUIElements */,
 				D4B088DE1F5478B7003D2802 /* Assets.xcassets */,
 				D4B088E01F5478B7003D2802 /* LaunchScreen.storyboard */,
 				D4B088E31F5478B7003D2802 /* Info.plist */,
@@ -297,6 +316,7 @@
 				D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */,
 				D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */,
 				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
+				D45BF8AB1F74074900DB41AD /* CueCollectionViewDelegate.swift in Sources */,
 				D44382AC1F698E61005EBBF7 /* TransitionCell.swift in Sources */,
 				D44382B41F6E0E13005EBBF7 /* CueCollectionView.swift in Sources */,
 				D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */,

@@ -12,7 +12,7 @@ import UIKit
 class PlayVC: UIViewController {
     
     //refrence to collection view, used to display all cues
-    @IBOutlet var cueView: UICollectionView!
+    @IBOutlet var cueView: CueCollectionView!
     
     //refrence to lock button, used to toggle appearnace
     @IBOutlet var lockButton: UIBarButtonItem!
@@ -29,8 +29,14 @@ class PlayVC: UIViewController {
     //refrence to end time label, used to show total time of certain cue
     @IBOutlet var cueEndTimeLabel: UILabel!
     
+    //deleagte for cueView
+    let delegate = CueCollectionViewDelegate()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set the coolection view deleagtes
+        cueView.delegate = delegate
+        cueView.dataSource = delegate
         
     }
     //action for lock button
