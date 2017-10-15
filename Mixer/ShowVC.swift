@@ -19,10 +19,14 @@ class ShowVC: UIViewController {
     //refrence to play button, used to add pulse
     @IBOutlet var playButton: UIButton!
     
-    
+    //wether the show is being edited or not
+    var editingMode: Bool = false
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        //set title of screen to show
+        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = delegate.show == nil ? "" : delegate.show?.name
         
         //add pulse to button
         let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
@@ -39,16 +43,22 @@ class ShowVC: UIViewController {
         //add pulse to layer of button
         playButton.layer.add(pulseAnimation, forKey: nil)
     }
+    
     //deleagte for cueView
     let delegate = CueCollectionViewDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        (self.navigationItem.titleView as! CustomUINavigationTitle).setupTap()
+        
         //view loads with add button not visible
-        //FIXME: unable to hide add button, functionaailty not native, need to add
+        addButton.hide()
         
         //load in the menu from the storyboard
          let menuNC = storyboard!.instantiateViewController(withIdentifier: "HamburgerMenuNaviagtionController") as! UISideMenuNavigationController
+        //set delagte
+        (menuNC.topViewController as! MenuVC).passingDelegate = self
         //set the menu as a left side menu
         menuNC.leftSide = true
         //add the menu to the manager
@@ -64,13 +74,23 @@ class ShowVC: UIViewController {
         //force status bar to stay visible
         SideMenuManager.menuFadeStatusBar = false
         
+        delegate.show = nil
+        
         //set the coolection view deleagtes
         cueView.delegate = delegate
         cueView.dataSource = delegate
+        
+        //add tap gesture deleagte to title
+        (self.navigationItem.titleView as! CustomUINavigationTitle).delegate = self
+        
+        //start showing the menu
+        present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
     }
     //catch and modify the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //TODO: add any customization to segue
+        //pass delegate and show
+        let vc = segue.destination as! PlayVC
+        vc.delegate = delegate
     }
     //action to show the menu
     @IBAction func hamburgerMenuAction(_ sender: UIBarButtonItem) {
@@ -78,9 +98,24 @@ class ShowVC: UIViewController {
     }
     //action for add button in edit mode
     @IBAction func addAction(_ sender: UIBarButtonItem) {
+        if(editingMode) {
+            
+        }
     }
     //action for the edit/done button
     @IBAction func editDoneAction(_ sender: UIBarButtonItem) {
+        //get text of button
+        let title = sender.title
+        if(title == "Edit") {
+            sender.title = "Done"
+            editingMode = true
+            addButton.show()
+        }
+        else if(title == "Done") {
+            sender.title = "Edit"
+            editingMode = false
+            addButton.hide()
+        }
     }
     //action for the play button
     @IBAction func playAction(_ sender: UIButton) {
@@ -89,5 +124,88 @@ class ShowVC: UIViewController {
     }
     
 
+}
+
+//Menu Delegate
+extension ShowVC: MenuVCDelegate {
+    //deleagte from Menu
+    func showSelected(show: Show) {
+        //set title of screen to show
+        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = show.name
+        //set the dleeagtes show to refresh data
+        delegate.show = show
+        //reload the data
+        cueView.reloadData()
+    }
+}
+
+//Header Deleagte
+extension ShowVC: CustomUINavigationTitleDelegate {
+    //when title is tapped, show information view with dates
+    func headerWasTapped() {
+        //get the view controller
+        let showInfoVC = ShowInfoVC()
+        //set the delegate
+        showInfoVC.delegate = self
+        //set the show for display
+        showInfoVC.show = delegate.show
+        //set preferred size for view controller
+        showInfoVC.preferredContentSize = CGSize.init(width: self.view.frame.width / 2, height: self.view.frame.height / 4)
+        
+        //set the presentation style to popover
+        showInfoVC.modalPresentationStyle = .popover
+        
+        //setup as a popover view controller
+        let popover = showInfoVC.popoverPresentationController!
+        
+        //set the delegate as this class
+        popover.delegate = self
+        //anchor the popover to the title view
+        popover.sourceView = self.navigationItem.titleView
+        popover.sourceRect = (self.navigationItem.titleView?.bounds)!
+        
+        //present the popover
+        present(showInfoVC, animated: true, completion: {
+            //set the popovers frame to the frame inside of the presetening view controller so that subviews can be laid out accrodingly
+            showInfoVC.frame = popover.frameOfPresentedViewInContainerView
+        })
+    }
+}
+
+//ShowInfoDelegate
+extension ShowVC: ShowInfoDelegate {
+    //recieve the show from the ShowInfo
+    func closed(show: Show?) {
+        //reset show in delegate
+        delegate.show = show
+        //refresh
+        cueView.reloadData()
+        //set title of screen to show
+        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = delegate.show == nil ? "" : delegate.show?.name
+    }
+}
+
+//UIPopoverPresentationControllerDelegate
+extension ShowVC: UIPopoverPresentationControllerDelegate {
+    //present in popover style
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    //only dismissal through buttons
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return false
+    }
+}
+
+
+extension UIBarButtonItem {
+    func hide() {
+        isEnabled = false
+        tintColor = .clear
+    }
+    func show() {
+        isEnabled = true
+        tintColor = nil
+    }
 }
 

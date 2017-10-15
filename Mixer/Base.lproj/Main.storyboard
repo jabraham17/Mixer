@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i99-jT-hK8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i99-jT-hK8">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,7 +39,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHD-xL-GOj">
-                                <rect key="frame" x="157" y="616" width="100" height="100"/>
+                                <rect key="frame" x="157" y="636" width="100" height="80"/>
                                 <state key="normal" image="StartIcon"/>
                                 <connections>
                                     <action selector="playAction:" destination="NnX-KJ-GTY" eventType="touchUpInside" id="Au2-z1-G9C"/>
@@ -73,6 +72,24 @@
                                 <action selector="hamburgerMenuAction:" destination="NnX-KJ-GTY" id="zSd-RU-8xF"/>
                             </connections>
                         </barButtonItem>
+                        <view key="titleView" contentMode="scaleToFill" id="1Vo-ho-ydc" customClass="CustomUINavigationTitle" customModule="Mixer" customModuleProvider="target">
+                            <rect key="frame" x="107" y="11.666666666666664" width="200" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfu-PG-qgH">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="title" destination="Lfu-PG-qgH" id="GoE-Ny-DtT"/>
+                            </connections>
+                        </view>
                         <rightBarButtonItems>
                             <barButtonItem title="Edit" id="CRn-m7-n18">
                                 <connections>
@@ -116,7 +133,7 @@
                                     <constraint firstAttribute="height" constant="169" id="Gno-1c-2cu">
                                         <variation key="heightClass=compact-widthClass=regular" constant="119"/>
                                     </constraint>
-                                    <constraint firstAttribute="width" constant="192" id="YA6-xP-ZA3"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="192" id="YA6-xP-ZA3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="89"/>
                                 <state key="normal" title="GO">
@@ -131,7 +148,7 @@
                                     <action selector="goAction:" destination="X8D-f3-Mh2" eventType="touchUpInside" id="Azi-ah-NGF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7D-2y-XbZ" customClass="UIButtonBorder" customModule="Mixer" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7D-2y-XbZ" customClass="UIButtonBorder" customModule="Mixer" customModuleProvider="target">
                                 <rect key="frame" x="6" y="658" width="172" height="70"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -171,7 +188,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgG-Il-2FB">
                                 <rect key="frame" x="326" y="623" width="65" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="65" id="6gV-K3-r13"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="6gV-K3-r13"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -181,7 +198,7 @@
                                 <rect key="frame" x="295" y="658" width="110" height="70"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="GoF-Pd-HZF"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="GoF-Pd-HZF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                 <state key="normal" title="PAUSE">
@@ -200,7 +217,7 @@
                                 <rect key="frame" x="186" y="658" width="101" height="70"/>
                                 <color key="backgroundColor" red="0.72098896104067112" green="0.15723300736794046" blue="0.72003711017415373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="101" id="mkW-ps-RPe"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="101" id="mkW-ps-RPe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                 <state key="normal" title="REDO">
@@ -229,7 +246,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbL-tO-7uZ">
                                 <rect key="frame" x="17" y="624" width="65" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="65" id="m9d-sM-jcf"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="m9d-sM-jcf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -255,6 +272,7 @@
                             <constraint firstItem="Cyf-G5-V9f" firstAttribute="baseline" secondItem="z1K-e0-rm0" secondAttribute="firstBaseline" id="Jch-jf-qRQ"/>
                             <constraint firstItem="A7D-2y-XbZ" firstAttribute="top" secondItem="Cyf-G5-V9f" secondAttribute="top" id="LFD-oC-SQf"/>
                             <constraint firstItem="Cyf-G5-V9f" firstAttribute="leading" secondItem="A7D-2y-XbZ" secondAttribute="trailing" constant="8" symbolic="YES" id="LWJ-HU-xhQ"/>
+                            <constraint firstItem="BgG-Il-2FB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ot4-uj-eO8" secondAttribute="leading" constant="20" symbolic="YES" id="PT9-uk-p1n"/>
                             <constraint firstItem="BgG-Il-2FB" firstAttribute="baseline" secondItem="ZbL-tO-7uZ" secondAttribute="firstBaseline" id="RQL-3B-C5I">
                                 <variation key="heightClass=compact-widthClass=regular" constant="1"/>
                             </constraint>
@@ -277,8 +295,9 @@
                             <constraint firstItem="vui-kv-BFr" firstAttribute="top" secondItem="4Y4-r7-0Vq" secondAttribute="bottom" constant="8" symbolic="YES" id="q4n-S1-jAX"/>
                             <constraint firstItem="Cyf-G5-V9f" firstAttribute="baseline" secondItem="z1K-e0-rm0" secondAttribute="baseline" id="tVg-Zy-6Li"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SzE-Lb-dAC" secondAttribute="trailing" constant="-11" id="uSh-a2-oWs"/>
+                            <constraint firstAttribute="trailing" secondItem="ZbL-tO-7uZ" secondAttribute="trailing" constant="332" id="vvU-Y3-0YK"/>
                             <constraint firstItem="vui-kv-BFr" firstAttribute="trailing" secondItem="BgG-Il-2FB" secondAttribute="trailing" id="w1o-zw-1m8"/>
-                            <constraint firstItem="vui-kv-BFr" firstAttribute="leading" secondItem="ZbL-tO-7uZ" secondAttribute="leading" id="wka-9b-9Qk"/>
+                            <constraint firstItem="vui-kv-BFr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZbL-tO-7uZ" secondAttribute="leading" id="wka-9b-9Qk"/>
                             <constraint firstItem="vui-kv-BFr" firstAttribute="top" secondItem="DxU-V3-w3T" secondAttribute="bottom" constant="35" id="yrw-iN-xJ0"/>
                             <constraint firstItem="SzE-Lb-dAC" firstAttribute="trailing" secondItem="DxU-V3-w3T" secondAttribute="trailing" id="zD3-Uv-yj9"/>
                             <constraint firstAttribute="trailing" secondItem="HSg-LF-erU" secondAttribute="trailing" id="zP9-P4-k1e">
@@ -311,7 +330,7 @@
         <!--Shows-->
         <scene sceneID="hZM-0q-nyw">
             <objects>
-                <tableViewController id="AUX-hM-ibo" sceneMemberID="viewController">
+                <tableViewController id="AUX-hM-ibo" customClass="MenuVC" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="88j-eH-jwx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -321,11 +340,11 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="68j-hA-dX5" id="UfT-Nl-gFK">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Show Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Blj-HQ-Lmd">
-                                            <rect key="frame" x="15" y="0.0" width="384" height="43"/>
+                                            <rect key="frame" x="20" y="0.0" width="379" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -342,7 +361,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Shows" id="mZj-R2-CKg">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="SSA-8F-hUe"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="SSA-8F-hUe">
+                            <connections>
+                                <action selector="addButton:" destination="AUX-hM-ibo" id="ga5-Vq-vg3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82j-6R-89y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -354,7 +377,7 @@
             <objects>
                 <navigationController storyboardIdentifier="HamburgerMenuNaviagtionController" id="cCG-6p-mvG" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y1u-eY-QfQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
@@ -374,7 +397,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i99-jT-hK8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nJS-U2-XOx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

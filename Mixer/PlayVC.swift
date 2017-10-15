@@ -30,7 +30,8 @@ class PlayVC: UIViewController {
     @IBOutlet var cueEndTimeLabel: UILabel!
     
     //deleagte for cueView
-    let delegate = CueCollectionViewDelegate()
+    var delegate: CueCollectionViewDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

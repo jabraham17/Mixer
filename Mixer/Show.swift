@@ -21,14 +21,14 @@ class Show {
     //default init
     init() {
         self.listing = []
-        self.name = ""
+        self.name = "New Show"
         self.dateCreated = Date()
         self.dateLastRun = nil
         self.dateLastEdit = Date()
     }
     
     //init
-    init(listing: [GenericCue], name: String, dateCreated: Date, dateLastRun: Date, dateLastEdit: Date) {
+    init(listing: [GenericCue], name: String, dateCreated: Date, dateLastRun: Date?, dateLastEdit: Date) {
         self.listing = listing
         self.name = name
         self.dateCreated = dateCreated

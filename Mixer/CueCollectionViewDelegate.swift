@@ -11,9 +11,21 @@ import UIKit
 //delegate for cue collection view
 class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    //show to display
+    var show: Show?
+    
+    //init
+    init(show: Show) {
+        self.show = show
+    }
+    //default init
+    override init() {
+        show = nil
+    }
+    
     //number of cues to display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return show?.listing.count ?? 0
     }
     //define the cell at the index
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
