@@ -36,4 +36,9 @@ class Show {
         self.dateLastEdit = dateLastEdit
     }
     
+    //add a new cue
+    func add(cue: GenericCue) {
+        listing.append(cue)
+    }
+    
 }

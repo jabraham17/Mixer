@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 //protocol/delegate that view controller class will acknolege
 protocol CueAddDelegate: class {
@@ -58,10 +59,20 @@ class CueAddVC: UIViewController {
     var cancelButton: UIButton?
     var addButton: UIButton?
     var control: UISegmentedControl?
-    var addCueView: UIView?
+    
+    var addCueView: UIScrollView?
     var cueNumber: UITextField?
     var cueName: UITextField?
-    var addTransitionView: UIView?
+    var cueScript: UITextField?
+    var cuePreAction: UITextField?
+    var cueMedia: UITextField?
+    var cuePostAction: UITextField?
+    
+    var addTransitionView: UIScrollView?
+    var transitionNumber: UITextField?
+    var transitionName: UITextField?
+    var transitionScript: UITextField?
+    var transitionAction: UITextField?
     
     //setup view
     func setup() {
@@ -78,23 +89,6 @@ class CueAddVC: UIViewController {
         let dividingLine = bounds.height / 8
         let controlArea = CGRect(x: space, y: space, width: bounds.width, height: dividingLine)
         let viewsArea = CGRect(x: space, y: dividingLine, width: bounds.width, height: bounds.height - dividingLine - space)
-        
-        /*
-             Cue
-             optional: number
-             name
-             script
-             pre
-             media
-             post
-         */
-        /*
-         transiton
-         optional: before/after number
-         name
-         script
-         transition
-         */
         
         //button to cancel editing
         cancelButton = UIButton(frame: CGRect(x: space, y: space, width: controlArea.width / 3, height: (controlArea.height - (2 * space)) / 2))
@@ -119,9 +113,21 @@ class CueAddVC: UIViewController {
         //add action to control
         control?.addTarget(self, action: #selector(controlChanged), for: .valueChanged)
         
-        addCueView = UIView(frame: viewsArea)
+        //add views to contoller
+        self.view.addSubviews(cancelButton!, addButton!, control!)
+        
+        //view to hold everything for the cue
+        addCueView = UIScrollView(frame: viewsArea)
+        addCueView?.showsVerticalScrollIndicator = false
+        addCueView?.showsHorizontalScrollIndicator = false
+        addCueView?.contentSize = CGSize(width: viewsArea.width, height: viewsArea.height)
+        addCueView?.isScrollEnabled = true
+        
+        //height of each element in the cue view
+        let cueElementHeight = addCueView!.frame.height / 6
+        
         //view to edit cue number
-        cueNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addCueView!.frame.width, height: addCueView!.frame.height / 7))
+        cueNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addCueView!.frame.width, height: cueElementHeight))
         cueNumber?.font = UIFont.systemFont(ofSize: 20)
         cueNumber?.borderStyle = .roundedRect
         cueNumber?.textAlignment = .left
@@ -131,9 +137,10 @@ class CueAddVC: UIViewController {
         cueNumber?.clearsOnBeginEditing = false
         cueNumber?.clearButtonMode = .never
         cueNumber?.keyboardType = .decimalPad
+        cueNumber?.delegate = self
         
         //view to edit cue name
-        cueName = UITextField(frame: CGRect(x: 0, y: addCueView!.frame.height / 7, width: addCueView!.frame.width, height: addCueView!.frame.height / 7))
+        cueName = UITextField(frame: CGRect(x: 0, y: cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cueName?.font = UIFont.systemFont(ofSize: 20)
         cueName?.borderStyle = .roundedRect
         cueName?.textAlignment = .left
@@ -142,17 +149,122 @@ class CueAddVC: UIViewController {
         //setup editing style
         cueName?.clearsOnBeginEditing = false
         cueName?.clearButtonMode = .whileEditing
+        cueName?.returnKeyType = .done
+        cueName?.delegate = self
         
-        addCueView?.addSubviews(cueNumber!, cueName!)
+        //view to edit the script for the cue
+        cueScript = UITextField(frame: CGRect(x: 0, y: 2 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cueScript?.font = UIFont.systemFont(ofSize: 20)
+        cueScript?.borderStyle = .roundedRect
+        cueScript?.textAlignment = .left
+        //tell the user what goes in the field
+        cueScript?.placeholder = "Location in Script"
+        //setup editing style
+        cueScript?.clearsOnBeginEditing = false
+        cueScript?.clearButtonMode = .whileEditing
+        cueScript?.returnKeyType = .done
+        cueScript?.delegate = self
         
-        addTransitionView = UIView(frame: viewsArea)
+        //view to edit what pre action to use
+        cuePreAction = UITextField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePreAction?.font = UIFont.systemFont(ofSize: 20)
+        cuePreAction?.borderStyle = .roundedRect
+        cuePreAction?.textAlignment = .left
+        //tell the user what goes in the field
+        cuePreAction?.placeholder = "Before Cue Starts"
+        cuePreAction?.delegate = self
+        //setup accesory view to be a picker view not a keyboard
+        //TODO: not imprlemenyed
+        
+        //view to edit what media to use
+        cueMedia = UITextField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cueMedia?.font = UIFont.systemFont(ofSize: 20)
+        cueMedia?.borderStyle = .roundedRect
+        cueMedia?.textAlignment = .left
+        //tell the user what goes in the field
+        cueMedia?.placeholder = "Media"
+        cueMedia?.delegate = self
+        //setup accesory view to be media picker not a keyboard
+        //when tapped, open media picker
+        cueMedia?.addTarget(self, action: #selector(pickMedia), for: .touchUpInside)
+        
+        //view to edit what post action to use
+        cuePostAction = UITextField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePostAction?.font = UIFont.systemFont(ofSize: 20)
+        cuePostAction?.borderStyle = .roundedRect
+        cuePostAction?.textAlignment = .left
+        //tell the user what goes in the field
+        cuePostAction?.placeholder = "After Cue Ends"
+        cuePostAction?.delegate = self
+        //setup accesory view to be a picker view not a keyboard
+        //TODO: not imprlemenyed
+        
+        addCueView?.addSubviews(cueNumber!, cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
+        
+        //view to hold everything for tarsntion
+        addTransitionView = UIScrollView(frame: viewsArea)
+        addTransitionView?.showsVerticalScrollIndicator = false
+        addTransitionView?.showsHorizontalScrollIndicator = false
+        addTransitionView?.contentSize = CGSize(width: viewsArea.width, height: viewsArea.height)
+        addTransitionView?.isScrollEnabled = true
+        
+        //height of each element in the cue view
+        let transitionElementHeight = addCueView!.frame.height / 4
+        
+        //view to edit transition number
+        transitionNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionNumber?.font = UIFont.systemFont(ofSize: 20)
+        transitionNumber?.borderStyle = .roundedRect
+        transitionNumber?.textAlignment = .left
+        //setup number that is the default, the default adds the transition to the end of the list
+        transitionNumber?.placeholder = "#"
+        //setup editing style
+        transitionNumber?.clearsOnBeginEditing = false
+        transitionNumber?.clearButtonMode = .never
+        transitionNumber?.keyboardType = .decimalPad
+        transitionNumber?.delegate = self
+        
+        //view to edit transition name
+        transitionName = UITextField(frame: CGRect(x: 0, y: transitionElementHeight, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionName?.font = UIFont.systemFont(ofSize: 20)
+        transitionName?.borderStyle = .roundedRect
+        transitionName?.textAlignment = .left
+        //defualt cue name, append whatever the defualt cue number is
+        transitionName?.text = "Cue #"
+        //setup editing style
+        transitionName?.clearsOnBeginEditing = false
+        transitionName?.clearButtonMode = .whileEditing
+        transitionName?.returnKeyType = .done
+        transitionName?.delegate = self
+        
+        //view to edit the script for the transition
+        transitionScript = UITextField(frame: CGRect(x: 0, y: 2 * transitionElementHeight, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionScript?.font = UIFont.systemFont(ofSize: 20)
+        transitionScript?.borderStyle = .roundedRect
+        transitionScript?.textAlignment = .left
+        //tell the user what goes in the field
+        transitionScript?.placeholder = "Location in Script"
+        //setup editing style
+        transitionScript?.clearsOnBeginEditing = false
+        transitionScript?.clearButtonMode = .whileEditing
+        transitionScript?.returnKeyType = .done
+        transitionScript?.delegate = self
+        
+        //view to edit what transition to use
+        transitionAction = UITextField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionAction?.font = UIFont.systemFont(ofSize: 20)
+        transitionAction?.borderStyle = .roundedRect
+        transitionAction?.textAlignment = .left
+        //tell the user what goes in the field
+        transitionAction?.placeholder = "Transition"
+        transitionAction?.delegate = self
+        //setup accesory view to be a picker view not a keyboard
+        //TODO: not imprlemenyed
+        
+        addTransitionView?.addSubviews(transitionNumber!, transitionName!, transitionScript!, transitionAction!)
         
         //set the mode, this will take care of adding the transitona and cue views
         mode = .Cue
-        
-        
-        //add views to contoller
-        self.view.addSubviews(cancelButton!, addButton!, control!)
     }
     
     //load view
@@ -186,6 +298,77 @@ class CueAddVC: UIViewController {
             //after popup is dismissed, call the delegate
             self.delegate?.closed(cue: cue)
         })
+    }
+}
+
+//text field delegate
+extension CueAddVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //on return, close text field
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //while editing, set the content inset
+        switch(mode) {
+        case .Cue:
+            //if the cue view is open
+            //TODO: only moves by a number, not by keyboard height
+            addCueView?.contentInset.bottom = 200
+            break
+        case .Transition:
+            //if the trandition view is open
+            //TODO: only moves by a number, not by keyboard height
+            addTransitionView?.contentInset.bottom = 200
+            break
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //when done, reset content inset
+        switch(mode) {
+        case .Cue:
+            //if the cue view is open
+            addCueView?.contentInset.bottom = 0
+            break
+        case .Transition:
+            //if the trandition view is open
+            addTransitionView?.contentInset.bottom = 0
+            break
+        }
+    }
+}
+
+//Media picker delegate
+extension CueAddVC: MPMediaPickerControllerDelegate {
+    
+    //fucntion called when user taos on media field
+    func pickMedia() {
+        print("Hi")
+        
+        //make the picker
+        let mediaPicker = MPMediaPickerController(mediaTypes: .anyAudio)
+        //only one item at a time
+        mediaPicker.allowsPickingMultipleItems = false
+        //set the popover to the field
+        mediaPicker.popoverPresentationController?.sourceView = self.view
+        //add the delagte methods
+        mediaPicker.delegate = self
+        self.present(mediaPicker, animated: true, completion: nil)
+    }
+    
+    //on select media item, add the information of the media item to the media field
+    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        
+        //set the text to the field
+        //TODO: temp, this will add the actual media file at some point
+        cueMedia?.text = mediaItemCollection.items.first?.title
+        
+        //dismiss the medie player
+        mediaPicker.dismiss(animated: true, completion: nil)
+    }
+    //if cancel, just dismiss
+    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+        mediaPicker.dismiss(animated: true, completion: nil)
     }
 }
 

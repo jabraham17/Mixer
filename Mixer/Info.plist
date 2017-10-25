@@ -41,5 +41,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>$(EXECTUTABLE_NAME) needs access to media files on your phone to create cues with media in them</string>
 </dict>
 </plist>

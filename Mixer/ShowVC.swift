@@ -214,6 +214,7 @@ extension ShowVC: CueAddDelegate {
     func closed(cue: GenericCue) {
         
         //TODO: add cue
+        delegate.show?.add(cue: cue)
         
         //refresh
         cueView.reloadData()
