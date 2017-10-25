@@ -115,8 +115,11 @@ class ShowVC: UIViewController {
             
             //set the delegate as this class
             popover.delegate = self
-            //anchor the popover to the add button
-            popover.barButtonItem = self.addButton
+            //anchor to the view, this makes it function like a popup instad of a popover
+            popover.sourceView = self.view
+            popover.sourceRect = self.view.bounds
+            //dont show any arrows
+            popover.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
             
             //present the popover
             present(cueAddVC, animated: true, completion: {
