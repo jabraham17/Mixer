@@ -21,9 +21,9 @@ class Transition: GenericCue {
     }
     
     //init
-    init(number: Double, name: String, description: String, script: String, transition: TransitionAction) {
+    init(number: Double, name: String, script: String, transition: TransitionAction) {
         self.transition = transition
-        super.init(number: number, name: name, description: description, script: script)
+        super.init(number: number, name: name, script: script)
     }
     
 }

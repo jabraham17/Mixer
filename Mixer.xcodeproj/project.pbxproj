@@ -28,12 +28,15 @@
 		D45BF8C11F7C07D000DB41AD /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45BF8C01F7C07D000DB41AD /* Media.swift */; };
 		D45BF8C31F7C0B0D00DB41AD /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45BF8C21F7C0B0D00DB41AD /* MenuVC.swift */; };
 		D46ED1431F83EC5300F7D728 /* CustomUINavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */; };
+		D48F12961FA0175600D915B6 /* Strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = D48F12951FA0175600D915B6 /* Strings.plist */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
 		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
 		D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DB1F5478B7003D2802 /* Main.storyboard */; };
 		D4B088DF1F5478B7003D2802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DE1F5478B7003D2802 /* Assets.xcassets */; };
 		D4B088E21F5478B7003D2802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088E01F5478B7003D2802 /* LaunchScreen.storyboard */; };
 		D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */; };
+		D4B979161F9F85D600729E43 /* CueAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B979151F9F85D600729E43 /* CueAddVC.swift */; };
+		D4B979191FA0145500729E43 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B979181FA0145500729E43 /* Strings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +63,7 @@
 		D45BF8C01F7C07D000DB41AD /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		D45BF8C21F7C0B0D00DB41AD /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUINavigationTitle.swift; sourceTree = "<group>"; };
+		D48F12951FA0175600D915B6 /* Strings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4B088D91F5478B7003D2802 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 		D4B088E11F5478B7003D2802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4B088E31F5478B7003D2802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayVC.swift; sourceTree = "<group>"; };
+		D4B979151F9F85D600729E43 /* CueAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueAddVC.swift; sourceTree = "<group>"; };
+		D4B979181FA0145500729E43 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 				D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */,
 				D45BF8C21F7C0B0D00DB41AD /* MenuVC.swift */,
 				D40DD5991F93737D00F218FF /* ShowInfoVC.swift */,
+				D4B979151F9F85D600729E43 /* CueAddVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -190,6 +197,7 @@
 		D4B088D61F5478B7003D2802 /* Mixer */ = {
 			isa = PBXGroup;
 			children = (
+				D4B979171FA0140B00729E43 /* Strings */,
 				D44382A31F5DA7A8005EBBF7 /* Global.swift */,
 				D4B088D71F5478B7003D2802 /* AppDelegate.swift */,
 				D4B088DB1F5478B7003D2802 /* Main.storyboard */,
@@ -205,6 +213,15 @@
 				D48365781F550B1A0029941F /* Resources */,
 			);
 			path = Mixer;
+			sourceTree = "<group>";
+		};
+		D4B979171FA0140B00729E43 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				D4B979181FA0145500729E43 /* Strings.swift */,
+				D48F12951FA0175600D915B6 /* Strings.plist */,
+			);
+			name = Strings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B088E21F5478B7003D2802 /* LaunchScreen.storyboard in Resources */,
+				D48F12961FA0175600D915B6 /* Strings.plist in Resources */,
 				D44382B01F6C6878005EBBF7 /* TransitionCell.xib in Resources */,
 				D44382AE1F69B1BC005EBBF7 /* CueCell.xib in Resources */,
 				D4B088DF1F5478B7003D2802 /* Assets.xcassets in Resources */,
@@ -373,6 +391,7 @@
 				D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */,
 				D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */,
 				D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */,
+				D4B979161F9F85D600729E43 /* CueAddVC.swift in Sources */,
 				D45BF8B61F7BF50900DB41AD /* Transition.swift in Sources */,
 				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
 				D45BF8C31F7C0B0D00DB41AD /* MenuVC.swift in Sources */,
@@ -384,6 +403,7 @@
 				D45BF8B01F755A8200DB41AD /* Show.swift in Sources */,
 				D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */,
 				D45BF8BC1F7BF52B00DB41AD /* PostAction.swift in Sources */,
+				D4B979191FA0145500729E43 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

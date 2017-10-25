@@ -14,22 +14,19 @@ class GenericCue {
     //entries
     var number: Double
     var name: String
-    var description: String
     var script: String
     
     //default init
     init() {
         self.number = 0
         self.name = ""
-        self.description = ""
         self.script = ""
     }
     
     //init
-    init(number: Double, name: String, description: String, script: String) {
+    init(number: Double, name: String, script: String) {
         self.number = number
         self.name = name
-        self.description = description
         self.script = script
     }
     

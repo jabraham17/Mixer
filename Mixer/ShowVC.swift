@@ -99,7 +99,33 @@ class ShowVC: UIViewController {
     //action for add button in edit mode
     @IBAction func addAction(_ sender: UIBarButtonItem) {
         if(editingMode) {
+            //open a cue add view
+            //get the view controller
+            let cueAddVC = CueAddVC()
+            //set the delegate
+            cueAddVC.delegate = self
+            //set preferred size for view controller
+            cueAddVC.preferredContentSize = CGSize.init(width: 2 * self.view.frame.width / 3, height: 2 * self.view.frame.height / 3)
             
+            //set the presentation style to popover
+            cueAddVC.modalPresentationStyle = .popover
+            
+            //setup as a popover view controller
+            let popover = cueAddVC.popoverPresentationController!
+            
+            //set the delegate as this class
+            popover.delegate = self
+            //anchor the popover to the add button
+            popover.barButtonItem = self.addButton
+            
+            //present the popover
+            present(cueAddVC, animated: true, completion: {
+                //set the popovers frame to the frame inside of the presetening view controller so that subviews can be laid out accrodingly
+                cueAddVC.frame = popover.frameOfPresentedViewInContainerView
+                
+                //dont pasd tjeough anyviews
+                popover.passthroughViews = nil
+            })
         }
     }
     //action for the edit/done button
@@ -123,7 +149,10 @@ class ShowVC: UIViewController {
         self.performSegue(withIdentifier: "ShowToPlaySegue", sender: nil)
     }
     
-
+    //get the show from the delegate
+    func getShow() -> Show {
+        return delegate.show!
+    }
 }
 
 //Menu Delegate
@@ -168,14 +197,30 @@ extension ShowVC: CustomUINavigationTitleDelegate {
         present(showInfoVC, animated: true, completion: {
             //set the popovers frame to the frame inside of the presetening view controller so that subviews can be laid out accrodingly
             showInfoVC.frame = popover.frameOfPresentedViewInContainerView
+            
+            //dont pasd tjeough anyviews
+            popover.passthroughViews = nil
         })
+    }
+}
+
+
+//CueAddDelegate
+extension ShowVC: CueAddDelegate {
+    //recieve the show from the CueAdd
+    func closed(cue: GenericCue) {
+        
+        //TODO: add cue
+        
+        //refresh
+        cueView.reloadData()
     }
 }
 
 //ShowInfoDelegate
 extension ShowVC: ShowInfoDelegate {
     //recieve the show from the ShowInfo
-    func closed(show: Show?) {
+    func closed(show: Show) {
         //reset show in delegate
         delegate.show = show
         //refresh
