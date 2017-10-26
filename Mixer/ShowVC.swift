@@ -216,6 +216,7 @@ extension ShowVC: CueAddDelegate {
         //TODO: add cue
         delegate.show?.add(cue: cue)
         
+        
         //refresh
         cueView.reloadData()
     }
