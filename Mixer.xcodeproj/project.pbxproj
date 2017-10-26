@@ -29,6 +29,7 @@
 		D45BF8C31F7C0B0D00DB41AD /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45BF8C21F7C0B0D00DB41AD /* MenuVC.swift */; };
 		D46ED1431F83EC5300F7D728 /* CustomUINavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */; };
 		D48F12961FA0175600D915B6 /* Strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = D48F12951FA0175600D915B6 /* Strings.plist */; };
+		D48F12981FA25A1300D915B6 /* MediaField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F12971FA25A1300D915B6 /* MediaField.swift */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
 		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
 		D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DB1F5478B7003D2802 /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		D45BF8C21F7C0B0D00DB41AD /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUINavigationTitle.swift; sourceTree = "<group>"; };
 		D48F12951FA0175600D915B6 /* Strings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
+		D48F12971FA25A1300D915B6 /* MediaField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaField.swift; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4B088D91F5478B7003D2802 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
@@ -169,11 +171,12 @@
 			name = Actions;
 			sourceTree = "<group>";
 		};
-		D48365781F550B1A0029941F /* Resources */ = {
+		D48F12991FA25A2A00D915B6 /* CustomFields */ = {
 			isa = PBXGroup;
 			children = (
+				D48F12971FA25A1300D915B6 /* MediaField.swift */,
 			);
-			name = Resources;
+			name = CustomFields;
 			sourceTree = "<group>";
 		};
 		D4B088CB1F5478B7003D2802 = {
@@ -203,6 +206,7 @@
 				D4B088DB1F5478B7003D2802 /* Main.storyboard */,
 				D44382B51F6E0E63005EBBF7 /* ViewControllers */,
 				D44382B61F6E0E81005EBBF7 /* CustomCells */,
+				D48F12991FA25A2A00D915B6 /* CustomFields */,
 				D45BF8AC1F75575600DB41AD /* CustomCollectionView */,
 				D45BF8AE1F755A6900DB41AD /* DataStructure */,
 				D45BF8BF1F7C04CD00DB41AD /* Actions */,
@@ -210,7 +214,6 @@
 				D4B088DE1F5478B7003D2802 /* Assets.xcassets */,
 				D4B088E01F5478B7003D2802 /* LaunchScreen.storyboard */,
 				D4B088E31F5478B7003D2802 /* Info.plist */,
-				D48365781F550B1A0029941F /* Resources */,
 			);
 			path = Mixer;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
 				D45BF8C31F7C0B0D00DB41AD /* MenuVC.swift in Sources */,
 				D45BF8AB1F74074900DB41AD /* CueCollectionViewDelegate.swift in Sources */,
+				D48F12981FA25A1300D915B6 /* MediaField.swift in Sources */,
 				D44382AC1F698E61005EBBF7 /* TransitionCell.swift in Sources */,
 				D44382B41F6E0E13005EBBF7 /* CueCollectionView.swift in Sources */,
 				D46ED1431F83EC5300F7D728 /* CustomUINavigationTitle.swift in Sources */,

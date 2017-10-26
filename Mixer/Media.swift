@@ -7,19 +7,25 @@
 //
 
 import Foundation
+import MediaPlayer
 
 //class to hold media files
 class Media {
     
-    var file: URL
+    var mediaItem: MPMediaItem
     
     //default init
     init() {
-        file = URL(fileURLWithPath: "")
+        mediaItem = MPMediaItem()
     }
     
     //init
-    init(file: URL) {
-        self.file = file
+    init(item: MPMediaItem) {
+        self.mediaItem = item
+    }
+    
+    //formatted name
+    func getFormattedName() -> String {
+        return "\(mediaItem.artist ?? "Unknown Artist") - \(mediaItem.title ?? "Unknown Title")"
     }
 }

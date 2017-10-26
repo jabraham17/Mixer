@@ -15,7 +15,6 @@ protocol CueAddDelegate: class {
     func closed(cue: GenericCue)
 }
 
-
 //info view controller, shown as popup
 class CueAddVC: UIViewController {
     
@@ -65,7 +64,7 @@ class CueAddVC: UIViewController {
     var cueName: UITextField?
     var cueScript: UITextField?
     var cuePreAction: UITextField?
-    var cueMedia: UITextField?
+    var cueMedia: MediaField?
     var cuePostAction: UITextField?
     
     var addTransitionView: UIScrollView?
@@ -177,16 +176,8 @@ class CueAddVC: UIViewController {
         //TODO: not imprlemenyed
         
         //view to edit what media to use
-        cueMedia = UITextField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cueMedia?.font = UIFont.systemFont(ofSize: 20)
-        cueMedia?.borderStyle = .roundedRect
-        cueMedia?.textAlignment = .left
-        //tell the user what goes in the field
-        cueMedia?.placeholder = "Media"
+        cueMedia = MediaField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cueMedia?.delegate = self
-        //setup accesory view to be media picker not a keyboard
-        //when tapped, open media picker
-        cueMedia?.addTarget(self, action: #selector(pickMedia), for: .touchUpInside)
         
         //view to edit what post action to use
         cuePostAction = UITextField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
@@ -302,6 +293,15 @@ class CueAddVC: UIViewController {
 }
 
 //text field delegate
+extension CueAddVC: MediaFieldDelegate {
+    //when view is tapped, pick the media
+    func fieldWasTapped() {
+        pickMedia()
+    }
+}
+
+
+//text field delegate
 extension CueAddVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //on return, close text field
@@ -343,8 +343,6 @@ extension CueAddVC: MPMediaPickerControllerDelegate {
     
     //fucntion called when user taos on media field
     func pickMedia() {
-        print("Hi")
-        
         //make the picker
         let mediaPicker = MPMediaPickerController(mediaTypes: .anyAudio)
         //only one item at a time
@@ -359,9 +357,10 @@ extension CueAddVC: MPMediaPickerControllerDelegate {
     //on select media item, add the information of the media item to the media field
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         
-        //set the text to the field
-        //TODO: temp, this will add the actual media file at some point
-        cueMedia?.text = mediaItemCollection.items.first?.title
+        //make a media obect
+        let media = Media(item: mediaItemCollection.items.first!)
+        //add to the media field
+        cueMedia?.media = media
         
         //dismiss the medie player
         mediaPicker.dismiss(animated: true, completion: nil)
