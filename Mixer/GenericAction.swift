@@ -8,7 +8,18 @@
 
 import Foundation
 
-//abstarct action class
-class GenericAction {
+//all actions conform to this
+protocol GenericAction: class {
     
+    associatedtype ActionType
+    
+    var type: ActionType { get set }
+    
+    //formatted name
+    func getFormattedName() -> String
+    func getTypes() -> [ActionType]
+    
+    //inits
+    init()
+    init(type: ActionType)
 }

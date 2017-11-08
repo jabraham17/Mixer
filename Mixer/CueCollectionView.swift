@@ -61,6 +61,9 @@ import UIKit
         register(CueCell.self, forCellWithReuseIdentifier: "cueCell")
         register(TransitionCell.self, forCellWithReuseIdentifier: "transitionCell")
         
+        //setup divider line
+        
+        
         //add listener to changes for roattion
         NotificationCenter.default.addObserver(self, selector: #selector(rotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         //call rotate method to set the current orientation
@@ -96,5 +99,18 @@ import UIKit
         }
     }
 }
+
+//MARK: reorering code
+/*override func collectionView(_ collectionView: UICollectionView,
+ moveItemAtIndexPath sourceIndexPath: IndexPath,
+ to destinationIndexPath: IndexPath) {
+ 
+ var sourceResults = searches[(sourceIndexPath as NSIndexPath).section].searchResults
+ let flickrPhoto = sourceResults.remove(at: (sourceIndexPath as NSIndexPath).row)
+ 
+ var destinationResults = searches[(destinationIndexPath as NSIndexPath).section].searchResults
+ destinationResults.insert(flickrPhoto, at: (destinationIndexPath as NSIndexPath).row)
+ }
+ */
 
 

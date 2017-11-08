@@ -9,6 +9,39 @@
 import Foundation
 
 //action before cue
-class PreAction {
+class PreAction: GenericAction {
     
+    //types of actions
+    enum ActionType: Int, CustomStringConvertible {
+        case None
+        case FadeIn
+        
+        //string versions of the types
+        var description: String {
+            let names = ["", "Fade In"]
+            return names[self.rawValue]
+        }
+        static let allTypes = [None, FadeIn]
+    }
+    
+    
+    //what the type is for this
+    var type: ActionType
+    
+    //defualt init
+    convenience required init() {
+        self.init(type: .None)
+    }
+    //init with a type
+    required init(type: ActionType) {
+        self.type = type
+    }
+    
+    //formatted name
+    func getFormattedName() -> String {
+        return type.description
+    }
+    func getTypes() -> [ActionType] {
+        return ActionType.allTypes
+    }
 }

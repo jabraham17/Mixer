@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B3A18F349860E0A134DEF909 /* Pods_Mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */; };
 		D40DD59A1F93737D00F218FF /* ShowInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DD5991F93737D00F218FF /* ShowInfoVC.swift */; };
+		D42C5B011FAA28CE006F09E9 /* ActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42C5B001FAA28CE006F09E9 /* ActionField.swift */; };
 		D44382A41F5DA7A8005EBBF7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A31F5DA7A8005EBBF7 /* Global.swift */; };
 		D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */; };
 		D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A71F65BA51005EBBF7 /* CueCell.swift */; };
@@ -38,6 +39,7 @@
 		D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */; };
 		D4B979161F9F85D600729E43 /* CueAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B979151F9F85D600729E43 /* CueAddVC.swift */; };
 		D4B979191FA0145500729E43 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B979181FA0145500729E43 /* Strings.swift */; };
+		D4CA20001FAEC9E7005DC0C0 /* AnyAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CA1FFF1FAEC9E7005DC0C0 /* AnyAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,7 @@
 		4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mixer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76775E98CECBB316DA87B3E7 /* Pods-Mixer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.release.xcconfig"; sourceTree = "<group>"; };
 		D40DD5991F93737D00F218FF /* ShowInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInfoVC.swift; sourceTree = "<group>"; };
+		D42C5B001FAA28CE006F09E9 /* ActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionField.swift; sourceTree = "<group>"; };
 		D44382A31F5DA7A8005EBBF7 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonBorder.swift; sourceTree = "<group>"; };
 		D44382A71F65BA51005EBBF7 /* CueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCell.swift; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		D4B2064A1F55B8FC00D92E9F /* PlayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayVC.swift; sourceTree = "<group>"; };
 		D4B979151F9F85D600729E43 /* CueAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueAddVC.swift; sourceTree = "<group>"; };
 		D4B979181FA0145500729E43 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		D4CA1FFF1FAEC9E7005DC0C0 /* AnyAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,7 @@
 			children = (
 				D45BF8C01F7C07D000DB41AD /* Media.swift */,
 				D45BF8B71F7BF51600DB41AD /* GenericAction.swift */,
+				D4CA1FFF1FAEC9E7005DC0C0 /* AnyAction.swift */,
 				D45BF8B91F7BF52100DB41AD /* PreAction.swift */,
 				D45BF8BB1F7BF52B00DB41AD /* PostAction.swift */,
 				D45BF8BD1F7C047500DB41AD /* TransitionAction.swift */,
@@ -175,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				D48F12971FA25A1300D915B6 /* MediaField.swift */,
+				D42C5B001FAA28CE006F09E9 /* ActionField.swift */,
 			);
 			name = CustomFields;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */,
 				D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */,
 				D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */,
+				D4CA20001FAEC9E7005DC0C0 /* AnyAction.swift in Sources */,
 				D4B979161F9F85D600729E43 /* CueAddVC.swift in Sources */,
 				D45BF8B61F7BF50900DB41AD /* Transition.swift in Sources */,
 				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
@@ -407,6 +414,7 @@
 				D45BF8B01F755A8200DB41AD /* Show.swift in Sources */,
 				D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */,
 				D45BF8BC1F7BF52B00DB41AD /* PostAction.swift in Sources */,
+				D42C5B011FAA28CE006F09E9 /* ActionField.swift in Sources */,
 				D4B979191FA0145500729E43 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

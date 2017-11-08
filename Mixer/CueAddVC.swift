@@ -63,15 +63,15 @@ class CueAddVC: UIViewController {
     var cueNumber: UITextField?
     var cueName: UITextField?
     var cueScript: UITextField?
-    var cuePreAction: UITextField?
+    var cuePreAction: ActionField?
     var cueMedia: MediaField?
-    var cuePostAction: UITextField?
+    var cuePostAction: ActionField?
     
     var addTransitionView: UIScrollView?
     var transitionNumber: UITextField?
     var transitionName: UITextField?
     var transitionScript: UITextField?
-    var transitionAction: UITextField?
+    var transitionAction: ActionField?
     
     //setup view
     func setup() {
@@ -165,30 +165,17 @@ class CueAddVC: UIViewController {
         cueScript?.delegate = self
         
         //view to edit what pre action to use
-        cuePreAction = UITextField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cuePreAction?.font = UIFont.systemFont(ofSize: 20)
-        cuePreAction?.borderStyle = .roundedRect
-        cuePreAction?.textAlignment = .left
-        //tell the user what goes in the field
-        cuePreAction?.placeholder = "Before Cue Starts"
+        cuePreAction = ActionField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePreAction?.action = AnyAction<PreAction>(action: PreAction())
         cuePreAction?.delegate = self
-        //setup accesory view to be a picker view not a keyboard
-        //TODO: not imprlemenyed
         
         //view to edit what media to use
         cueMedia = MediaField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cueMedia?.delegate = self
         
         //view to edit what post action to use
-        cuePostAction = UITextField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cuePostAction?.font = UIFont.systemFont(ofSize: 20)
-        cuePostAction?.borderStyle = .roundedRect
-        cuePostAction?.textAlignment = .left
-        //tell the user what goes in the field
-        cuePostAction?.placeholder = "After Cue Ends"
+        cuePostAction = ActionField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cuePostAction?.delegate = self
-        //setup accesory view to be a picker view not a keyboard
-        //TODO: not imprlemenyed
         
         addCueView?.addSubviews(cueNumber!, cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
         
@@ -203,7 +190,7 @@ class CueAddVC: UIViewController {
         let transitionElementHeight = addCueView!.frame.height / 4
         
         //view to edit transition number
-        transitionNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addTransitionView!.frame.width, height: transitionElementHeight))
         transitionNumber?.font = UIFont.systemFont(ofSize: 20)
         transitionNumber?.borderStyle = .roundedRect
         transitionNumber?.textAlignment = .left
@@ -216,7 +203,7 @@ class CueAddVC: UIViewController {
         transitionNumber?.delegate = self
         
         //view to edit transition name
-        transitionName = UITextField(frame: CGRect(x: 0, y: transitionElementHeight, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionName = UITextField(frame: CGRect(x: 0, y: transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
         transitionName?.font = UIFont.systemFont(ofSize: 20)
         transitionName?.borderStyle = .roundedRect
         transitionName?.textAlignment = .left
@@ -229,7 +216,7 @@ class CueAddVC: UIViewController {
         transitionName?.delegate = self
         
         //view to edit the script for the transition
-        transitionScript = UITextField(frame: CGRect(x: 0, y: 2 * transitionElementHeight, width: addCueView!.frame.width, height: transitionElementHeight))
+        transitionScript = UITextField(frame: CGRect(x: 0, y: 2 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
         transitionScript?.font = UIFont.systemFont(ofSize: 20)
         transitionScript?.borderStyle = .roundedRect
         transitionScript?.textAlignment = .left
@@ -242,15 +229,8 @@ class CueAddVC: UIViewController {
         transitionScript?.delegate = self
         
         //view to edit what transition to use
-        transitionAction = UITextField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addCueView!.frame.width, height: transitionElementHeight))
-        transitionAction?.font = UIFont.systemFont(ofSize: 20)
-        transitionAction?.borderStyle = .roundedRect
-        transitionAction?.textAlignment = .left
-        //tell the user what goes in the field
-        transitionAction?.placeholder = "Transition"
+        transitionAction = ActionField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
         transitionAction?.delegate = self
-        //setup accesory view to be a picker view not a keyboard
-        //TODO: not imprlemenyed
         
         addTransitionView?.addSubviews(transitionNumber!, transitionName!, transitionScript!, transitionAction!)
         
@@ -282,7 +262,33 @@ class CueAddVC: UIViewController {
         
         //TODO: temp
         //make new cue
-        var cue = GenericCue()
+        var cue: GenericCue
+        
+        //if in cue mode, get cue info
+        if(mode == .Cue)
+        {
+            //get the data
+            let number = cueNumber?.text ?? cueNumber?.placeholder
+            let name = cueName?.text
+            let script = cueScript?.text
+            let media = cueMedia?.media
+            //let preAction =
+            //let postAction =
+            cue = Cue(number: Double(number!)!, name: name!, script: script!, media: [media!], preAction: PreAction(), postAction: PostAction())
+        }
+        //if in cue mode, get cue info
+        else if(mode == .Transition)
+            {
+                //get the data
+                let number = transitionNumber?.text ?? cueNumber?.placeholder
+                let name = transitionName?.text
+                let script = transitionScript?.text
+                //let media =
+                cue = Transition(number: Double(number!)!, name: name!, script: script!, transition: TransitionAction())
+        }
+        else {
+            cue = GenericCue()
+        }
         
         //dismiss the view
         self.dismiss(animated: true, completion: {
@@ -292,11 +298,19 @@ class CueAddVC: UIViewController {
     }
 }
 
-//text field delegate
+//media field delegate
 extension CueAddVC: MediaFieldDelegate {
     //when view is tapped, pick the media
     func fieldWasTapped() {
         pickMedia()
+    }
+}
+
+//action field delegate
+extension CueAddVC: ActionFieldDelegate {
+    //when view is tapped, pick the action
+    func fieldWasTapped(field: ActionField) {
+        print("DANK MEMME")
     }
 }
 

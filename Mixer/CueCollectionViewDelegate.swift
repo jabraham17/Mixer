@@ -74,5 +74,4 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         //if no match is found, then the defualt size is used
         return CGSize()
     }
-
 }
