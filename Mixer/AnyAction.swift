@@ -22,6 +22,7 @@ class AnyAction<AnyActionType>: GenericAction {
         
         type = action.type
     }
+    
     private let _getFormattedName: () -> String
     private let _getTypes: () -> [ActionType]
     

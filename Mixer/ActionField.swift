@@ -11,7 +11,7 @@ import UIKit
 //protocol/delegate that view controller class will acknolege
 protocol ActionFieldDelegate: class {
     //called when popup is closed, will be implemented in view controller acknolwding this protocol/delegate
-    func fieldWasTapped(field: ActionField)
+    func actionSelected(actionType: PreAction.ActionType)
 }
 
 //field to input and display an action
@@ -22,7 +22,8 @@ class ActionField: UIView {
     
     var title: UILabel?
     
-    var action: AnyAction<Any>? {
+    //the action
+    var action: AnyAction<PreAction.ActionType>? {
         didSet {
             //on set of the action, set the title to be the action
             title?.text = action?.getFormattedName()
@@ -34,6 +35,7 @@ class ActionField: UIView {
         //once set, create the picker view
         didSet {
             pickerView = UIPickerView(frame: CGRect(x: 0, y: 3 * presentationOfInput!.view.frame.height / 4, width: presentationOfInput!.view.frame.width, height: presentationOfInput!.view.frame.height / 4))
+            
         }
     }
     
@@ -83,7 +85,7 @@ class ActionField: UIView {
     }
     //action for tap gesture, simply calls delegate method fieldWasTapped
     func viewTapped() {
-        delegate?.fieldWasTapped(field: self)
+        presentationOfInput?.view.addSubview(pickerView!)
     }
     
 }
@@ -96,5 +98,11 @@ extension ActionField: UIPickerViewDelegate, UIPickerViewDataSource {
     //length of the data, number of rows
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return action!.getTypes().count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return action!.getTypes()[row].description
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        delegate?.actionSelected(actionType: action!.getTypes()[row])
     }
 }

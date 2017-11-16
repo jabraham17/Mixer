@@ -18,7 +18,7 @@ class PreAction: GenericAction {
         
         //string versions of the types
         var description: String {
-            let names = ["", "Fade In"]
+            let names = ["None", "Fade In"]
             return names[self.rawValue]
         }
         static let allTypes = [None, FadeIn]

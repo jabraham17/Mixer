@@ -63,7 +63,8 @@ class CueAddVC: UIViewController {
     var cueNumber: UITextField?
     var cueName: UITextField?
     var cueScript: UITextField?
-    var cuePreAction: ActionField?
+    //var cuePreAction: ActionField?
+    var cuePreAction: UITextField?
     var cueMedia: MediaField?
     var cuePostAction: ActionField?
     
@@ -165,9 +166,24 @@ class CueAddVC: UIViewController {
         cueScript?.delegate = self
         
         //view to edit what pre action to use
-        cuePreAction = ActionField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cuePreAction?.action = AnyAction<PreAction>(action: PreAction())
+        /*cuePreAction = ActionField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePreAction?.presentationOfInput = self.presentingViewController
+        let preAction = AnyAction(action: PreAction())
+        cuePreAction?.action = preAction
+        cuePreAction?.delegate = self*/
+        
+        cuePreAction = UITextField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePreAction?.font = UIFont.systemFont(ofSize: 20)
+        cuePreAction?.textAlignment = .left
+        //tell the user what goes in the field
+        cuePreAction?.placeholder = "Pre Action: None"
         cuePreAction?.delegate = self
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.dataSource = self
+        
+        cuePreAction?.inputView = picker
+        
         
         //view to edit what media to use
         cueMedia = MediaField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
@@ -175,6 +191,9 @@ class CueAddVC: UIViewController {
         
         //view to edit what post action to use
         cuePostAction = ActionField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePostAction?.presentationOfInput = self.presentingViewController
+        //let postAction = AnyAction<PreAction.ActionType>(action: PostAction())
+        //cuePostAction?.action = postAction
         cuePostAction?.delegate = self
         
         addCueView?.addSubviews(cueNumber!, cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
@@ -230,6 +249,9 @@ class CueAddVC: UIViewController {
         
         //view to edit what transition to use
         transitionAction = ActionField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
+        transitionAction?.presentationOfInput = self.presentingViewController
+        //let transAction = AnyAction<PreAction.ActionType>(action: TransitionAction())
+        //transitionAction?.action = transAction
         transitionAction?.delegate = self
         
         addTransitionView?.addSubviews(transitionNumber!, transitionName!, transitionScript!, transitionAction!)
@@ -308,9 +330,25 @@ extension CueAddVC: MediaFieldDelegate {
 
 //action field delegate
 extension CueAddVC: ActionFieldDelegate {
-    //when view is tapped, pick the action
-    func fieldWasTapped(field: ActionField) {
-        print("DANK MEMME")
+    func actionSelected(actionType: PreAction.ActionType) {
+        print(actionType)
+    }
+}
+
+extension CueAddVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    //always one column
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    //length of the data, number of rows
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 4
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return ["One", "Two", "Three", "Four"] [row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("MEMEME")
     }
 }
 

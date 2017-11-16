@@ -19,7 +19,7 @@ class TransitionAction: GenericAction {
         
         //string versions of the types
         var description: String {
-            let names = ["", "Wait", "Pause"]
+            let names = ["None", "Wait", "Pause"]
             return names[self.rawValue]
         }
         static let allTypes = [None, Wait, Pause]

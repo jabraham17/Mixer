@@ -18,7 +18,7 @@ class PostAction: GenericAction {
         
         //string versions of the types
         var description: String {
-            let names = ["", "Fade Out"]
+            let names = ["None", "Fade Out"]
             return names[self.rawValue]
         }
         static let allTypes = [None, FadeOut]
