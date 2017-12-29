@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B3A18F349860E0A134DEF909 /* Pods_Mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */; };
 		D40DD59A1F93737D00F218FF /* ShowInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DD5991F93737D00F218FF /* ShowInfoVC.swift */; };
-		D42C5B011FAA28CE006F09E9 /* ActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42C5B001FAA28CE006F09E9 /* ActionField.swift */; };
+		D42C5B011FAA28CE006F09E9 /* PreActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42C5B001FAA28CE006F09E9 /* PreActionField.swift */; };
 		D44382A41F5DA7A8005EBBF7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A31F5DA7A8005EBBF7 /* Global.swift */; };
 		D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */; };
 		D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A71F65BA51005EBBF7 /* CueCell.swift */; };
@@ -31,6 +31,9 @@
 		D46ED1431F83EC5300F7D728 /* CustomUINavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */; };
 		D48F12961FA0175600D915B6 /* Strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = D48F12951FA0175600D915B6 /* Strings.plist */; };
 		D48F12981FA25A1300D915B6 /* MediaField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F12971FA25A1300D915B6 /* MediaField.swift */; };
+		D492CF591FF6ECB300532CBC /* PostActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF571FF6ECB300532CBC /* PostActionField.swift */; };
+		D492CF5A1FF6ECB300532CBC /* TransActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF581FF6ECB300532CBC /* TransActionField.swift */; };
+		D492CF5C1FF6F07A00532CBC /* ActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF5B1FF6F07A00532CBC /* ActionField.swift */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
 		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
 		D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DB1F5478B7003D2802 /* Main.storyboard */; };
@@ -47,7 +50,7 @@
 		4A4BB071DEB6B921909EC59E /* Pods_Mixer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mixer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76775E98CECBB316DA87B3E7 /* Pods-Mixer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.release.xcconfig"; sourceTree = "<group>"; };
 		D40DD5991F93737D00F218FF /* ShowInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInfoVC.swift; sourceTree = "<group>"; };
-		D42C5B001FAA28CE006F09E9 /* ActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionField.swift; sourceTree = "<group>"; };
+		D42C5B001FAA28CE006F09E9 /* PreActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreActionField.swift; sourceTree = "<group>"; };
 		D44382A31F5DA7A8005EBBF7 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonBorder.swift; sourceTree = "<group>"; };
 		D44382A71F65BA51005EBBF7 /* CueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCell.swift; sourceTree = "<group>"; };
@@ -69,6 +72,9 @@
 		D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUINavigationTitle.swift; sourceTree = "<group>"; };
 		D48F12951FA0175600D915B6 /* Strings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
 		D48F12971FA25A1300D915B6 /* MediaField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaField.swift; sourceTree = "<group>"; };
+		D492CF571FF6ECB300532CBC /* PostActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/PostActionField.swift; sourceTree = "<absolute>"; };
+		D492CF581FF6ECB300532CBC /* TransActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/TransActionField.swift; sourceTree = "<absolute>"; };
+		D492CF5B1FF6F07A00532CBC /* ActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionField.swift; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4B088D91F5478B7003D2802 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
@@ -180,7 +186,10 @@
 			isa = PBXGroup;
 			children = (
 				D48F12971FA25A1300D915B6 /* MediaField.swift */,
-				D42C5B001FAA28CE006F09E9 /* ActionField.swift */,
+				D492CF5B1FF6F07A00532CBC /* ActionField.swift */,
+				D42C5B001FAA28CE006F09E9 /* PreActionField.swift */,
+				D492CF571FF6ECB300532CBC /* PostActionField.swift */,
+				D492CF581FF6ECB300532CBC /* TransActionField.swift */,
 			);
 			name = CustomFields;
 			sourceTree = "<group>";
@@ -405,16 +414,19 @@
 				D45BF8B61F7BF50900DB41AD /* Transition.swift in Sources */,
 				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
 				D45BF8C31F7C0B0D00DB41AD /* MenuVC.swift in Sources */,
+				D492CF591FF6ECB300532CBC /* PostActionField.swift in Sources */,
 				D45BF8AB1F74074900DB41AD /* CueCollectionViewDelegate.swift in Sources */,
 				D48F12981FA25A1300D915B6 /* MediaField.swift in Sources */,
 				D44382AC1F698E61005EBBF7 /* TransitionCell.swift in Sources */,
+				D492CF5C1FF6F07A00532CBC /* ActionField.swift in Sources */,
+				D492CF5A1FF6ECB300532CBC /* TransActionField.swift in Sources */,
 				D44382B41F6E0E13005EBBF7 /* CueCollectionView.swift in Sources */,
 				D46ED1431F83EC5300F7D728 /* CustomUINavigationTitle.swift in Sources */,
 				D45BF8C11F7C07D000DB41AD /* Media.swift in Sources */,
 				D45BF8B01F755A8200DB41AD /* Show.swift in Sources */,
 				D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */,
 				D45BF8BC1F7BF52B00DB41AD /* PostAction.swift in Sources */,
-				D42C5B011FAA28CE006F09E9 /* ActionField.swift in Sources */,
+				D42C5B011FAA28CE006F09E9 /* PreActionField.swift in Sources */,
 				D4B979191FA0145500729E43 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -63,16 +63,16 @@ class CueAddVC: UIViewController {
     var cueNumber: UITextField?
     var cueName: UITextField?
     var cueScript: UITextField?
-    //var cuePreAction: ActionField?
-    var cuePreAction: UITextField?
+    var cuePreAction: PreActionField?
+    //var cuePreAction: UITextField?
     var cueMedia: MediaField?
-    var cuePostAction: ActionField?
+    var cuePostAction: PostActionField?
     
     var addTransitionView: UIScrollView?
     var transitionNumber: UITextField?
     var transitionName: UITextField?
     var transitionScript: UITextField?
-    var transitionAction: ActionField?
+    var transitionAction: TransActionField?
     
     //setup view
     func setup() {
@@ -137,7 +137,6 @@ class CueAddVC: UIViewController {
         cueNumber?.clearsOnBeginEditing = false
         cueNumber?.clearButtonMode = .never
         cueNumber?.keyboardType = .decimalPad
-        cueNumber?.delegate = self
         
         //view to edit cue name
         cueName = UITextField(frame: CGRect(x: 0, y: cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
@@ -150,7 +149,6 @@ class CueAddVC: UIViewController {
         cueName?.clearsOnBeginEditing = false
         cueName?.clearButtonMode = .whileEditing
         cueName?.returnKeyType = .done
-        cueName?.delegate = self
         
         //view to edit the script for the cue
         cueScript = UITextField(frame: CGRect(x: 0, y: 2 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
@@ -163,38 +161,16 @@ class CueAddVC: UIViewController {
         cueScript?.clearsOnBeginEditing = false
         cueScript?.clearButtonMode = .whileEditing
         cueScript?.returnKeyType = .done
-        cueScript?.delegate = self
         
         //view to edit what pre action to use
-        /*cuePreAction = ActionField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cuePreAction?.presentationOfInput = self.presentingViewController
-        let preAction = AnyAction(action: PreAction())
-        cuePreAction?.action = preAction
-        cuePreAction?.delegate = self*/
-        
-        cuePreAction = UITextField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cuePreAction?.font = UIFont.systemFont(ofSize: 20)
-        cuePreAction?.textAlignment = .left
-        //tell the user what goes in the field
-        cuePreAction?.placeholder = "Pre Action: None"
-        cuePreAction?.delegate = self
-        let picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
-        
-        cuePreAction?.inputView = picker
-        
+        cuePreAction = PreActionField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         
         //view to edit what media to use
         cueMedia = MediaField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cueMedia?.delegate = self
         
         //view to edit what post action to use
-        cuePostAction = ActionField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
-        cuePostAction?.presentationOfInput = self.presentingViewController
-        //let postAction = AnyAction<PreAction.ActionType>(action: PostAction())
-        //cuePostAction?.action = postAction
-        cuePostAction?.delegate = self
+        cuePostAction = PostActionField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         
         addCueView?.addSubviews(cueNumber!, cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
         
@@ -219,7 +195,6 @@ class CueAddVC: UIViewController {
         transitionNumber?.clearsOnBeginEditing = false
         transitionNumber?.clearButtonMode = .never
         transitionNumber?.keyboardType = .decimalPad
-        transitionNumber?.delegate = self
         
         //view to edit transition name
         transitionName = UITextField(frame: CGRect(x: 0, y: transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
@@ -232,7 +207,6 @@ class CueAddVC: UIViewController {
         transitionName?.clearsOnBeginEditing = false
         transitionName?.clearButtonMode = .whileEditing
         transitionName?.returnKeyType = .done
-        transitionName?.delegate = self
         
         //view to edit the script for the transition
         transitionScript = UITextField(frame: CGRect(x: 0, y: 2 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
@@ -245,14 +219,9 @@ class CueAddVC: UIViewController {
         transitionScript?.clearsOnBeginEditing = false
         transitionScript?.clearButtonMode = .whileEditing
         transitionScript?.returnKeyType = .done
-        transitionScript?.delegate = self
         
-        //view to edit what transition to use
-        transitionAction = ActionField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
-        transitionAction?.presentationOfInput = self.presentingViewController
-        //let transAction = AnyAction<PreAction.ActionType>(action: TransitionAction())
-        //transitionAction?.action = transAction
-        transitionAction?.delegate = self
+        //view to edit what trans action to use
+        transitionAction = TransActionField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
         
         addTransitionView?.addSubviews(transitionNumber!, transitionName!, transitionScript!, transitionAction!)
         
@@ -294,9 +263,9 @@ class CueAddVC: UIViewController {
             let name = cueName?.text
             let script = cueScript?.text
             let media = cueMedia?.media
-            //let preAction =
-            //let postAction =
-            cue = Cue(number: Double(number!)!, name: name!, script: script!, media: [media!], preAction: PreAction(), postAction: PostAction())
+            let preAction = cuePreAction?.action
+            let postAction = cuePostAction?.action
+            cue = Cue(number: Double(number!)!, name: name!, script: script!, media: [media!], preAction: preAction!, postAction: postAction!)
         }
         //if in cue mode, get cue info
         else if(mode == .Transition)
@@ -305,8 +274,8 @@ class CueAddVC: UIViewController {
                 let number = transitionNumber?.text ?? cueNumber?.placeholder
                 let name = transitionName?.text
                 let script = transitionScript?.text
-                //let media =
-                cue = Transition(number: Double(number!)!, name: name!, script: script!, transition: TransitionAction())
+                let trans = transitionAction?.action
+                cue = Transition(number: Double(number!)!, name: name!, script: script!, transition: trans!)
         }
         else {
             cue = GenericCue()
@@ -325,68 +294,6 @@ extension CueAddVC: MediaFieldDelegate {
     //when view is tapped, pick the media
     func fieldWasTapped() {
         pickMedia()
-    }
-}
-
-//action field delegate
-extension CueAddVC: ActionFieldDelegate {
-    func actionSelected(actionType: PreAction.ActionType) {
-        print(actionType)
-    }
-}
-
-extension CueAddVC: UIPickerViewDelegate, UIPickerViewDataSource {
-    //always one column
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    //length of the data, number of rows
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 4
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return ["One", "Two", "Three", "Four"] [row]
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("MEMEME")
-    }
-}
-
-
-//text field delegate
-extension CueAddVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //on return, close text field
-        textField.resignFirstResponder()
-        return true
-    }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //while editing, set the content inset
-        switch(mode) {
-        case .Cue:
-            //if the cue view is open
-            //TODO: only moves by a number, not by keyboard height
-            addCueView?.contentInset.bottom = 200
-            break
-        case .Transition:
-            //if the trandition view is open
-            //TODO: only moves by a number, not by keyboard height
-            addTransitionView?.contentInset.bottom = 200
-            break
-        }
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        //when done, reset content inset
-        switch(mode) {
-        case .Cue:
-            //if the cue view is open
-            addCueView?.contentInset.bottom = 0
-            break
-        case .Transition:
-            //if the trandition view is open
-            addTransitionView?.contentInset.bottom = 0
-            break
-        }
     }
 }
 

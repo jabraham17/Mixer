@@ -2,94 +2,60 @@
 //  ActionField.swift
 //  Mixer
 //
-//  Created by Jacob R. Abraham on 11/1/17.
+//  Created by Jacob R. Abraham on 12/29/17.
 //  Copyright © 2017 Jacob R. Abraham. All rights reserved.
 //
 
 import UIKit
 
-//protocol/delegate that view controller class will acknolege
-protocol ActionFieldDelegate: class {
-    //called when popup is closed, will be implemented in view controller acknolwding this protocol/delegate
-    func actionSelected(actionType: PreAction.ActionType)
-}
-
-//field to input and display an action
-class ActionField: UIView {
+class ActionField: UITextField {
     
-    //holds ActionFieldDelegate object, used to call fieldWasTapped for view controller
-    weak var delegate: ActionFieldDelegate?
+    //data to be displayed
+    var data: [String]?
     
-    var title: UILabel?
-    
-    //the action
-    var action: AnyAction<PreAction.ActionType>? {
-        didSet {
-            //on set of the action, set the title to be the action
-            title?.text = action?.getFormattedName()
-        }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        font = UIFont.systemFont(ofSize: 20)
+        textAlignment = .center
+        //get rid of cursor
+        tintColor = .clear
+        
+        
+        //picker
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.dataSource = self
+        picker.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        inputView = picker
+        
+        //accesoru view
+        let pickerAccessory = UIToolbar()
+        pickerAccessory.autoresizingMask = .flexibleHeight
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        doneButton.tintColor = .blue
+        //Add the items to the toolbar
+        pickerAccessory.items = [flexSpace, doneButton]
+        
+        inputAccessoryView = pickerAccessory
+        
+        //set the placeholder
+        placeholder = "Action: None"
+        
+        //blank data
+        data = []
     }
     
-    //size of the input view
-    var presentationOfInput: UIViewController? {
-        //once set, create the picker view
-        didSet {
-            pickerView = UIPickerView(frame: CGRect(x: 0, y: 3 * presentationOfInput!.view.frame.height / 4, width: presentationOfInput!.view.frame.width, height: presentationOfInput!.view.frame.height / 4))
-            
-        }
-    }
-    
-    //the picker view for the field
-    var pickerView: UIPickerView? {
-        //once set, add deleagte and datasource
-        didSet {
-            pickerView?.delegate = self
-            pickerView?.dataSource = self
-        }
+    //actions
+    func done() {
+        resignFirstResponder()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    func setup() {
-        //setup the title
-        title = UILabel(frame: bounds)
-        title?.text = "Action"
-        //setup format of label
-        title?.numberOfLines = 0
-        title?.lineBreakMode = .byWordWrapping
-        title?.textAlignment = .center
-        
-        
-        
-        
-        addSubview(title!)
-        
-        //setup tap gestures
-        setupTap()
-    }
-    
-    //setup tap gestures
-    func setupTap() {
-        //create the tap geture recognizer
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-        title?.isUserInteractionEnabled = true
-        //add it to the view
-        title?.addGestureRecognizer(gesture)
-    }
-    //action for tap gesture, simply calls delegate method fieldWasTapped
-    func viewTapped() {
-        presentationOfInput?.view.addSubview(pickerView!)
-    }
-    
 }
-
 extension ActionField: UIPickerViewDelegate, UIPickerViewDataSource {
     //always one column
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -97,12 +63,12 @@ extension ActionField: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     //length of the data, number of rows
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return action!.getTypes().count
+        return data!.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return action!.getTypes()[row].description
+        return data![row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        delegate?.actionSelected(actionType: action!.getTypes()[row])
+        fatalError("Must be overloaded")
     }
 }

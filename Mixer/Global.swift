@@ -22,4 +22,19 @@ class Global {
     
     static let screenWidth = UIScreen.main.bounds.width
     static let screenHeight = UIScreen.main.bounds.height
+    
+    //types of actions
+    enum ActionFieldType: Int, CustomStringConvertible {
+        case None
+        case Pre
+        case Post
+        case Trans
+        
+        //string versions of the types
+        var description: String {
+            let names = ["None", "Pre", "Post", "Trans"]
+            return names[self.rawValue]
+        }
+        static let allTypes = [None, Pre, Post, Trans]
+    }
 }
