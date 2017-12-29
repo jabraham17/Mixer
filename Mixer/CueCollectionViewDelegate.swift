@@ -29,28 +29,51 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
     }
     //define the cell at the index
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //if row is transiton, deque transition cell
-        //TODO: temp code to test functionalyut
-        if indexPath.row == 1 || indexPath.row == 3 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "transitionCell", for: indexPath) as! TransitionCell
+        
+        //the cell to be returned
+        var cell: UICollectionViewCell
+        
+        //get the data
+        let cueData = show?.listing[indexPath.row]
+        //if its a transtion
+        if cueData is Transition {
+            //get the cell
+            let transCell = collectionView.dequeueReusableCell(withReuseIdentifier: "transitionCell", for: indexPath) as! TransitionCell
+            //get the data and apply it
+            transCell.data = cueData as? Transition
             
-            return cell
+            //change return value
+            cell = transCell
         }
-            //otherwise deque cue cell
+        else if cueData is Cue {
+            //get the cell
+            let cueCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cueCell", for: indexPath) as! CueCell
+            //get the data and apply it
+            cueCell.data = cueData as? Cue
+            
+            //change return value
+            cell = cueCell
+        }
         else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cueCell", for: indexPath) as! CueCell
-            
-            return cell
+            //dont do anything
+            cell = UICollectionViewCell()
         }
+        
+        return cell
     }
     //size for the cell at index
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //first the orietnation must be determined\
+        
+        //get the data
+        let cueData = show?.listing[indexPath.row]
+        let isTrans = cueData is Transition
+        
+        //first the orietnation must be determined
         let orientation = UIDevice.current.orientation
         //if vertical
         if UIDeviceOrientationIsPortrait(orientation) {
             //if the index is a transition cell, change the size to vertical transuton size, otherwise do nothng
-            if indexPath.row == 1 || indexPath.row == 3 {
+            if isTrans {
                 return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).verticalTransitionHeight)
             }
                 //otherwise return the vertical cue size
@@ -62,7 +85,7 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
             //if horizonatl
         else if UIDeviceOrientationIsLandscape(orientation) {
             //if the index is a transition cell, change the size to horizonatl transuton size, otherwise do nothng
-            if indexPath.row == 1 || indexPath.row == 3 {
+            if isTrans {
                 return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).horizontalTransitionHeight)
             }
                 //otherwise return the horizonatl cue size

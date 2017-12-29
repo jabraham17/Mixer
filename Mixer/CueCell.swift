@@ -18,6 +18,16 @@ import UIKit
     @IBOutlet var postAction: UILabel!
     var containerView: UIView!
     
+    var data: Cue? {
+        didSet {
+            preAction.text = data?.preAction.getFormattedName()
+            cueNumber.text = "Cue: \(data?.number ?? 0)"
+            mediaName.text = "    \(data?.media.first?.getFormattedName() ?? "No Media")"
+            script.text = "    \(data?.script ?? "No Script")"
+            postAction.text = data?.postAction.getFormattedName()
+        }
+    }
+    
     //required inits, call setup func
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

@@ -251,7 +251,6 @@ class CueAddVC: UIViewController {
     //on save, retrieve text from edit view and pass new show
     func addAction() {
         
-        //TODO: temp
         //make new cue
         var cue: GenericCue
         

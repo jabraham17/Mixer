@@ -212,10 +212,7 @@ extension ShowVC: CustomUINavigationTitleDelegate {
 extension ShowVC: CueAddDelegate {
     //recieve the show from the CueAdd
     func closed(cue: GenericCue) {
-        
-        //TODO: add cue
         delegate.show?.add(cue: cue)
-        
         
         //refresh
         cueView.reloadData()

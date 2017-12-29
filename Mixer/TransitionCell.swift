@@ -14,6 +14,12 @@ import UIKit
     @IBOutlet var transition: UILabel!
     var containerView: UIView!
     
+    var data: Transition? {
+        didSet {
+            transition.text = data?.name
+        }
+    }
+    
     //required inits, call setup func
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

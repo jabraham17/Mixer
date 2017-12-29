@@ -51,7 +51,6 @@ class MenuVC: UITableViewController {
         })
     }
     //add a new show
-    //TODO: this is temp code
     @IBAction func addButton(_ sender: UIBarButtonItem) {
         shows.append(Show())
         tableView.reloadData()
