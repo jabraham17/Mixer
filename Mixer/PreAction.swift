@@ -16,6 +16,17 @@ class PreAction: GenericAction {
         case None
         case FadeIn
         
+        init(name: String) {
+            switch name {
+            case "Fade In":
+                self = .FadeIn
+                break
+            default:
+                self = .None
+                break
+            }
+        }
+        
         //string versions of the types
         var description: String {
             let names = ["None", "Fade In"]
@@ -43,5 +54,9 @@ class PreAction: GenericAction {
     }
     func getTypes() -> [ActionType] {
         return ActionType.allTypes
+    }
+    
+    class func initWith(_ string: String) -> PreAction {
+        return PreAction(type: ActionType(name: string))
     }
 }

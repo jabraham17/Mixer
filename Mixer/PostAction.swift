@@ -16,6 +16,18 @@ class PostAction: GenericAction {
         case None
         case FadeOut
         
+        init(name: String) {
+            switch name {
+            case "Fade Out":
+                self = .FadeOut
+                break
+            default:
+                self = .None
+                break
+            }
+        }
+        
+        
         //string versions of the types
         var description: String {
             let names = ["None", "Fade Out"]
@@ -42,5 +54,9 @@ class PostAction: GenericAction {
     }
     func getTypes() -> [ActionType] {
         return ActionType.allTypes
+    }
+    
+    class func initWith(_ string: String) -> PostAction {
+        return PostAction(type: ActionType(name: string))
     }
 }

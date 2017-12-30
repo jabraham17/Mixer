@@ -42,16 +42,7 @@ extension PostActionField {
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //interpolate what was selected and set it as the action
         let selectedStr = data![row]
-        switch(selectedStr) {
-        case "None":
-            action!.type = .None
-            break
-        case "Fade Out":
-            action!.type = .FadeOut
-            break
-        default:
-            break
-        }
+        action?.type = PostAction.ActionType(name: selectedStr)
         //on set of the action, set the title to be the action
         self.text = "Post Action: \(action!.getFormattedName())"
     }

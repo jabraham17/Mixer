@@ -42,19 +42,7 @@ extension TransActionField {
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //interpolate what was selected and set it as the action
         let selectedStr = data![row]
-        switch(selectedStr) {
-        case "None":
-            action!.type = .None
-            break
-        case "Wait":
-            action!.type = .Wait
-            break
-        case "Pause":
-            action!.type = .Pause
-            break
-        default:
-            break
-        }
+        action?.type = TransitionAction.ActionType(name: selectedStr)
         //on set of the action, set the title to be the action
         self.text = "Transition Action: \(action!.getFormattedName())"
     }

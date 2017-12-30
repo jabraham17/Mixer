@@ -26,4 +26,19 @@ class Transition: GenericCue {
         super.init(number: number, name: name, script: script)
     }
     
+    
+    //encoding
+    enum TransCodingKeys: String, CodingKey {
+        case transition = "transAction"
+    }
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: TransCodingKeys.self)
+        try container.encode(transition.type.description, forKey: .transition)
+    }
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: TransCodingKeys.self)
+        transition = try TransitionAction.initWith(values.decode(String.self, forKey: .transition))
+        try super.init(from: decoder)
+    }
 }

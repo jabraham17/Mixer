@@ -9,7 +9,7 @@
 import Foundation
 
 //data structure for show
-class Show {
+class Show: Codable {
     
     //entries
     var listing: [GenericCue]
@@ -41,4 +41,31 @@ class Show {
         listing.append(cue)
     }
     
+    
+    
+    //encoding
+    enum CodingKeys: String, CodingKey {
+        case listing = "cueListing"
+        case name
+        case dateCreated
+        case dateLastRun
+        case dateLastEdit
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(listing, forKey: .listing)
+        try container.encode(name, forKey: .name)
+        try container.encode(dateCreated, forKey: .dateCreated)
+        try container.encode(dateLastRun, forKey: .dateLastRun)
+        try container.encode(dateLastEdit, forKey: .dateLastEdit)
+    }
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        listing = try values.decode(Array.self, forKey: .listing)
+        name = try values.decode(String.self, forKey: .name)
+        dateCreated = try values.decode(Date.self, forKey: .dateCreated)
+        dateLastRun = try values.decode(Date.self, forKey: .dateLastRun)
+        dateLastEdit = try values.decode(Date.self, forKey: .dateLastEdit)
+    }
 }

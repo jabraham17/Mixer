@@ -20,7 +20,18 @@ class ShowVC: UIViewController {
     @IBOutlet var playButton: UIButton!
     
     //wether the show is being edited or not
-    var editingMode: Bool = false
+    var editingMode: Bool = false {
+        didSet {
+            let encoder = JSONEncoder()
+            let data = try! encoder.encode(getShow())
+            print("DATA: \(String(data: data, encoding: .utf8) ?? "")")
+            //update the delegates editing
+            //delegate.isEditing = editingMode
+            //cueView.delegate = delegate
+            //cueView.dataSource = delegate
+            cueView.reloadData()
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

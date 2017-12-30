@@ -24,6 +24,15 @@ class Media {
         self.mediaItem = item
     }
     
+    //make a media item from an id
+    class func initWith(_ id: String) -> Media {
+        //search through user library
+        let query = MPMediaQuery.songs()
+        query.addFilterPredicate(MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID))
+        let media = Media(item: query.items!.first!)
+        return media
+    }
+    
     //formatted name
     func getFormattedName() -> String {
         return "\(mediaItem.artist ?? "Unknown Artist") - \(mediaItem.title ?? "Unknown Title")"

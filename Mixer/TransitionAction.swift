@@ -17,6 +17,21 @@ class TransitionAction: GenericAction {
         case Wait
         case Pause
         
+        init(name: String) {
+            switch name {
+            case "Wait":
+                self = .Wait
+                break
+            case "Pause":
+                self = .Pause
+                break
+            default:
+                self = .None
+                break
+            }
+        }
+        
+        
         //string versions of the types
         var description: String {
             let names = ["None", "Wait", "Pause"]
@@ -43,5 +58,10 @@ class TransitionAction: GenericAction {
     }
     func getTypes() -> [ActionType] {
         return ActionType.allTypes
+    }
+    
+    
+    class func initWith(_ string: String) -> TransitionAction {
+        return TransitionAction(type: ActionType(name: string))
     }
 }

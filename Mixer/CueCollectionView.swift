@@ -98,19 +98,6 @@ import UIKit
             collectionViewLayout = horizontalLayout
         }
     }
+    
 }
-
-//MARK: reorering code
-/*override func collectionView(_ collectionView: UICollectionView,
- moveItemAtIndexPath sourceIndexPath: IndexPath,
- to destinationIndexPath: IndexPath) {
- 
- var sourceResults = searches[(sourceIndexPath as NSIndexPath).section].searchResults
- let flickrPhoto = sourceResults.remove(at: (sourceIndexPath as NSIndexPath).row)
- 
- var destinationResults = searches[(destinationIndexPath as NSIndexPath).section].searchResults
- destinationResults.insert(flickrPhoto, at: (destinationIndexPath as NSIndexPath).row)
- }
- */
-
 

@@ -42,16 +42,7 @@ extension PreActionField {
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //interpolate what was selected and set it as the action
         let selectedStr = data![row]
-        switch(selectedStr) {
-        case "None":
-            action!.type = .None
-            break
-        case "Fade In":
-            action!.type = .FadeIn
-            break
-        default:
-            break
-        }
+        action?.type = PreAction.ActionType(name: selectedStr)
         //on set of the action, set the title to be the action
         self.text = "Pre Action: \(action!.getFormattedName())"
     }
