@@ -33,6 +33,7 @@ class Transition: GenericCue {
         case superClass = "genericCue"
     }
     override func encode(to encoder: Encoder) throws {
+        print("sub encode")
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(transition.type.description, forKey: .transition)
         //get the super encoder
@@ -40,6 +41,7 @@ class Transition: GenericCue {
         try super.encode(to: superEncoder)
     }
     required init(from decoder: Decoder) throws {
+        print("sub decode")
         let values = try decoder.container(keyedBy: CodingKeys.self)
         transition = try TransitionAction.initWith(values.decode(String.self, forKey: .transition))
         //get the super decoder

@@ -37,16 +37,22 @@ class GenericCue: Codable {
         case script
     }
     func encode(to encoder: Encoder) throws {
+        print("super encode")
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(number, forKey: .number)
         try container.encode(name, forKey: .name)
         try container.encode(script, forKey: .script)
     }
     required init(from decoder: Decoder) throws {
+        print("super decode")
         let values = try decoder.container(keyedBy: CodingKeys.self)
         number = try values.decode(Double.self, forKey: .number)
         name = try values.decode(String.self, forKey: .name)
         script = try values.decode(String.self, forKey: .script)
     }
-    
 }
+/*extension GenericCue: CustomStringConvertible {
+    var description: String {
+        //return "Show named '\(name), created on '\(dateCreated)', edited on '\(dateLastEdit)', last run on '\(dateLastRun == nil ? "never run" : dateLastRun!.description)'"
+    }
+}*/

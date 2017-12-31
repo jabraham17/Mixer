@@ -40,8 +40,7 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         
         //get the data
         let cueData = DataManager.instance.shows[index!].listing[indexPath.row]
-        print(cueData is Transition)
-        print(cueData is Cue)
+        
         //if its a transtion
         if cueData is Transition {
             //get the cell

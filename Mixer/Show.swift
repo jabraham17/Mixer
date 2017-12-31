@@ -63,7 +63,7 @@ class Show: Codable {
     }
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        listing = try values.decode(Array.self, forKey: .listing)
+        listing = try values.decode([GenericCue].self, forKey: .listing)
         name = try values.decode(String.self, forKey: .name)
         dateCreated = try values.decode(Date.self, forKey: .dateCreated)
         dateLastRun = try values.decode(Date?.self, forKey: .dateLastRun)
@@ -71,3 +71,12 @@ class Show: Codable {
     }
 }
 
+extension Show: CustomStringConvertible {
+    var description: String {
+        let mainLine = "Show named '\(name), created on '\(dateCreated)', edited on '\(dateLastEdit)', last run on '\(dateLastRun == nil ? "never run" : dateLastRun!.description)'"
+        let cues = listing.reduce("") {result, nextCue in
+            return "\t\(nextCue)"
+        }
+        return "\(mainLine)\nCues:\n\(cues)\n"
+    }
+}

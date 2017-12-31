@@ -46,17 +46,15 @@ class DataManager {
                 let decoder = JSONDecoder()
                 //decode as show array
                 shows = try decoder.decode([Show].self, from: raw!)
-                for show in shows {
-                    print(show)
-                }
                 print("Succesfully read file")
             }
             catch {
-                print("Error decoding Shows array: \(error)")
+                print("\nError decoding Shows array: \(error)\n")
                 //FEAT: make attempts to recover data
                 shows = []
-                //TEMP: remove the file
+                //MARK: remove the file
                 try! FileManager.default.removeItem(atPath: path)
+                print("Removed file")
             }
         }
         
