@@ -26,7 +26,7 @@ class ShowVC: UIViewController {
             let data = try! encoder.encode(getShow())
             print("DATA: \(String(data: data, encoding: .utf8) ?? "")")
             //update the delegates editing
-            //delegate.isEditing = editingMode
+            delegate.isEditing = editingMode
             //cueView.delegate = delegate
             //cueView.dataSource = delegate
             cueView.reloadData()
@@ -37,7 +37,7 @@ class ShowVC: UIViewController {
         super.viewDidAppear(animated)
         
         //set title of screen to show
-        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = delegate.show == nil ? "" : delegate.show?.name
+        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
         
         //add pulse to button
         let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
@@ -85,7 +85,7 @@ class ShowVC: UIViewController {
         //force status bar to stay visible
         SideMenuManager.menuFadeStatusBar = false
         
-        delegate.show = nil
+        delegate.index = nil
         
         //set the coolection view deleagtes
         cueView.delegate = delegate
@@ -164,19 +164,22 @@ class ShowVC: UIViewController {
     }
     
     //get the show from the delegate
-    func getShow() -> Show {
-        return delegate.show!
+    func getShow() -> Show? {
+        if(delegate.index == nil)
+        {
+            return nil
+        }
+        return DataManager.instance.shows[delegate.index!]
     }
 }
 
 //Menu Delegate
 extension ShowVC: MenuVCDelegate {
     //deleagte from Menu
-    func showSelected(show: Show) {
+    func showSelected(index: Int) {
+        delegate.index = index
         //set title of screen to show
-        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = show.name
-        //set the dleeagtes show to refresh data
-        delegate.show = show
+        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
         //reload the data
         cueView.reloadData()
     }
@@ -188,10 +191,10 @@ extension ShowVC: CustomUINavigationTitleDelegate {
     func headerWasTapped() {
         //get the view controller
         let showInfoVC = ShowInfoVC()
-        //set the delegate
+        showInfoVC.index = delegate.index
+        //set the deleagte
         showInfoVC.delegate = self
-        //set the show for display
-        showInfoVC.show = delegate.show
+        
         //set preferred size for view controller
         showInfoVC.preferredContentSize = CGSize.init(width: self.view.frame.width / 2, height: self.view.frame.height / 4)
         
@@ -223,7 +226,7 @@ extension ShowVC: CustomUINavigationTitleDelegate {
 extension ShowVC: CueAddDelegate {
     //recieve the show from the CueAdd
     func closed(cue: GenericCue) {
-        delegate.show?.add(cue: cue)
+       DataManager.instance.shows[delegate.index!].add(cue: cue)
         
         //refresh
         cueView.reloadData()
@@ -233,13 +236,12 @@ extension ShowVC: CueAddDelegate {
 //ShowInfoDelegate
 extension ShowVC: ShowInfoDelegate {
     //recieve the show from the ShowInfo
-    func closed(show: Show) {
-        //reset show in delegate
-        delegate.show = show
+    func closed() {
         //refresh
         cueView.reloadData()
+        
         //set title of screen to show
-        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = delegate.show == nil ? "" : delegate.show?.name
+        (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
     }
 }
 

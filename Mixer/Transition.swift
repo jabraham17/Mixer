@@ -28,17 +28,22 @@ class Transition: GenericCue {
     
     
     //encoding
-    enum TransCodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case transition = "transAction"
+        case superClass = "genericCue"
     }
     override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: TransCodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(transition.type.description, forKey: .transition)
+        //get the super encoder
+        let superEncoder = container.superEncoder(forKey: .superClass)
+        try super.encode(to: superEncoder)
     }
     required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: TransCodingKeys.self)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         transition = try TransitionAction.initWith(values.decode(String.self, forKey: .transition))
-        try super.init(from: decoder)
+        //get the super decoder
+        let superDecoder = try values.superDecoder(forKey: .superClass)
+        try super.init(from: superDecoder)
     }
 }

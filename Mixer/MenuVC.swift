@@ -11,7 +11,7 @@ import SideMenu
 
 //prootcoll to pass sleected shows
 protocol MenuVCDelegate: class {
-    func showSelected(show: Show)
+    func showSelected(index: Int)
 }
 
 //view controller for the menu view
@@ -19,10 +19,6 @@ class MenuVC: UITableViewController {
     
     //refrence to protocol
     weak var passingDelegate: MenuVCDelegate?
-    
-    //all shows are stored here
-    //TODO: temp code until prooper storgae created
-    var shows: [Show] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,26 +29,24 @@ class MenuVC: UITableViewController {
         tableView.reloadData()
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return shows.count
+        return DataManager.instance.shows.count
     }
     //create the cells with the row name in it
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell")!
         let rowNum = indexPath.row
-        let show = shows[rowNum]
-        cell.textLabel?.text = show.name
+        cell.textLabel?.text = DataManager.instance.shows[rowNum].name
         return cell
     }
     //if selected, open the show
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let showSelected = shows[indexPath.row]
         dismiss(animated: true, completion: {
-            self.passingDelegate?.showSelected(show: showSelected)
+            self.passingDelegate?.showSelected(index: indexPath.row)
         })
     }
     //add a new show
     @IBAction func addButton(_ sender: UIBarButtonItem) {
-        shows.append(Show())
+        DataManager.instance.shows.append(Show())
         tableView.reloadData()
     }
 }

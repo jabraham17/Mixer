@@ -34,23 +34,28 @@ class Cue: GenericCue {
     
     
     //encoding
-    enum CueCodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case media = "mediaID"
         case preAction
         case postAction
+        case superClass = "genericCue"
     }
     override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CueCodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(media.first?.mediaItem.persistentID, forKey: .media)
         try container.encode(preAction.type.description, forKey: .preAction)
         try container.encode(postAction.type.description, forKey: .postAction)
+        //get the super encoder
+        let superEncoder = container.superEncoder(forKey: .superClass)
+        try super.encode(to: superEncoder)
     }
     required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CueCodingKeys.self)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         media = try [Media.initWith(values.decode(String.self, forKey: .media))]
         preAction = try PreAction.initWith(values.decode(String.self, forKey: .preAction))
         postAction = try PostAction.initWith(values.decode(String.self, forKey: .postAction))
-        try super.init(from: decoder)
+        //get the super decoder
+        let superDecoder = try values.superDecoder(forKey: .superClass)
+        try super.init(from: superDecoder)
     }
 }

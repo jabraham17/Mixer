@@ -34,6 +34,7 @@
 		D492CF591FF6ECB300532CBC /* PostActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF571FF6ECB300532CBC /* PostActionField.swift */; };
 		D492CF5A1FF6ECB300532CBC /* TransActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF581FF6ECB300532CBC /* TransActionField.swift */; };
 		D492CF5C1FF6F07A00532CBC /* ActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF5B1FF6F07A00532CBC /* ActionField.swift */; };
+		D492CF611FF72CF400532CBC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF601FF72CF400532CBC /* DataManager.swift */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
 		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
 		D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B088DB1F5478B7003D2802 /* Main.storyboard */; };
@@ -75,6 +76,7 @@
 		D492CF571FF6ECB300532CBC /* PostActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/PostActionField.swift; sourceTree = "<absolute>"; };
 		D492CF581FF6ECB300532CBC /* TransActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/TransActionField.swift; sourceTree = "<absolute>"; };
 		D492CF5B1FF6F07A00532CBC /* ActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionField.swift; sourceTree = "<group>"; };
+		D492CF601FF72CF400532CBC /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4B088D91F5478B7003D2802 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				D4B979171FA0140B00729E43 /* Strings */,
 				D44382A31F5DA7A8005EBBF7 /* Global.swift */,
 				D4B088D71F5478B7003D2802 /* AppDelegate.swift */,
+				D492CF601FF72CF400532CBC /* DataManager.swift */,
 				D4B088DB1F5478B7003D2802 /* Main.storyboard */,
 				D44382B51F6E0E63005EBBF7 /* ViewControllers */,
 				D44382B61F6E0E81005EBBF7 /* CustomCells */,
@@ -400,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45BF8B21F7BF4F500DB41AD /* Cue.swift in Sources */,
+				D492CF611FF72CF400532CBC /* DataManager.swift in Sources */,
 				D45BF8BE1F7C047500DB41AD /* TransitionAction.swift in Sources */,
 				D40DD59A1F93737D00F218FF /* ShowInfoVC.swift in Sources */,
 				D45BF8B41F7BF4FF00DB41AD /* GenericCue.swift in Sources */,

@@ -31,7 +31,7 @@ class GenericCue: Codable {
     }
     
     //encoding
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case number = "cueNumber"
         case name
         case script

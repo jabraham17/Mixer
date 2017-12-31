@@ -11,21 +11,26 @@ import UIKit
 //delegate for cue collection view
 class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    //show to display
-    var show: Show?
+    //index of the show to display
+    var index: Int?
     
     //init
-    init(show: Show) {
-        self.show = show
+    init(indexOfShow: Int) {
+        self.index = indexOfShow
     }
     //default init
     override init() {
-        show = nil
+        index = nil
     }
     
     //number of cues to display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return show?.listing.count ?? 0
+        if(index == nil) {
+            return 0
+        }
+        else {
+            return DataManager.instance.shows[index!].listing.count
+        }
     }
     //define the cell at the index
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -34,7 +39,9 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         var cell: UICollectionViewCell
         
         //get the data
-        let cueData = show?.listing[indexPath.row]
+        let cueData = DataManager.instance.shows[index!].listing[indexPath.row]
+        print(cueData is Transition)
+        print(cueData is Cue)
         //if its a transtion
         if cueData is Transition {
             //get the cell
@@ -64,8 +71,10 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
     //size for the cell at index
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        
+        
         //get the data
-        let cueData = show?.listing[indexPath.row]
+        let cueData = DataManager.instance.shows[index!].listing[indexPath.row]
         let isTrans = cueData is Transition
         
         //first the orietnation must be determined
@@ -98,8 +107,8 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         return CGSize()
     }
     
-    /*var isEditing: Bool = false
-    //the items can be moved if editibg mode is on
+    var isEditing: Bool = false
+    /*//the items can be moved if editibg mode is on
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         print(isEditing)
         return isEditing

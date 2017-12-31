@@ -14,7 +14,8 @@ class Show: Codable {
     //entries
     var listing: [GenericCue]
     var name: String
-    var dateCreated: Date
+    //TODO: update these as things change
+    let dateCreated: Date
     var dateLastRun: Date?
     var dateLastEdit: Date
     
@@ -44,7 +45,7 @@ class Show: Codable {
     
     
     //encoding
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case listing = "cueListing"
         case name
         case dateCreated
@@ -65,7 +66,8 @@ class Show: Codable {
         listing = try values.decode(Array.self, forKey: .listing)
         name = try values.decode(String.self, forKey: .name)
         dateCreated = try values.decode(Date.self, forKey: .dateCreated)
-        dateLastRun = try values.decode(Date.self, forKey: .dateLastRun)
+        dateLastRun = try values.decode(Date?.self, forKey: .dateLastRun)
         dateLastEdit = try values.decode(Date.self, forKey: .dateLastEdit)
     }
 }
+

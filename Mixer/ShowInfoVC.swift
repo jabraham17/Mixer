@@ -11,7 +11,7 @@ import UIKit
 //protocol/delegate that view controller class will acknolege
 protocol ShowInfoDelegate: class {
     //called when popup is closed, will be implemented in view controller acknolwding this protocol/delegate
-    func closed(show: Show)
+    func closed()
 }
 
 
@@ -22,16 +22,24 @@ class ShowInfoVC: UIViewController {
     weak var delegate: ShowInfoDelegate?
     
     //orginal show
-    var show: Show? {
+    var index: Int? {
         didSet {
             //set the text to the current show
-            titleEdit?.text = show?.name
+            titleEdit?.text = getShow()?.name
             //set the text to the date
-            modifiedView?.text = show?.dateLastEdit.description(with: Locale.current)
+            modifiedView?.text = getShow()?.dateLastEdit.description(with: Locale.current)
             //set the text to the date
-            createdView?.text = show?.dateCreated.description(with: Locale.current)
+            createdView?.text = getShow()?.dateCreated.description(with: Locale.current)
         }
     }
+    
+    func getShow() -> Show? {
+        if(index == nil) {
+            return nil
+        }
+        return DataManager.instance.shows[index!]
+    }
+    
     //the frame to show the view in
     //DO NOT USE THE SUBVIEWS FRAME
     var frame: CGRect? {
@@ -92,7 +100,7 @@ class ShowInfoVC: UIViewController {
         titleEdit?.borderStyle = .roundedRect
         titleEdit?.textAlignment = .center
         //set the text to the current show
-        titleEdit?.text = show?.name
+        titleEdit?.text = getShow()?.name
         //setup editing style
         titleEdit?.clearsOnBeginEditing = false
         titleEdit?.clearButtonMode = .whileEditing
@@ -100,7 +108,7 @@ class ShowInfoVC: UIViewController {
         //view to show date last modified
         modifiedView = UILabel(frame: CGRect(x: space, y: space + textArea.minY + textArea.height / 3, width: textArea.width, height: textArea.height / 3))
         //set the text to the date
-        modifiedView?.text = "Last Modified On:\n\(dateFormatter.string(from: show!.dateLastEdit))"
+        modifiedView?.text = "Last Modified On:\n\(dateFormatter.string(from: getShow()!.dateLastEdit))"
         //setup format of label
         modifiedView?.numberOfLines = 0
         modifiedView?.lineBreakMode = .byWordWrapping
@@ -109,7 +117,7 @@ class ShowInfoVC: UIViewController {
         //view to show date created
         createdView = UILabel(frame: CGRect(x: space, y: space + textArea.minY + 2 * textArea.height / 3, width: textArea.width, height: textArea.height / 3))
         //set the text to the date
-        createdView?.text = "Created On:\n\(dateFormatter.string(from: show!.dateCreated))"
+        createdView?.text = "Created On:\n\(dateFormatter.string(from: getShow()!.dateCreated))"
         //setup format of label
         createdView?.numberOfLines = 0
         createdView?.lineBreakMode = .byWordWrapping
@@ -136,11 +144,12 @@ class ShowInfoVC: UIViewController {
         //retrieve the title
         let newTitle = titleEdit?.text
         //reset the show
-        show?.name = newTitle!
+        DataManager.instance.shows[index!].name = newTitle!
+        
         //dismiss the view
         self.dismiss(animated: true, completion: {
             //after popup is dismissed, call the delegate
-            self.delegate?.closed(show: self.show!)
+            self.delegate?.closed()
         })
     }
 }
