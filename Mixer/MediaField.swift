@@ -62,7 +62,7 @@ class MediaField: UIView {
         title?.addGestureRecognizer(gesture)
     }
     //action for tap gesture, simply calls delegate method fieldWasTapped
-    func viewTapped() {
+    @objc func viewTapped() {
         delegate?.fieldWasTapped()
     }
     

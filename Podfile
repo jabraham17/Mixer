@@ -6,6 +6,6 @@ target 'Mixer' do
   use_frameworks!
 
   # Pods for Mixer
-    pod 'SideMenu', '~> 2.3'
+    pod 'SideMenu'
 
 end

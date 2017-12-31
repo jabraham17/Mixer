@@ -134,12 +134,12 @@ class ShowInfoVC: UIViewController {
         setup()
     }
     //on cancel, simply close with the orginal show
-    func cancelAction() {
+    @objc func cancelAction() {
         //dismiss the view
         self.dismiss(animated: true, completion: nil)
     }
     //on save, retrieve text from edit view and pass new show
-    func saveAction() {
+    @objc func saveAction() {
         
         //retrieve the title
         let newTitle = titleEdit?.text

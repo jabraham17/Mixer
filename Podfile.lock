@@ -1,12 +1,12 @@
 PODS:
-  - SideMenu (2.3.2)
+  - SideMenu (3.1.5)
 
 DEPENDENCIES:
-  - SideMenu (~> 2.3)
+  - SideMenu
 
 SPEC CHECKSUMS:
-  SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
+  SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
 
-PODFILE CHECKSUM: cc0c163cfcfb3afb28f1ca21700542163dab505d
+PODFILE CHECKSUM: 379e5bb223d93737fca0b372a3977fd046ef9d19
 
 COCOAPODS: 1.2.0

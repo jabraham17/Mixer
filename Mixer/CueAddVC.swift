@@ -237,19 +237,19 @@ class CueAddVC: UIViewController {
     }
     
     //when the control changes, adjust which view is showing
-    func controlChanged() {
+    @objc func controlChanged() {
         //set the mode to be the current index of the segemented control
         mode = Mode(rawValue: control!.selectedSegmentIndex)!
     }
     
     //on cancel, simply close with the orginal show
-    func cancelAction() {
+    @objc func cancelAction() {
         //dismiss the view
         self.dismiss(animated: true, completion: nil)
     }
     
     //on save, retrieve text from edit view and pass new show
-    func addAction() {
+    @objc func addAction() {
         
         //make new cue
         var cue: GenericCue

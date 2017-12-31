@@ -48,7 +48,7 @@ class ActionField: UITextField {
     }
     
     //actions
-    func done() {
+    @objc func done() {
         resignFirstResponder()
     }
     

@@ -37,7 +37,7 @@ class CustomUINavigationTitle: UIView {
         title.addGestureRecognizer(gesture)
     }
     //action for tap gesture, simply calls delegate method headerWasTapped
-    func viewTapped() {
+    @objc func viewTapped() {
         delegate?.headerWasTapped()
     }
 }

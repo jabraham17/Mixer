@@ -84,7 +84,7 @@ import UIKit
     }
     
     //when the rotation changes
-    func rotate() {
+    @objc func rotate() {
         //orientaion
         let orientation = UIDevice.current.orientation
         //if vertical
