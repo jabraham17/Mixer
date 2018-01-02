@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import Regex
 
 //abstract class for cues
-class GenericCue: Codable {
+class GenericCue: Serializable, CustomStringConvertible {    
     
     //entries
     var number: Double
@@ -30,29 +31,24 @@ class GenericCue: Codable {
         self.script = script
     }
     
-    //encoding
-    private enum CodingKeys: String, CodingKey {
-        case number = "cueNumber"
-        case name
-        case script
+    func encode() -> String {
+        let encoded = "GenericCueName:\(name),Number:\(number),Script:\(script)<END>"
+        return encoded
     }
-    func encode(to encoder: Encoder) throws {
-        print("super encode")
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(number, forKey: .number)
-        try container.encode(name, forKey: .name)
-        try container.encode(script, forKey: .script)
+    required init(decodeWith string: String) throws {
+        //regexs to get the different fields
+        let regex = "Name:(.*),Number:([\\d\\.]*),Script:(.*)<END>"
+        let match = regex.r!.findFirst(in: string)
+        //check if it matches, if it doesnt, throw an error
+        if match == nil {
+            throw Global.ParseError.ParseError(message: "The input '\(string)' does not match regex '\(regex)'")
+        }
+        //if it matches, get all of the variables and load each variable
+        name = match!.group(at: 1)!
+        number = Double(match!.group(at: 2)!)!
+        script = match!.group(at: 3)!
     }
-    required init(from decoder: Decoder) throws {
-        print("super decode")
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        number = try values.decode(Double.self, forKey: .number)
-        name = try values.decode(String.self, forKey: .name)
-        script = try values.decode(String.self, forKey: .script)
+    var description: String {
+        return "Generic Cue named '\(name)', with number '\(number)', with a script location at '\(script)'"
     }
 }
-/*extension GenericCue: CustomStringConvertible {
-    var description: String {
-        //return "Show named '\(name), created on '\(dateCreated)', edited on '\(dateLastEdit)', last run on '\(dateLastRun == nil ? "never run" : dateLastRun!.description)'"
-    }
-}*/

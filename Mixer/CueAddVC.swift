@@ -264,7 +264,7 @@ class CueAddVC: UIViewController {
             let media = cueMedia?.media
             let preAction = cuePreAction?.action
             let postAction = cuePostAction?.action
-            cue = Cue(number: Double(number!)!, name: name!, script: script!, media: [media!], preAction: preAction!, postAction: postAction!)
+            cue = Cue(number: Double(number!)!, name: name!, script: script!, media: media!, preAction: preAction!, postAction: postAction!)
         }
         //if in cue mode, get cue info
         else if(mode == .Transition)

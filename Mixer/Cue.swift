@@ -12,50 +12,52 @@ import Foundation
 class Cue: GenericCue {
     
     //entries
-    var media: [Media]
+    var media: Media
     var preAction: PreAction
     var postAction: PostAction
     
     //default init
     override init() {
-        self.media = []
+        self.media = Media()
         self.preAction = PreAction()
         self.postAction = PostAction()
         super.init()
     }
     
     //init
-    init(number: Double, name: String, script: String, media: [Media], preAction: PreAction, postAction: PostAction) {
+    init(number: Double, name: String, script: String, media: Media, preAction: PreAction, postAction: PostAction) {
         self.media = media
         self.preAction = preAction
         self.postAction = postAction
         super.init(number: number, name: name, script: script)
     }
     
-    
-    //encoding
-    private enum CodingKeys: String, CodingKey {
-        case media = "mediaID"
-        case preAction
-        case postAction
-        case superClass = "genericCue"
+    override func encode() -> String {
+        var encoded = super.encode().replacingOccurrences(of: "Generic", with: "")
+        encoded += ",PreAction:\(preAction.type),MediaID:\(media.getID()),PostAction:\(postAction.type)"
+        return encoded
     }
-    override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(media.first?.mediaItem.persistentID, forKey: .media)
-        try container.encode(preAction.type.description, forKey: .preAction)
-        try container.encode(postAction.type.description, forKey: .postAction)
-        //get the super encoder
-        let superEncoder = container.superEncoder(forKey: .superClass)
-        try super.encode(to: superEncoder)
+    required init(decodeWith string: String) throws {
+        //first decode the part that belongs here, then pass the string to the super class to parse the rest
+        
+        //regexs to get the different fields
+        let regex = "PreAction:(.*),MediaID:(\\d*),PostAction:(.*)"
+        let match = regex.r!.findFirst(in: string)
+        //check if it matches, if it doesnt, throw an error
+        if match == nil {
+            throw Global.ParseError.ParseError(message: "The input '\(string)' does not match regex '\(regex)'")
+        }
+        //if it matches, get all of the variables and load each variable
+        preAction = PreAction(type: .init(name: match!.group(at: 1)!))
+        media = Media.initWith(match!.group(at: 2)!)
+        postAction = PostAction(type: .init(name: match!.group(at: 3)!))
+        
+        
+        
+        //call the super
+        try super.init(decodeWith: string)
     }
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        media = try [Media.initWith(values.decode(String.self, forKey: .media))]
-        preAction = try PreAction.initWith(values.decode(String.self, forKey: .preAction))
-        postAction = try PostAction.initWith(values.decode(String.self, forKey: .postAction))
-        //get the super decoder
-        let superDecoder = try values.superDecoder(forKey: .superClass)
-        try super.init(from: superDecoder)
+    override var description: String {
+        return "\(super.description.replacingOccurrences(of: "Generic ", with: "")), with a Pre Action of '\(preAction.getFormattedName())', with a Post Action of '\(postAction.getFormattedName())', with media named '\(media.getFormattedName())'"
     }
 }

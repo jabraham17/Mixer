@@ -22,19 +22,6 @@ class ShowVC: UIViewController {
     //wether the show is being edited or not
     var editingMode: Bool = false {
         didSet {
-            do{
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(DataManager.instance.shows)
-            print("DATA: \(String(data: data, encoding: .utf8) ?? "")")
-            
-            let decoder = JSONDecoder()
-            let temp = try decoder.decode([Show].self, from: data)
-            print("SHOWS: \(temp)")
-            }
-            catch {
-                print(error)
-            }
-            
             //update the delegates editing
             delegate.isEditing = editingMode
             //cueView.delegate = delegate

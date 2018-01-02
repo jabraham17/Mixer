@@ -37,4 +37,7 @@ class Media {
     func getFormattedName() -> String {
         return "\(mediaItem.artist ?? "Unknown Artist") - \(mediaItem.title ?? "Unknown Title")"
     }
+    func getID() -> MPMediaEntityPersistentID {
+        return mediaItem.persistentID
+    }
 }

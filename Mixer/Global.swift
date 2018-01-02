@@ -37,4 +37,9 @@ class Global {
         }
         static let allTypes = [None, Pre, Post, Trans]
     }
+    
+    //parsing errors
+    enum ParseError: Error {
+        case ParseError(message: String)
+    }
 }

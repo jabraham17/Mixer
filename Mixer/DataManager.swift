@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Regex
 
 //data management class, singleton
 class DataManager {
@@ -19,7 +19,7 @@ class DataManager {
     class func getPath() -> String {
         //get the path
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let path = documents + "/Shows.json"
+        let path = documents + "/Shows.dat"
         return path
     }
     
@@ -39,20 +39,31 @@ class DataManager {
             shows = []
         }
         else {
+            //init the shows
+            shows = []
             //if the file exists, read in the data
             do {
                 let raw = FileManager.default.contents(atPath: path)
-                print(String.init(data: raw!, encoding: .utf8) ?? "")
-                let decoder = JSONDecoder()
-                //decode as show array
-                shows = try decoder.decode([Show].self, from: raw!)
+                //conditionally read in the data as a string
+                guard let string = String(data: raw!, encoding: .utf8) else { throw Global.ParseError.ParseError(message: "No valid data found in file at path '\(path)'") }
+                
+                //regex to get all shows
+                let regex = "\\{(ShowName.*)\\}"
+                let matchs = regex.r!.findAll(in: string)
+                for match in matchs {
+                    
+                    //get the next show
+                    let nextShow = try Show(decodeWith: match.group(at: 1)!)
+                    //add the show to the list
+                    shows.append(nextShow)
+                }
+                
+                
                 print("Succesfully read file")
             }
             catch {
                 print("\nError decoding Shows array: \(error)\n")
-                //FEAT: make attempts to recover data
-                shows = []
-                //MARK: remove the file
+                //FEAT: make attempts to recover data instead of deleeting
                 try! FileManager.default.removeItem(atPath: path)
                 print("Removed file")
             }
@@ -62,17 +73,15 @@ class DataManager {
     
     //save all data
     func save() {
-        do {
-            let encoder = JSONEncoder()
-            //get the raw data
-            let raw = try encoder.encode(shows)
-            //write it to file
-            FileManager.default.createFile(atPath: DataManager.getPath(), contents: raw, attributes: nil)
-            print("Succesfully saved to file")
-        }
-        catch {
-            print("Error encoding Shows array: \(error)")
-        }
+        //encode shows
+        let encoded = DataManager.instance.shows.reduce("[") {result, next in
+            return "\(result){\(next.encode())}"
+            } + "]"
+        let raw = encoded.data(using: .utf8)!
+            
+        //write it to file
+        FileManager.default.createFile(atPath: DataManager.getPath(), contents: raw, attributes: nil)
+        print("Succesfully saved to file")
     }
     
     //all data

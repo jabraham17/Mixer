@@ -26,26 +26,29 @@ class Transition: GenericCue {
         super.init(number: number, name: name, script: script)
     }
     
-    
-    //encoding
-    private enum CodingKeys: String, CodingKey {
-        case transition = "transAction"
-        case superClass = "genericCue"
+    override func encode() -> String {
+        var encoded = super.encode().replacingOccurrences(of: "GenericCue", with: "Transition")
+        encoded += ",Transition:\(transition.type)"
+        return encoded
     }
-    override func encode(to encoder: Encoder) throws {
-        print("sub encode")
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(transition.type.description, forKey: .transition)
-        //get the super encoder
-        let superEncoder = container.superEncoder(forKey: .superClass)
-        try super.encode(to: superEncoder)
+    required init(decodeWith string: String) throws {
+        //first decode the part that belongs here, then pass the string to the super class to parse the rest
+        
+        //regexs to get the different fields
+        let regex = "Transition:(.*)"
+        let match = regex.r!.findFirst(in: string)
+        //check if it matches, if it doesnt, throw an error
+        if match == nil {
+            throw Global.ParseError.ParseError(message: "The input '\(string)' does not match regex '\(regex)'")
+        }
+        //if it matches, get all of the variables and load each variable
+        transition = TransitionAction(type: .init(name: match!.group(at: 1)!))
+        
+        
+        //call the super
+        try super.init(decodeWith: string)
     }
-    required init(from decoder: Decoder) throws {
-        print("sub decode")
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        transition = try TransitionAction.initWith(values.decode(String.self, forKey: .transition))
-        //get the super decoder
-        let superDecoder = try values.superDecoder(forKey: .superClass)
-        try super.init(from: superDecoder)
+    override var description: String {
+        return "\(super.description.replacingOccurrences(of: "Generic", with: "Transition")), with a Transition of '\(transition.getFormattedName())'"
     }
 }

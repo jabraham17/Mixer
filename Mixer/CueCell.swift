@@ -22,7 +22,7 @@ import UIKit
         didSet {
             preAction.text = data?.preAction.getFormattedName()
             cueNumber.text = "Cue: \(data?.number ?? 0)"
-            mediaName.text = "    \(data?.media.first?.getFormattedName() ?? "No Media")"
+            mediaName.text = "    \(data?.media.getFormattedName() ?? "No Media")"
             script.text = "    \(data?.script ?? "No Script")"
             postAction.text = data?.postAction.getFormattedName()
         }

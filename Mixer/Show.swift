@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import Regex
 
 //data structure for show
-class Show: Codable {
+class Show: Serializable, CustomStringConvertible {
     
     //entries
     var listing: [GenericCue]
@@ -42,41 +43,59 @@ class Show: Codable {
         listing.append(cue)
     }
     
-    
-    
-    //encoding
-    private enum CodingKeys: String, CodingKey {
-        case listing = "cueListing"
-        case name
-        case dateCreated
-        case dateLastRun
-        case dateLastEdit
+    func encode() -> String {
+        let cueStr = listing.reduce("") {result, next in "\(result){\(next.encode())}"}
+        let encoded = "ShowName:\(name),DateCreated:\(dateCreated.timeIntervalSince1970),DateLastEdit:\(dateLastEdit.timeIntervalSince1970),DateLastRun:\(String(describing: dateLastRun)),CueListing:[\(cueStr)]"
+        return encoded
     }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(listing, forKey: .listing)
-        try container.encode(name, forKey: .name)
-        try container.encode(dateCreated, forKey: .dateCreated)
-        try container.encode(dateLastRun, forKey: .dateLastRun)
-        try container.encode(dateLastEdit, forKey: .dateLastEdit)
-    }
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        listing = try values.decode([GenericCue].self, forKey: .listing)
-        name = try values.decode(String.self, forKey: .name)
-        dateCreated = try values.decode(Date.self, forKey: .dateCreated)
-        dateLastRun = try values.decode(Date?.self, forKey: .dateLastRun)
-        dateLastEdit = try values.decode(Date.self, forKey: .dateLastEdit)
-    }
-}
-
-extension Show: CustomStringConvertible {
-    var description: String {
-        let mainLine = "Show named '\(name), created on '\(dateCreated)', edited on '\(dateLastEdit)', last run on '\(dateLastRun == nil ? "never run" : dateLastRun!.description)'"
-        let cues = listing.reduce("") {result, nextCue in
-            return "\t\(nextCue)"
+    required init(decodeWith string: String) throws {
+        //regexs to get the different fields
+        let regex = "ShowName:(.*),DateCreated:([\\d\\.]*),DateLastEdit:([\\d\\.]*),DateLastRun:((?:nil)|(?:[\\d\\.]*)),CueListing:\\[(.*)\\]"
+        let match = regex.r!.findFirst(in: string)
+        //check if it matches, if it doesnt, throw an error
+        if match == nil {
+            throw Global.ParseError.ParseError(message: "The input '\(string)' does not match regex '\(regex)'")
         }
-        return "\(mainLine)\nCues:\n\(cues)\n"
+        //if it matches, get all of the variables and load each variable
+        name = match!.group(at: 1)!
+        dateCreated = Date(timeIntervalSince1970: Double(match!.group(at: 2)!)!)
+        dateLastEdit = Date(timeIntervalSince1970: Double(match!.group(at: 3)!)!)
+        let group4 = match!.group(at: 4)!
+        dateLastRun = group4 == "nil" ? nil : Date(timeIntervalSince1970: Double(group4)!)
+        
+        //init the listing
+        listing = []
+        
+        //regex to get cue fields inside of group 5
+        let cueRegex = "\\{(Cue.*)|(Transition.*)|(Generic.*)\\}"
+        let cueMatchs = cueRegex.r!.findAll(in: match!.group(at: 5)!)
+        for cueMatch in cueMatchs {
+            //if its a cue, this will have the value
+            let cue = cueMatch.group(at: 1)
+            let trans = cueMatch.group(at: 2)
+            let generic = cueMatch.group(at: 3)
+            
+            //if its a generic, throw an error
+            if generic != nil {
+                throw Global.ParseError.ParseError(message: "Cannot read GenericCue values")
+            }
+            //if its a cue, call the Cue parser and add it to the list
+            else if cue != nil {
+                listing.append(try Cue(decodeWith: cue!))
+            }
+            //if its a transition, call the Transition parser and add it to the list
+            else if trans != nil {
+                listing.append(try Transition(decodeWith: trans!))
+            }
+        }
+        
+    }
+    
+    var description: String {
+        let mainLine = "Show named '\(name)', created on '\(dateCreated)', edited on '\(dateLastEdit)', last run on '\(dateLastRun == nil ? "never run" : dateLastRun!.description)'"
+        let cues = listing.reduce("") {result, nextCue in
+            return "\t\(result)\(nextCue)"
+        }
+        return "\(mainLine)\nCues:\n\(cues)"
     }
 }
