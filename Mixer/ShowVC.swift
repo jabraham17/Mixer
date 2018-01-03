@@ -70,17 +70,18 @@ class ShowVC: UIViewController {
         //set the menu as a left side menu
         menuNC.leftSide = true
         //add the menu to the manager
-        SideMenuManager.menuLeftNavigationController = menuNC
-        SideMenuManager.menuRightNavigationController = menuNC
+        SideMenuManager.default.menuLeftNavigationController = menuNC
         
         //add gesture recognizors to the menu manager
-        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
         
         //set the animation for the menu
-        SideMenuManager.menuPresentMode = .menuSlideIn
+        SideMenuManager.default.menuPresentMode = .menuSlideIn
         //force status bar to stay visible
-        SideMenuManager.menuFadeStatusBar = false
+        SideMenuManager.default.menuFadeStatusBar = false
+        //width of the menu, should be 80%
+        SideMenuManager.default.menuWidth = Global.screenWidth * 0.8
         
         delegate.index = nil
         
@@ -92,7 +93,7 @@ class ShowVC: UIViewController {
         (self.navigationItem.titleView as! CustomUINavigationTitle).delegate = self
         
         //start showing the menu
-        present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+        present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
     }
     //catch and modify the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -102,7 +103,7 @@ class ShowVC: UIViewController {
     }
     //action to show the menu
     @IBAction func hamburgerMenuAction(_ sender: UIBarButtonItem) {
-        present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+        present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
     }
     //action for add button in edit mode
     @IBAction func addAction(_ sender: UIBarButtonItem) {
@@ -174,6 +175,7 @@ class ShowVC: UIViewController {
 extension ShowVC: MenuVCDelegate {
     //deleagte from Menu
     func showSelected(index: Int) {
+        print("HEllo")
         delegate.index = index
         //set title of screen to show
         (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name

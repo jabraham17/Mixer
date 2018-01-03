@@ -34,14 +34,14 @@ class Cue: GenericCue {
     
     override func encode() -> String {
         var encoded = super.encode().replacingOccurrences(of: "Generic", with: "")
-        encoded += ",PreAction:\(preAction.type),MediaID:\(media.getID()),PostAction:\(postAction.type)"
+        encoded += ",PreAction:<\(preAction.type)>,MediaID:<\(media.getID())>,PostAction:<\(postAction.type)>"
         return encoded
     }
     required init(decodeWith string: String) throws {
         //first decode the part that belongs here, then pass the string to the super class to parse the rest
         
         //regexs to get the different fields
-        let regex = "PreAction:(.*),MediaID:(\\d*),PostAction:(.*)"
+        let regex = "PreAction:<([^<>]*)>,MediaID:<(\\d*)>,PostAction:<([^<>]*)>"
         let match = regex.r!.findFirst(in: string)
         //check if it matches, if it doesnt, throw an error
         if match == nil {

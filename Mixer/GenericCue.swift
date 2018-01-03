@@ -32,12 +32,12 @@ class GenericCue: Serializable, CustomStringConvertible {
     }
     
     func encode() -> String {
-        let encoded = "GenericCueName:\(name),Number:\(number),Script:\(script)<END>"
+        let encoded = "GenericCueName:<\(name)>,Number:<\(number)>,Script:<\(script)>"
         return encoded
     }
     required init(decodeWith string: String) throws {
         //regexs to get the different fields
-        let regex = "Name:(.*),Number:([\\d\\.]*),Script:(.*)<END>"
+        let regex = "Name:<([^<>]*)>,Number:<([\\d\\.]*)>,Script:<([^<>]*)>"
         let match = regex.r!.findFirst(in: string)
         //check if it matches, if it doesnt, throw an error
         if match == nil {

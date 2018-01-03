@@ -8,7 +8,10 @@
 
 import Foundation
 
+//make things serialoable
 protocol Serializable {
+    //encode as a string
     func encode() -> String
+    //decode using a string
     init(decodeWith string: String) throws
 }

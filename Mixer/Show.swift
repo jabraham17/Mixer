@@ -13,9 +13,19 @@ import Regex
 class Show: Serializable, CustomStringConvertible {
     
     //entries
-    var listing: [GenericCue]
-    var name: String
-    //TODO: update these as things change
+    var listing: [GenericCue] {
+        //if an update occurs, update the last edit date
+        didSet {
+            self.dateLastEdit = Date()
+        }
+    }
+    var name: String {
+        //if an update occurs, update the last edit date
+        didSet {
+            self.dateLastEdit = Date()
+        }
+    }
+    //TODO: update last run when show is run
     let dateCreated: Date
     var dateLastRun: Date?
     var dateLastEdit: Date
@@ -24,9 +34,10 @@ class Show: Serializable, CustomStringConvertible {
     init() {
         self.listing = []
         self.name = "New Show"
-        self.dateCreated = Date()
+        let currentDate = Date()
+        self.dateCreated = currentDate
         self.dateLastRun = nil
-        self.dateLastEdit = Date()
+        self.dateLastEdit = currentDate
     }
     
     //init
@@ -45,12 +56,12 @@ class Show: Serializable, CustomStringConvertible {
     
     func encode() -> String {
         let cueStr = listing.reduce("") {result, next in "\(result){\(next.encode())}"}
-        let encoded = "ShowName:\(name),DateCreated:\(dateCreated.timeIntervalSince1970),DateLastEdit:\(dateLastEdit.timeIntervalSince1970),DateLastRun:\(String(describing: dateLastRun)),CueListing:[\(cueStr)]"
+        let encoded = "ShowName:<\(name)>,DateCreated:<\(dateCreated.timeIntervalSince1970)>,DateLastEdit:<\(dateLastEdit.timeIntervalSince1970)>,DateLastRun:<\(String(describing: dateLastRun))>,CueListing:[\(cueStr)]"
         return encoded
     }
     required init(decodeWith string: String) throws {
         //regexs to get the different fields
-        let regex = "ShowName:(.*),DateCreated:([\\d\\.]*),DateLastEdit:([\\d\\.]*),DateLastRun:((?:nil)|(?:[\\d\\.]*)),CueListing:\\[(.*)\\]"
+        let regex = "ShowName:<([^<>]*)>,DateCreated:<([\\d\\.]*)>,DateLastEdit:<([\\d\\.]*)>,DateLastRun:<((?:nil)|(?:[\\d\\.]*))>,CueListing:\\[(.*)\\]"
         let match = regex.r!.findFirst(in: string)
         //check if it matches, if it doesnt, throw an error
         if match == nil {
@@ -67,7 +78,7 @@ class Show: Serializable, CustomStringConvertible {
         listing = []
         
         //regex to get cue fields inside of group 5
-        let cueRegex = "\\{(Cue.*)|(Transition.*)|(Generic.*)\\}"
+        let cueRegex = "\\{(Cue[^\\{\\{]*)|(Transition[^\\{\\{]*)|(Generic[^\\{\\{]*)\\}"
         let cueMatchs = cueRegex.r!.findAll(in: match!.group(at: 5)!)
         for cueMatch in cueMatchs {
             //if its a cue, this will have the value
@@ -94,8 +105,8 @@ class Show: Serializable, CustomStringConvertible {
     var description: String {
         let mainLine = "Show named '\(name)', created on '\(dateCreated)', edited on '\(dateLastEdit)', last run on '\(dateLastRun == nil ? "never run" : dateLastRun!.description)'"
         let cues = listing.reduce("") {result, nextCue in
-            return "\t\(result)\(nextCue)"
+            return "\(result)\n\t\(nextCue)"
         }
-        return "\(mainLine)\nCues:\n\(cues)"
+        return "\(mainLine)\nCues:\(cues)"
     }
 }

@@ -46,6 +46,7 @@ class DataManager {
                 let raw = FileManager.default.contents(atPath: path)
                 //conditionally read in the data as a string
                 guard let string = String(data: raw!, encoding: .utf8) else { throw Global.ParseError.ParseError(message: "No valid data found in file at path '\(path)'") }
+                //print(string)
                 
                 //regex to get all shows
                 let regex = "\\{(ShowName.*)\\}"
@@ -54,6 +55,8 @@ class DataManager {
                     
                     //get the next show
                     let nextShow = try Show(decodeWith: match.group(at: 1)!)
+                    //print("\n\(nextShow)\n")
+                    //print(nextShow.listing.count)
                     //add the show to the list
                     shows.append(nextShow)
                 }
