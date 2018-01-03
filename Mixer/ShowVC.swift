@@ -175,7 +175,6 @@ class ShowVC: UIViewController {
 extension ShowVC: MenuVCDelegate {
     //deleagte from Menu
     func showSelected(index: Int) {
-        print("HEllo")
         delegate.index = index
         //set title of screen to show
         (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
