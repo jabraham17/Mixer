@@ -2,4 +2,5 @@
 build/
 Pods/
 *.xcuserdata/
+Mixer.*/xcuserdata/
 

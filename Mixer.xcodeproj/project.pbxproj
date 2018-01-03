@@ -261,8 +261,7 @@
 				D4B088D21F5478B7003D2802 /* Resources */,
 				F15D5984EEF8004613022B8E /* [CP] Embed Pods Frameworks */,
 				1BDC63BE64642A6554E52D4A /* [CP] Copy Pods Resources */,
-				D48365741F5501DC0029941F /* Feat */,
-				D48365751F5501F30029941F /* Fixme, Todo, Mark */,
+				D48365741F5501DC0029941F /* Comment Tagging */,
 			);
 			buildRules = (
 			);
@@ -356,33 +355,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D48365741F5501DC0029941F /* Feat */ = {
+		D48365741F5501DC0029941F /* Comment Tagging */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = Feat;
+			name = "Comment Tagging";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"FEAT:\"\nfind \"${SRCROOT}/Mixer\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
-		};
-		D48365751F5501F30029941F /* Fixme, Todo, Mark */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fixme, Todo, Mark";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:|MARK:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}/Mixer\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
+			shellScript = "$SRCROOT/Build-Phases/comment_markup.sh -o";
 		};
 		F15D5984EEF8004613022B8E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
