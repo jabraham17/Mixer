@@ -61,8 +61,12 @@ import UIKit
         register(CueCell.self, forCellWithReuseIdentifier: "cueCell")
         register(TransitionCell.self, forCellWithReuseIdentifier: "transitionCell")
         
-        //setup divider line
+        //TODO: setup divider line
         
+        
+        //setup taps for reordering
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_:)))
+        addGestureRecognizer(longPressGesture)
         
         //add listener to changes for roattion
         NotificationCenter.default.addObserver(self, selector: #selector(rotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -81,6 +85,37 @@ import UIKit
     //when view goes away, remove the listener
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    //deal with a long press
+    @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
+        
+        //if its not in editing mode simply return
+        if !(delegate as! CueCollectionViewDelegate).isEditing {
+            return
+        }
+        
+        //get the gestures state
+        switch(gesture.state) {
+            
+        case .began:
+            //get the item that is selected
+            guard let selectedIndexPath = indexPathForItem(at: gesture.location(in: self)) else {
+                break
+            }
+            //began moving it
+            beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            print("Changing")
+            //every time it is changed updted its position
+            updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case .ended:
+            //end the movement
+            endInteractiveMovement()
+        default:
+            //cancel if somethinf goes wrong
+            cancelInteractiveMovement()
+        }
     }
     
     //when the rotation changes

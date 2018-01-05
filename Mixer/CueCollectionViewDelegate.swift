@@ -107,17 +107,21 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
     }
     
     var isEditing: Bool = false
-    /*//the items can be moved if editibg mode is on
-    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        print(isEditing)
-        return isEditing
-    }
     //move switch the items at the plces
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
+        //if it is not in editing mode, return
+        if !isEditing {
+            return
+        }
+        //if there are no shows
+        if(index == nil) {
+            return
+        }
+        
         //get the item to move, then remove it
-        let itemToMove = show?.listing.remove(at: sourceIndexPath.row)
+        let itemToMove = DataManager.instance.shows[index!].listing.remove(at: sourceIndexPath.row)
         //insert the item to move at the new index
-        show?.listing.insert(itemToMove!, at: destinationIndexPath.row)
-    }*/
+        DataManager.instance.shows[index!].listing.insert(itemToMove, at: destinationIndexPath.row)
+    }
 }
