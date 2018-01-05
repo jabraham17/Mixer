@@ -11,9 +11,9 @@ import UIKit
 @IBDesignable class CueCollectionView: UICollectionView {
     
     //the layout to use when in the vertical view
-    final var verticalLayout: UICollectionViewFlowLayout {
+    final var verticalLayout: CueCollectionViewLayout {
         //create layout that fills the view
-        let layout = UICollectionViewFlowLayout()
+        let layout = CueCollectionViewLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         //define default size of a cell, this will be changed for different size cells
@@ -33,9 +33,9 @@ import UIKit
         return Global.screenHeight / 16
     }
     //the layout to use when in the horizontal view
-    final var horizontalLayout: UICollectionViewFlowLayout {
+    final var horizontalLayout: CueCollectionViewLayout {
         //create layout that fills the view
-        let layout = UICollectionViewFlowLayout()
+        let layout = CueCollectionViewLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         //define default size of a cell, this will be changed for different size cells
@@ -55,6 +55,8 @@ import UIKit
         return Global.screenHeight / 10
     }
     
+    
+    var longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer()
     func setup() {
         
         //register cells
@@ -65,7 +67,9 @@ import UIKit
         
         
         //setup taps for reordering
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_:)))
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_:)))
+        //set time
+        longPressGesture.minimumPressDuration = 0.2
         addGestureRecognizer(longPressGesture)
         
         //add listener to changes for roattion
@@ -85,6 +89,7 @@ import UIKit
     //when view goes away, remove the listener
     deinit {
         NotificationCenter.default.removeObserver(self)
+        removeGestureRecognizer(longPressGesture)
     }
     
     //deal with a long press
@@ -103,15 +108,25 @@ import UIKit
             guard let selectedIndexPath = indexPathForItem(at: gesture.location(in: self)) else {
                 break
             }
+            
+            //apply the shake
+            for cell in visibleCells {
+                cell.view(shouldShake: true)
+            }
+            
             //began moving it
             beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
-            print("Changing")
             //every time it is changed updted its position
             updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
         case .ended:
             //end the movement
             endInteractiveMovement()
+            
+            //unapply the shake
+            for cell in visibleCells {
+                cell.view(shouldShake: false)
+            }
         default:
             //cancel if somethinf goes wrong
             cancelInteractiveMovement()
@@ -136,3 +151,28 @@ import UIKit
     
 }
 
+
+extension UIView {
+    //make cells shake when moving
+    func view(shouldShake: Bool) {
+        
+        //if it shoudl shake, make it shake
+        if shouldShake {
+            let shakeAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            shakeAnimation.duration = 0.1
+            //go back and forth
+            let rotateBy = (Double.pi / 128)
+            shakeAnimation.fromValue = -rotateBy
+            shakeAnimation.toValue = rotateBy
+            //make the shaking go forever
+            shakeAnimation.autoreverses = true
+            shakeAnimation.repeatCount = .infinity
+            //add shaking
+            layer.add(shakeAnimation, forKey: "shake")
+        }
+        //otherwise, stop shaking
+        else {
+            layer.removeAnimation(forKey: "shake")
+        }
+    }
+}

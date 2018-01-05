@@ -24,8 +24,6 @@ class ShowVC: UIViewController {
         didSet {
             //update the delegates editing
             delegate.isEditing = editingMode
-            //cueView.delegate = delegate
-            //cueView.dataSource = delegate
             cueView.reloadData()
         }
     }

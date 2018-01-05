@@ -15,6 +15,8 @@ protocol CueAddDelegate: class {
     func closed(cue: GenericCue)
 }
 
+//TODO: implemnt done buttons
+
 //info view controller, shown as popup
 class CueAddVC: UIViewController {
     

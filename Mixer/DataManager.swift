@@ -49,10 +49,11 @@ class DataManager {
                 //print(string)
                 
                 //regex to get all shows
-                let regex = "\\{(ShowName.*)\\}"
+                let regex = "\\{(ShowName.*?\\}\\])\\}"
                 let matchs = regex.r!.findAll(in: string)
                 for match in matchs {
                     
+                    //print("\n\(match.group(at: 1))\n")
                     //get the next show
                     let nextShow = try Show(decodeWith: match.group(at: 1)!)
                     //print("\n\(nextShow)\n")
