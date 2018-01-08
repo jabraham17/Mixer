@@ -12,11 +12,11 @@ import MediaPlayer
 //class to hold media files
 class Media {
     
-    var mediaItem: MPMediaItem
+    var mediaItem: MPMediaItem?
     
     //default init
     init() {
-        mediaItem = MPMediaItem()
+        mediaItem = nil
     }
     
     //init
@@ -26,18 +26,39 @@ class Media {
     
     //make a media item from an id
     class func initWith(_ id: String) -> Media {
-        //search through user library
-        let query = MPMediaQuery.songs()
-        query.addFilterPredicate(MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID))
-        let media = Media(item: query.items!.first!)
-        return media
+        
+        //if no id, ie is 0, return a blank media
+        if id == "0" {
+            return Media()
+        }
+        else {
+            //search through user library
+            let query = MPMediaQuery.songs()
+            query.addFilterPredicate(MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID))
+            let media = Media(item: query.items!.first!)
+            return media
+        }
     }
     
     //formatted name
     func getFormattedName() -> String {
-        return "\(mediaItem.artist ?? "Unknown Artist") - \(mediaItem.title ?? "Unknown Title")"
+        
+        //if no media item, return "No Media"
+        if mediaItem == nil {
+            return "No Media"
+        }
+        else {
+            return "\(mediaItem!.artist ?? "Unknown Artist") - \(mediaItem!.title ?? "Unknown Title")"
+        }
     }
     func getID() -> MPMediaEntityPersistentID {
-        return mediaItem.persistentID
+        //if no media item, return 0
+        if mediaItem == nil {
+            return 0
+        }
+        else {
+            return mediaItem!.persistentID
+        }
+
     }
 }

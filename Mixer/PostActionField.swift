@@ -15,6 +15,8 @@ class PostActionField: ActionField {
         didSet {
             //on set of the action, set the title to be the action
             self.text = "Post Action: \(action!.getFormattedName())"
+            //also set the selected action
+            (inputView as! UIPickerView).selectRow(data?.index(of: action!.type.description) ?? 0, inComponent: 0, animated: false)
         }
     }
     

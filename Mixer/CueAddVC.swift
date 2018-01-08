@@ -18,7 +18,7 @@ protocol CueAddDelegate: class {
 //info view controller, shown as popup
 class CueAddVC: UIViewController {
     
-    //holds ShowInfoDelegate object, used to call closed for view controller
+    //used to call closed for view controller
     weak var delegate: CueAddDelegate?
     
     //the frame to show the view in
@@ -59,14 +59,14 @@ class CueAddVC: UIViewController {
     var addButton: UIButton?
     var control: UISegmentedControl?
     
-    var addCueView: UIScrollView?
+    var addCueView: UIView?
     var cueName: UITextField?
     var cueScript: UITextField?
     var cuePreAction: PreActionField?
     var cueMedia: MediaField?
     var cuePostAction: PostActionField?
     
-    var addTransitionView: UIScrollView?
+    var addTransitionView: UIView?
     var transitionName: UITextField?
     var transitionScript: UITextField?
     var transitionAction: TransActionField?
@@ -114,11 +114,7 @@ class CueAddVC: UIViewController {
         self.view.addSubviews(cancelButton!, addButton!, control!)
         
         //view to hold everything for the cue
-        addCueView = UIScrollView(frame: viewsArea)
-        addCueView?.showsVerticalScrollIndicator = false
-        addCueView?.showsHorizontalScrollIndicator = false
-        addCueView?.contentSize = CGSize(width: viewsArea.width, height: viewsArea.height)
-        addCueView?.isScrollEnabled = true
+        addCueView = UIView(frame: viewsArea)
         
         //height of each element in the cue view
         let cueElementHeight = addCueView!.frame.height / 5
@@ -162,11 +158,7 @@ class CueAddVC: UIViewController {
         addCueView?.addSubviews(cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
         
         //view to hold everything for tarsntion
-        addTransitionView = UIScrollView(frame: viewsArea)
-        addTransitionView?.showsVerticalScrollIndicator = false
-        addTransitionView?.showsHorizontalScrollIndicator = false
-        addTransitionView?.contentSize = CGSize(width: viewsArea.width, height: viewsArea.height)
-        addTransitionView?.isScrollEnabled = true
+        addTransitionView = UIView(frame: viewsArea)
         
         //height of each element in the cue view
         let transitionElementHeight = addCueView!.frame.height / 5
@@ -237,10 +229,11 @@ class CueAddVC: UIViewController {
             //get the data
             let name = cueName?.text
             let script = cueScript?.text
-            let media = cueMedia?.media
+            //if no media, use default of nil
+            let media = cueMedia?.media ?? Media()
             let preAction = cuePreAction?.action
             let postAction = cuePostAction?.action
-            cue = Cue(name: name!, script: script!, media: media!, preAction: preAction!, postAction: postAction!)
+            cue = Cue(name: name!, script: script!, media: media, preAction: preAction!, postAction: postAction!)
         }
         //if in cue mode, get cue info
         else if(mode == .Transition)

@@ -86,6 +86,8 @@ class ShowVC: UIViewController {
         //set the coolection view deleagtes
         cueView.delegate = delegate
         cueView.dataSource = delegate
+        //presenting view controller
+        cueView.presentingVC = self
         
         //add tap gesture deleagte to title
         (self.navigationItem.titleView as! CustomUINavigationTitle).delegate = self
@@ -152,6 +154,9 @@ class ShowVC: UIViewController {
             sender.title = "Edit"
             editingMode = false
             addButton.hide()
+            
+            //save data
+            DataManager.instance.save()
         }
     }
     //action for the play button

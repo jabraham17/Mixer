@@ -10,6 +10,8 @@ import UIKit
 //custom collection view for use in play and show vc
 @IBDesignable class CueCollectionView: UICollectionView {
     
+    var presentingVC: UIViewController?
+    
     //the layout to use when in the vertical view
     final var verticalLayout: CueCollectionViewLayout {
         //create layout that fills the view
@@ -56,7 +58,8 @@ import UIKit
     }
     
     
-    var longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer()
+    var press: UILongPressGestureRecognizer = UILongPressGestureRecognizer()
+    var tap: UITapGestureRecognizer = UITapGestureRecognizer()
     func setup() {
         
         //register cells
@@ -67,10 +70,14 @@ import UIKit
         
         
         //setup taps for reordering
-        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_:)))
+        press = UILongPressGestureRecognizer(target: self, action: #selector(press(_:)))
         //set time
-        longPressGesture.minimumPressDuration = 0.2
-        addGestureRecognizer(longPressGesture)
+        press.minimumPressDuration = 0.2
+        addGestureRecognizer(press)
+        
+        //TODO: single tap to edit
+        tap = UITapGestureRecognizer.init(target: self, action: #selector(tap(_:)))
+        addGestureRecognizer(tap)
         
         //add listener to changes for roattion
         NotificationCenter.default.addObserver(self, selector: #selector(rotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -89,11 +96,12 @@ import UIKit
     //when view goes away, remove the listener
     deinit {
         NotificationCenter.default.removeObserver(self)
-        removeGestureRecognizer(longPressGesture)
+        removeGestureRecognizer(press)
+        removeGestureRecognizer(tap)
     }
     
     //deal with a long press
-    @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
+    @objc func press(_ gesture: UILongPressGestureRecognizer) {
         
         //if its not in editing mode simply return
         if !(delegate as! CueCollectionViewDelegate).isEditing {
@@ -133,6 +141,67 @@ import UIKit
         }
     }
     
+    //deal with a single tap
+    @objc func tap(_ gesture: UITapGestureRecognizer) {
+        
+        //get the delegae
+        let cueDelegate = (delegate as! CueCollectionViewDelegate)
+        
+        //if its not in editing mode simply return
+        if !cueDelegate.isEditing {
+            return
+        }
+        
+        //get the item that is selected
+        guard let selectedIndexPath = indexPathForItem(at: gesture.location(in: self)) else {
+            return
+        }
+        let dataAtPath = DataManager.instance.shows[cueDelegate.index!].listing[selectedIndexPath.row]
+        let cellAtPath = cellForItem(at: selectedIndexPath)
+        
+        //if its a cue, use the cue edit
+        if dataAtPath is Cue {
+            let cue = dataAtPath as! Cue
+            
+            //get the view controller
+            let cueEditVC = CueEditVC()
+            cueEditVC.cue = cue
+            cueEditVC.cueIndex = selectedIndexPath.row
+            //set the deleagte
+            cueEditVC.delegate = self
+            
+            //set preferred size for view controller
+            cueEditVC.preferredContentSize = CGSize.init(width: 2 * self.frame.width / 3, height: 3 * self.frame.height / 5)
+            
+            //set the presentation style to popover
+            cueEditVC.modalPresentationStyle = .popover
+            
+            //setup as a popover view controller
+            let popover = cueEditVC.popoverPresentationController!
+            
+            //set the delegate as this class
+            popover.delegate = self
+            //anchor the popover to the title view
+            popover.sourceView = cellAtPath!
+            popover.sourceRect = cellAtPath!.bounds
+            
+            //present the popover
+            presentingVC?.present(cueEditVC, animated: true, completion: {
+                //set the popovers frame to the frame inside of the presetening view controller so that subviews can be laid out accrodingly
+                cueEditVC.frame = popover.frameOfPresentedViewInContainerView
+                
+                //dont pasd tjeough anyviews
+                popover.passthroughViews = nil
+            })
+        }
+        //of its a trans, use the trans edit
+        else if dataAtPath is Transition {
+            let trans = dataAtPath as! Transition
+        }
+        
+        
+    }
+    
     //when the rotation changes
     @objc func rotate() {
         //orientaion
@@ -148,6 +217,38 @@ import UIKit
             collectionViewLayout = horizontalLayout
         }
     }
+    
+}
+
+//UIPopoverPresentationControllerDelegate
+extension CueCollectionView: UIPopoverPresentationControllerDelegate {
+    //present in popover style
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    //only dismissal through buttons
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return false
+    }
+}
+
+//dleegate methods from the cue edit view
+extension CueCollectionView: CueEditDelegate {
+    func closed(cueIndex: Int, cue: Cue) {
+        //get the delegae
+        let cueDelegate = (delegate as! CueCollectionViewDelegate)
+        //update cue at index and reload
+        DataManager.instance.shows[cueDelegate.index!].listing[cueIndex] = cue
+        reloadData()
+    }
+    
+    func delete(cueIndex: Int) {
+        //get the delegae
+        let cueDelegate = (delegate as! CueCollectionViewDelegate)
+        DataManager.instance.shows[cueDelegate.index!].listing.remove(at: cueIndex)
+        reloadData()
+    }
+    
     
 }
 

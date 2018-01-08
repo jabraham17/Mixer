@@ -120,7 +120,7 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         }
         
         //if the user has stopped pressing dont move
-        let state = (collectionView as! CueCollectionView).longPressGesture.state
+        let state = (collectionView as! CueCollectionView).press.state
         if state == .ended {
             return
         }
