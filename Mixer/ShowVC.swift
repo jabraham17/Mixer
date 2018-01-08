@@ -70,9 +70,8 @@ class ShowVC: UIViewController {
         //add the menu to the manager
         SideMenuManager.default.menuLeftNavigationController = menuNC
         
-        //add gesture recognizors to the menu manager
-        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+        //add gesture recognizor to the menu manager
+        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.view)
         
         //set the animation for the menu
         SideMenuManager.default.menuPresentMode = .menuSlideIn

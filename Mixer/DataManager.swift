@@ -49,7 +49,7 @@ class DataManager {
                 print(string)
                 
                 //regex to get all shows
-                let regex = "\\{(ShowName.*?\\}\\])\\}"
+                let regex = "\\{(ShowName.*?\\])\\}"
                 let matchs = regex.r!.findAll(in: string)
                 for match in matchs {
                     
