@@ -197,6 +197,37 @@ import UIKit
         //of its a trans, use the trans edit
         else if dataAtPath is Transition {
             let trans = dataAtPath as! Transition
+            
+            //get the view controller
+            let transEditVC = TransitionEditVC()
+            transEditVC.trans = trans
+            transEditVC.transIndex = selectedIndexPath.row
+            //set the deleagte
+            transEditVC.delegate = self
+            
+            //set preferred size for view controller
+            transEditVC.preferredContentSize = CGSize.init(width: 2 * self.frame.width / 3, height: 2 * self.frame.height / 5)
+            
+            //set the presentation style to popover
+            transEditVC.modalPresentationStyle = .popover
+            
+            //setup as a popover view controller
+            let popover = transEditVC.popoverPresentationController!
+            
+            //set the delegate as this class
+            popover.delegate = self
+            //anchor the popover to the title view
+            popover.sourceView = cellAtPath!
+            popover.sourceRect = cellAtPath!.bounds
+            
+            //present the popover
+            presentingVC?.present(transEditVC, animated: true, completion: {
+                //set the popovers frame to the frame inside of the presetening view controller so that subviews can be laid out accrodingly
+                transEditVC.frame = popover.frameOfPresentedViewInContainerView
+                
+                //dont pasd tjeough anyviews
+                popover.passthroughViews = nil
+            })
         }
         
         
@@ -241,15 +272,29 @@ extension CueCollectionView: CueEditDelegate {
         DataManager.instance.shows[cueDelegate.index!].listing[cueIndex] = cue
         reloadData()
     }
-    
     func delete(cueIndex: Int) {
         //get the delegae
         let cueDelegate = (delegate as! CueCollectionViewDelegate)
         DataManager.instance.shows[cueDelegate.index!].listing.remove(at: cueIndex)
         reloadData()
     }
-    
-    
+}
+
+//dleegate methods from the trans edit view
+extension CueCollectionView: TransitionEditDelegate {
+    func closed(transIndex: Int, trans: Transition) {
+        //get the delegae
+        let cueDelegate = (delegate as! CueCollectionViewDelegate)
+        //update cue at index and reload
+        DataManager.instance.shows[cueDelegate.index!].listing[transIndex] = trans
+        reloadData()
+    }
+    func delete(transIndex: Int) {
+        //get the delegae
+        let cueDelegate = (delegate as! CueCollectionViewDelegate)
+        DataManager.instance.shows[cueDelegate.index!].listing.remove(at: transIndex)
+        reloadData()
+    }
 }
 
 

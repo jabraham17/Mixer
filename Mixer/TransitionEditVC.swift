@@ -1,5 +1,5 @@
 //
-//  CueEditVC.swift
+//  TransitionEditVC.swift
 //  Mixer
 //
 //  Created by Jacob R. Abraham on 1/7/18.
@@ -10,17 +10,17 @@ import UIKit
 import MediaPlayer
 
 //protocol/delegate that view controller class will acknolege
-protocol CueEditDelegate: class {
+protocol TransitionEditDelegate: class {
     //called when popup is closed, will be implemented in view controller acknolwding this protocol/delegate
-    func closed(cueIndex: Int, cue: Cue)
-    func delete(cueIndex: Int)
+    func closed(transIndex: Int, trans: Transition)
+    func delete(transIndex: Int)
 }
 
 //info view controller, shown as popup
-class CueEditVC: UIViewController {
+class TransitionEditVC: UIViewController {
     
     //used to call closed for view controller
-    weak var delegate: CueEditDelegate?
+    weak var delegate: TransitionEditDelegate?
     
     //the frame to show the view in
     //DO NOT USE THE SUBVIEWS FRAME
@@ -31,13 +31,13 @@ class CueEditVC: UIViewController {
     }
     
     //what cue to show
-    var cue: Cue? {
+    var trans: Transition? {
         didSet {
             setup()
         }
     }
     //the index of the cue
-    var cueIndex: Int? {
+    var transIndex: Int? {
         didSet {
             setup()
         }
@@ -49,9 +49,7 @@ class CueEditVC: UIViewController {
     var deleteButton: UIButton?
     var name: UITextField?
     var script: UITextField?
-    var preAction: PreActionField?
-    var media: MediaField?
-    var postAction: PostActionField?
+    var transAction: TransActionField?
     
     //setup view
     func setup() {
@@ -91,7 +89,7 @@ class CueEditVC: UIViewController {
         deleteButton?.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
         
         //height of each element in the cue view
-        let elementHeight = textArea.height / 5
+        let elementHeight = textArea.height / 3
         
         //view to edit cue name
         name = UITextField(frame: CGRect(x: space, y: topHeight, width: textArea.width, height: elementHeight))
@@ -99,7 +97,7 @@ class CueEditVC: UIViewController {
         name?.borderStyle = .roundedRect
         name?.textAlignment = .left
         //whatever the cues name is
-        name?.text = cue?.name
+        name?.text = trans?.name
         //setup editing style
         name?.clearsOnBeginEditing = false
         name?.clearButtonMode = .whileEditing
@@ -112,11 +110,11 @@ class CueEditVC: UIViewController {
         script?.borderStyle = .roundedRect
         script?.textAlignment = .left
         //whatever the cues script is, if no script, set the placeholder
-        if cue?.script.isEmpty ?? true {
+        if trans?.script.isEmpty ?? true {
             script?.placeholder = "Location in Script"
         }
         else {
-            script?.text = cue?.script
+            transAction?.text = trans?.script
         }
         //setup editing style
         script?.clearsOnBeginEditing = false
@@ -125,20 +123,11 @@ class CueEditVC: UIViewController {
         script?.delegate = self
         
         //view to edit what pre action to use
-        preAction = PreActionField(frame: CGRect(x: space, y: topHeight + (2 * elementHeight), width: textArea.width, height: elementHeight))
-        preAction?.action = cue?.preAction
-        
-        //view to edit what media to use
-        media = MediaField(frame: CGRect(x: space, y: topHeight + (3 * elementHeight), width: textArea.width, height: elementHeight))
-        media?.delegate = self
-        media?.media = cue?.media
-        
-        //view to edit what post action to use
-        postAction = PostActionField(frame: CGRect(x: space, y: topHeight + (4 * elementHeight), width: textArea.width, height: elementHeight))
-        postAction?.action = cue?.postAction
+        transAction = TransActionField(frame: CGRect(x: space, y: topHeight + (2 * elementHeight), width: textArea.width, height: elementHeight))
+        transAction?.action = trans?.transition
         
         //add views to contoller
-        self.view.addSubviews(cancelButton!, saveButton!, name!, script!, preAction!, media!, postAction!, deleteButton!)
+        self.view.addSubviews(cancelButton!, saveButton!, name!, script!, transAction!, deleteButton!)
     }
     
     //load view
@@ -147,25 +136,22 @@ class CueEditVC: UIViewController {
         
         setup()
     }
-    //on cancel, simply close with the orginal cue
+    //on cancel, simply close with the orginal transition
     @objc func cancelAction() {
         //dismiss the view
         self.dismiss(animated: true, completion: nil)
     }
-    //on save, retrieve text from edit view and pass new cue
+    //on save, retrieve text from edit view and pass new transition
     @objc func saveAction() {
         
-        cue?.name = name!.text!
-        cue?.script = script!.text!
-        cue?.media = media!.media ?? Media()
-        cue?.preAction = preAction!.action!
-        cue?.postAction = postAction!.action!
-        
+        trans?.name = name!.text!
+        trans?.script = script!.text!
+        trans?.transition = transAction!.action!
         
         //dismiss the view
         self.dismiss(animated: true, completion: {
             //after popup is dismissed, call the delegate
-            self.delegate?.closed(cueIndex: self.cueIndex!, cue: self.cue!)
+            self.delegate?.closed(transIndex: self.transIndex!, trans: self.trans!)
         })
     }
     //on delete, tell the view it is supposed to dleete
@@ -173,58 +159,17 @@ class CueEditVC: UIViewController {
         //dismiss the view
         self.dismiss(animated: true, completion: {
             //after popup is dismissed, call the delegate
-            self.delegate?.delete(cueIndex: self.cueIndex!)
+            self.delegate?.delete(transIndex: self.transIndex!)
         })
     }
 }
 
-//media field delegate
-extension CueEditVC: MediaFieldDelegate {
-    //when view is tapped, pick the media
-    func fieldWasTapped() {
-        pickMedia()
-    }
-}
-
 //text field delegate
-extension CueEditVC: UITextFieldDelegate {
+extension TransitionEditVC: UITextFieldDelegate {
     //when done button pressed, close text
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-}
-
-//Media picker delegate
-extension CueEditVC: MPMediaPickerControllerDelegate {
-    
-    //fucntion called when user taos on media field
-    func pickMedia() {
-        //make the picker
-        let mediaPicker = MPMediaPickerController(mediaTypes: .anyAudio)
-        //only one item at a time
-        mediaPicker.allowsPickingMultipleItems = false
-        //set the popover to the field
-        mediaPicker.popoverPresentationController?.sourceView = self.view
-        //add the delagte methods
-        mediaPicker.delegate = self
-        self.present(mediaPicker, animated: true, completion: nil)
-    }
-    
-    //on select media item, add the information of the media item to the media field
-    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-        
-        //make a media obect
-        let mediaItem = Media(item: mediaItemCollection.items.first!)
-        //add to the media field
-        media?.media = mediaItem
-        
-        //dismiss the medie player
-        mediaPicker.dismiss(animated: true, completion: nil)
-    }
-    //if cancel, just dismiss
-    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
-        mediaPicker.dismiss(animated: true, completion: nil)
     }
 }
 
