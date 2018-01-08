@@ -8,5 +8,6 @@ target 'Mixer' do
   # Pods for Mixer
     pod 'SideMenu'
     pod 'CrossroadRegex'
+    pod 'SwiftyBeaver'
 
 end

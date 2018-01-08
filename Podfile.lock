@@ -1,15 +1,18 @@
 PODS:
   - CrossroadRegex (1.1.0)
   - SideMenu (3.1.5)
+  - SwiftyBeaver (1.5.0)
 
 DEPENDENCIES:
   - CrossroadRegex
   - SideMenu
+  - SwiftyBeaver
 
 SPEC CHECKSUMS:
   CrossroadRegex: 5eaadb3f7b4014728f1cbd1014756b126c1dbd9a
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
+  SwiftyBeaver: 384235c59d9c67b4a5e1810cffa713babba34efd
 
-PODFILE CHECKSUM: 5185055fbea7671c6b787e6413bc941bbc127a43
+PODFILE CHECKSUM: b21aa409d1cab7b1663f498d8e895d249d27f7de
 
 COCOAPODS: 1.2.0
