@@ -15,8 +15,6 @@ protocol CueAddDelegate: class {
     func closed(cue: GenericCue)
 }
 
-//TODO: implemnt done buttons
-
 //info view controller, shown as popup
 class CueAddVC: UIViewController {
     
@@ -62,16 +60,13 @@ class CueAddVC: UIViewController {
     var control: UISegmentedControl?
     
     var addCueView: UIScrollView?
-    var cueNumber: UITextField?
     var cueName: UITextField?
     var cueScript: UITextField?
     var cuePreAction: PreActionField?
-    //var cuePreAction: UITextField?
     var cueMedia: MediaField?
     var cuePostAction: PostActionField?
     
     var addTransitionView: UIScrollView?
-    var transitionNumber: UITextField?
     var transitionName: UITextField?
     var transitionScript: UITextField?
     var transitionAction: TransActionField?
@@ -88,7 +83,7 @@ class CueAddVC: UIViewController {
         //bounds, decrese frame by small factor so contnt desnt but against edge
         let bounds = CGRect(x: space, y: space, width: frame.width - (space * 2), height: frame.height - (space * 2))
         //values to assist in creating framed for view elements
-        let dividingLine = bounds.height / 8
+        let dividingLine = 3 * bounds.height / 16
         let controlArea = CGRect(x: space, y: space, width: bounds.width, height: dividingLine)
         let viewsArea = CGRect(x: space, y: dividingLine, width: bounds.width, height: bounds.height - dividingLine - space)
         
@@ -126,34 +121,23 @@ class CueAddVC: UIViewController {
         addCueView?.isScrollEnabled = true
         
         //height of each element in the cue view
-        let cueElementHeight = addCueView!.frame.height / 6
-        
-        //view to edit cue number
-        cueNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addCueView!.frame.width, height: cueElementHeight))
-        cueNumber?.font = UIFont.systemFont(ofSize: 20)
-        cueNumber?.borderStyle = .roundedRect
-        cueNumber?.textAlignment = .left
-        //setup number that is the default, the default adds the cue to the end of the list
-        cueNumber?.placeholder = "#"
-        //setup editing style
-        cueNumber?.clearsOnBeginEditing = false
-        cueNumber?.clearButtonMode = .never
-        cueNumber?.keyboardType = .decimalPad
+        let cueElementHeight = addCueView!.frame.height / 5
         
         //view to edit cue name
-        cueName = UITextField(frame: CGRect(x: 0, y: cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cueName = UITextField(frame: CGRect(x: 0, y: 0, width: addCueView!.frame.width, height: cueElementHeight))
         cueName?.font = UIFont.systemFont(ofSize: 20)
         cueName?.borderStyle = .roundedRect
         cueName?.textAlignment = .left
         //defualt cue name, append whatever the defualt cue number is
-        cueName?.text = "Cue #"
+        cueName?.text = "New Cue"
         //setup editing style
         cueName?.clearsOnBeginEditing = false
         cueName?.clearButtonMode = .whileEditing
         cueName?.returnKeyType = .done
+        cueName?.delegate = self
         
         //view to edit the script for the cue
-        cueScript = UITextField(frame: CGRect(x: 0, y: 2 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cueScript = UITextField(frame: CGRect(x: 0, y: cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cueScript?.font = UIFont.systemFont(ofSize: 20)
         cueScript?.borderStyle = .roundedRect
         cueScript?.textAlignment = .left
@@ -163,18 +147,19 @@ class CueAddVC: UIViewController {
         cueScript?.clearsOnBeginEditing = false
         cueScript?.clearButtonMode = .whileEditing
         cueScript?.returnKeyType = .done
+        cueScript?.delegate = self
         
         //view to edit what pre action to use
-        cuePreAction = PreActionField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePreAction = PreActionField(frame: CGRect(x: 0, y: 2 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         
         //view to edit what media to use
-        cueMedia = MediaField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cueMedia = MediaField(frame: CGRect(x: 0, y: 3 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         cueMedia?.delegate = self
         
         //view to edit what post action to use
-        cuePostAction = PostActionField(frame: CGRect(x: 0, y: 5 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
+        cuePostAction = PostActionField(frame: CGRect(x: 0, y: 4 * cueElementHeight, width: addCueView!.frame.width, height: cueElementHeight))
         
-        addCueView?.addSubviews(cueNumber!, cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
+        addCueView?.addSubviews(cueName!, cueScript!, cuePreAction!, cueMedia!, cuePostAction!)
         
         //view to hold everything for tarsntion
         addTransitionView = UIScrollView(frame: viewsArea)
@@ -184,34 +169,23 @@ class CueAddVC: UIViewController {
         addTransitionView?.isScrollEnabled = true
         
         //height of each element in the cue view
-        let transitionElementHeight = addCueView!.frame.height / 4
-        
-        //view to edit transition number
-        transitionNumber = UITextField(frame: CGRect(x: 0, y: 0, width: addTransitionView!.frame.width, height: transitionElementHeight))
-        transitionNumber?.font = UIFont.systemFont(ofSize: 20)
-        transitionNumber?.borderStyle = .roundedRect
-        transitionNumber?.textAlignment = .left
-        //setup number that is the default, the default adds the transition to the end of the list
-        transitionNumber?.placeholder = "#"
-        //setup editing style
-        transitionNumber?.clearsOnBeginEditing = false
-        transitionNumber?.clearButtonMode = .never
-        transitionNumber?.keyboardType = .decimalPad
+        let transitionElementHeight = addCueView!.frame.height / 5
         
         //view to edit transition name
-        transitionName = UITextField(frame: CGRect(x: 0, y: transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
+        transitionName = UITextField(frame: CGRect(x: 0, y: 0, width: addTransitionView!.frame.width, height: transitionElementHeight))
         transitionName?.font = UIFont.systemFont(ofSize: 20)
         transitionName?.borderStyle = .roundedRect
         transitionName?.textAlignment = .left
         //defualt cue name, append whatever the defualt cue number is
-        transitionName?.text = "Cue #"
+        transitionName?.text = "New Transition"
         //setup editing style
         transitionName?.clearsOnBeginEditing = false
         transitionName?.clearButtonMode = .whileEditing
         transitionName?.returnKeyType = .done
+        transitionName?.delegate = self
         
         //view to edit the script for the transition
-        transitionScript = UITextField(frame: CGRect(x: 0, y: 2 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
+        transitionScript = UITextField(frame: CGRect(x: 0, y: transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
         transitionScript?.font = UIFont.systemFont(ofSize: 20)
         transitionScript?.borderStyle = .roundedRect
         transitionScript?.textAlignment = .left
@@ -221,11 +195,12 @@ class CueAddVC: UIViewController {
         transitionScript?.clearsOnBeginEditing = false
         transitionScript?.clearButtonMode = .whileEditing
         transitionScript?.returnKeyType = .done
+        transitionScript?.delegate = self
         
         //view to edit what trans action to use
-        transitionAction = TransActionField(frame: CGRect(x: 0, y: 3 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
+        transitionAction = TransActionField(frame: CGRect(x: 0, y: 2 * transitionElementHeight, width: addTransitionView!.frame.width, height: transitionElementHeight))
         
-        addTransitionView?.addSubviews(transitionNumber!, transitionName!, transitionScript!, transitionAction!)
+        addTransitionView?.addSubviews(transitionName!, transitionScript!, transitionAction!)
         
         //set the mode, this will take care of adding the transitona and cue views
         mode = .Cue
@@ -260,23 +235,21 @@ class CueAddVC: UIViewController {
         if(mode == .Cue)
         {
             //get the data
-            let number = cueNumber?.text ?? cueNumber?.placeholder
             let name = cueName?.text
             let script = cueScript?.text
             let media = cueMedia?.media
             let preAction = cuePreAction?.action
             let postAction = cuePostAction?.action
-            cue = Cue(number: Double(number!)!, name: name!, script: script!, media: media!, preAction: preAction!, postAction: postAction!)
+            cue = Cue(name: name!, script: script!, media: media!, preAction: preAction!, postAction: postAction!)
         }
         //if in cue mode, get cue info
         else if(mode == .Transition)
             {
                 //get the data
-                let number = transitionNumber?.text ?? cueNumber?.placeholder
                 let name = transitionName?.text
                 let script = transitionScript?.text
                 let trans = transitionAction?.action
-                cue = Transition(number: Double(number!)!, name: name!, script: script!, transition: trans!)
+                cue = Transition(name: name!, script: script!, transition: trans!)
         }
         else {
             cue = GenericCue()
@@ -295,6 +268,15 @@ extension CueAddVC: MediaFieldDelegate {
     //when view is tapped, pick the media
     func fieldWasTapped() {
         pickMedia()
+    }
+}
+
+//text field delegate
+extension CueAddVC: UITextFieldDelegate {
+    //when done button pressed, close text
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

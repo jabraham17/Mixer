@@ -8,6 +8,8 @@
 
 import UIKit
 
+//TODO: need to show what kind of transition it is
+
 //custom cell for the collection view on ShowVC
 @IBDesignable class TransitionCell: UICollectionViewCell {
     

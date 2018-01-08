@@ -12,7 +12,7 @@ import UIKit
 @IBDesignable class CueCell: UICollectionViewCell {
     
     @IBOutlet var preAction: UILabel!
-    @IBOutlet var cueNumber: UILabel!
+    @IBOutlet var cueName: UILabel!
     @IBOutlet var mediaName: UILabel!
     @IBOutlet var script: UILabel!
     @IBOutlet var postAction: UILabel!
@@ -20,8 +20,9 @@ import UIKit
     
     var data: Cue? {
         didSet {
+            //TODO: make it show text when displaying with no script or no media
             preAction.text = data?.preAction.getFormattedName()
-            cueNumber.text = "Cue: \(data?.number ?? 0)"
+            cueName.text = data?.name
             mediaName.text = "    \(data?.media.getFormattedName() ?? "No Media")"
             script.text = "    \(data?.script ?? "No Script")"
             postAction.text = data?.postAction.getFormattedName()

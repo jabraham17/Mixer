@@ -111,8 +111,9 @@ class ShowVC: UIViewController {
             let cueAddVC = CueAddVC()
             //set the delegate
             cueAddVC.delegate = self
+            
             //set preferred size for view controller
-            cueAddVC.preferredContentSize = CGSize.init(width: 2 * self.view.frame.width / 3, height: 2 * self.view.frame.height / 3)
+            cueAddVC.preferredContentSize = CGSize.init(width: 2 * self.view.frame.width / 3, height: 3 * self.view.frame.height / 5)
             
             //set the presentation style to popover
             cueAddVC.modalPresentationStyle = .popover

@@ -21,9 +21,9 @@ class Transition: GenericCue {
     }
     
     //init
-    init(number: Double, name: String, script: String, transition: TransitionAction) {
+    init(name: String, script: String, transition: TransitionAction) {
         self.transition = transition
-        super.init(number: number, name: name, script: script)
+        super.init(name: name, script: script)
     }
     
     override func encode() -> String {

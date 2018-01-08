@@ -25,11 +25,11 @@ class Cue: GenericCue {
     }
     
     //init
-    init(number: Double, name: String, script: String, media: Media, preAction: PreAction, postAction: PostAction) {
+    init(name: String, script: String, media: Media, preAction: PreAction, postAction: PostAction) {
         self.media = media
         self.preAction = preAction
         self.postAction = postAction
-        super.init(number: number, name: name, script: script)
+        super.init(name: name, script: script)
     }
     
     override func encode() -> String {

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CueCell" customModule="Mixer" customModuleProvider="target">
             <connections>
-                <outlet property="cueNumber" destination="FTp-3y-DiB" id="AbC-CC-keA"/>
+                <outlet property="cueName" destination="FTp-3y-DiB" id="fkE-4E-Tnz"/>
                 <outlet property="mediaName" destination="Qqg-vk-pgQ" id="aqV-0M-YaY"/>
                 <outlet property="postAction" destination="UCL-X9-TrP" id="G8S-uy-alp"/>
                 <outlet property="preAction" destination="tux-f9-FsO" id="T5k-bG-0mw"/>
