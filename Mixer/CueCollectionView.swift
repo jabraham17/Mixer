@@ -233,6 +233,32 @@ import UIKit
         
     }
     
+    //highlight cell at index
+    func highlightCell(at index: Int) {
+        highlightCell(atPath: IndexPath(row: index, section: 0))
+    }
+    //highlight cell at indexPath
+    func highlightCell(atPath indexPath: IndexPath) {
+        let cell = cellForItem(at: indexPath)
+        highlightedCell = cell
+    }
+    //the cell that is to be highlighted
+    private var highlightedCell: UICollectionViewCell? {
+        didSet {
+            //if there was an old value, reset its background view
+            if oldValue != nil {
+                oldValue?.layer.backgroundColor = UIColor.clear.cgColor
+            }
+            //highlightedCell?.layer.borderWidth = 2
+            //highlightedCell?.layer.borderColor = UIColor.green.cgColor
+            //reloadData()
+            highlightedCell?.layer.backgroundColor = UIColor.green.cgColor
+            //highlightedCell?.backgroundView?.backgroundColor = .green
+            log.debug("cell is higlighted")
+        }
+    }
+    
+    
     //when the rotation changes
     @objc func rotate() {
         //orientaion

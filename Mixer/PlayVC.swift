@@ -14,6 +14,7 @@ class PlayVC: UIViewController {
     //refrence to collection view, used to display all cues
     @IBOutlet var cueView: CueCollectionView!
     
+    //TODO: probably gonna remove this
     //refrence to lock button, used to toggle appearnace
     @IBOutlet var lockButton: UIBarButtonItem!
     
@@ -30,7 +31,37 @@ class PlayVC: UIViewController {
     @IBOutlet var cueEndTimeLabel: UILabel!
     
     //deleagte for cueView
-    var delegate: CueCollectionViewDelegate?
+    var delegate: CueCollectionViewDelegate? {
+        didSet {
+            listing = DataManager.instance.shows[delegate!.index!].listing
+        }
+    }
+    
+    //get the lisiting of cues
+    var listing: [GenericCue]?
+    
+    //index of the current cue
+    var currentCueIndex: Int? {
+        didSet {
+            //if new value wont fit
+            //TODO: if value leaves the legnth of the array, end the show
+            if currentCueIndex! >= listing!.count || currentCueIndex! < 0 {
+                //reset to old value
+                currentCueIndex = oldValue
+            }
+            else {
+                currentCue = listing![currentCueIndex!]
+            }
+        }
+    }
+    //the currnt cue
+    private var currentCue: GenericCue? {
+        didSet {
+            currentCueLabel?.text = "\(currentCue?.name ?? "")"
+            
+            cueView?.highlightCell(at: currentCueIndex ?? 0)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,16 +70,24 @@ class PlayVC: UIViewController {
         cueView.delegate = delegate
         cueView.dataSource = delegate
         
+        currentCueLabel?.text = "\(currentCue?.name ?? "")"
+        cueView?.highlightCell(at: currentCueIndex ?? 0)
     }
+    //TODO: probably gonna remove this
     //action for lock button
     @IBAction func lockAction(_ sender: UIBarButtonItem) {
     }
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
+        //FIXME: just for testing
+        currentCueIndex! += 1
     }
     //action for previous button
     @IBAction func previousAction(_ sender: UIButton) {
+        //FIXME: just for testing
+        currentCueIndex! -= 1
     }
+    //TODO: probably gonna remove this
     //action for redo button
     @IBAction func redoAction(_ sender: UIButton) {
     }

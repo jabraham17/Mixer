@@ -71,7 +71,7 @@ class ShowVC: UIViewController {
         SideMenuManager.default.menuLeftNavigationController = menuNC
         
         //add gesture recognizor to the menu manager
-        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.view)
+        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
         
         //set the animation for the menu
         SideMenuManager.default.menuPresentMode = .menuSlideIn
@@ -99,6 +99,8 @@ class ShowVC: UIViewController {
         //pass delegate and show
         let vc = segue.destination as! PlayVC
         vc.delegate = delegate
+        vc.currentCueIndex = 0
+        
     }
     //action to show the menu
     @IBAction func hamburgerMenuAction(_ sender: UIBarButtonItem) {
