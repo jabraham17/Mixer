@@ -10,16 +10,9 @@ import UIKit
 
 //view controller for the view that displays the show when it is running
 class PlayVC: UIViewController {
-    
+
     //refrence to collection view, used to display all cues
     @IBOutlet var cueView: CueCollectionView!
-    
-    //TODO: probably gonna remove this
-    //refrence to lock button, used to toggle appearnace
-    @IBOutlet var lockButton: UIBarButtonItem!
-    
-    //refrence to time label, used to update time to current time
-    @IBOutlet var showTimeLabel: UILabel!
     
     //refrence to current cue label, used to change title of current cue
     @IBOutlet var currentCueLabel: UILabel!
@@ -73,10 +66,6 @@ class PlayVC: UIViewController {
         currentCueLabel?.text = "\(currentCue?.name ?? "")"
         cueView?.highlightCell(at: currentCueIndex ?? 0)
     }
-    //TODO: probably gonna remove this
-    //action for lock button
-    @IBAction func lockAction(_ sender: UIBarButtonItem) {
-    }
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
         //FIXME: just for testing
@@ -87,11 +76,8 @@ class PlayVC: UIViewController {
         //FIXME: just for testing
         currentCueIndex! -= 1
     }
-    //TODO: probably gonna remove this
-    //action for redo button
-    @IBAction func redoAction(_ sender: UIButton) {
-    }
     //action for pause button
     @IBAction func pauseAction(_ sender: UIButton) {
     }
+    @IBOutlet var VerticalOutlets: [NSLayoutConstraint]!
 }
