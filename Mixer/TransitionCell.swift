@@ -25,6 +25,19 @@ import UIKit
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            if(isHighlighted) {
+                //highlight
+                self.backgroundColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+            }
+            else {
+                //unhighlight
+                self.backgroundColor = UIColor.lightText
+            }
+        }
+    }
+    
     //required inits, call setup func
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -54,6 +67,9 @@ import UIKit
         transition?.textAlignment = .left
         
         self.contentView.addSubview(transition!)
+        
+        //default background color
+        self.backgroundColor = UIColor.lightText
     }
 
 }

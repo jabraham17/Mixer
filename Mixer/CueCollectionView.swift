@@ -241,17 +241,25 @@ import UIKit
     func highlightCell(atPath indexPath: IndexPath) {
         let cell = cellForItem(at: indexPath)
         highlightedCell = cell
-        log.debug("AT \(indexPath.row) CELL \(highlightedCell?.layer.backgroundColor)")
     }
-    //TODO: fix not highlghting consistently
     //the cell that is to be highlighted
     private var highlightedCell: UICollectionViewCell? {
         didSet {
             //if there was an old value, reset its background view
             if oldValue != nil {
-                oldValue?.layer.backgroundColor = UIColor.clear.cgColor
+                if(oldValue is CueCell) {
+                    (oldValue as! CueCell).isHighlighted = false
+                }
+                else if (oldValue is TransitionCell) {
+                    (oldValue as! TransitionCell).isHighlighted = false
+                }
             }
-            highlightedCell?.layer.backgroundColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1).cgColor
+            if(highlightedCell is CueCell) {
+                (highlightedCell as! CueCell).isHighlighted = true
+            }
+            else if (highlightedCell is TransitionCell) {
+                (highlightedCell as! TransitionCell).isHighlighted = true
+            }
         }
     }
     

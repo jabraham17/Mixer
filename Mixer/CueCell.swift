@@ -32,6 +32,19 @@ class CueCell: UICollectionViewCell {
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            if(isHighlighted) {
+                //highlight
+                self.backgroundColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+            }
+            else {
+                //unhighlight
+                self.backgroundColor = UIColor.lightText
+            }
+        }
+    }
+    
     //required inits, call setup func
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -100,6 +113,10 @@ class CueCell: UICollectionViewCell {
         
         //add views to contoller
         self.contentView.addSubviews(preAction!, cueName!, mediaName!, script!, postAction!)
+        
+        
+        //default background color
+        self.backgroundColor = UIColor.lightText
     }
     
 }

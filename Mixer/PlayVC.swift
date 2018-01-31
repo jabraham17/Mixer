@@ -64,7 +64,11 @@ class PlayVC: UIViewController {
         cueView.dataSource = delegate
         
         currentCueLabel?.text = "\(currentCue?.name ?? "")"
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         cueView?.highlightCell(at: currentCueIndex ?? 0)
+        
     }
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
