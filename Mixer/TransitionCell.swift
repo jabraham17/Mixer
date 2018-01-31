@@ -13,12 +13,15 @@ import UIKit
 //custom cell for the collection view on ShowVC
 @IBDesignable class TransitionCell: UICollectionViewCell {
     
-    @IBOutlet var transition: UILabel!
-    var containerView: UIView!
+    var transition: UILabel?
     
     var data: Transition? {
         didSet {
-            transition.text = data?.name
+            transition?.text = data?.name
+            
+            //set the font to bold after text has been set
+            let fontSize = transition?.font.pointSize
+            transition?.font = UIFont.boldSystemFont(ofSize: fontSize!)
         }
     }
     
@@ -26,27 +29,31 @@ import UIKit
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //setup the nib
-        setupNib()
+        setup(with: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
         //setup the nib
-        setupNib()
+        setup(with: frame)
     }
     //setup the nib
-    func setupNib() {
-        //get the nib as a view
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
-        containerView = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
+    func setup(with frame: CGRect) {
         
-        //set the content view so that it is the same size as the view
-        containerView.frame = bounds
+        //values to assist in creating framed for view elements
+        let dividingLine = bounds.height
+        let spacing: CGFloat = 20.0;
+        let width = bounds.width - spacing
         
-        //setup view so that if screen is resized the view stretches with it
-        containerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        //view to show preaction
+        transition = UILabel(frame: CGRect(x: spacing, y: 0, width: width, height: dividingLine))
+        //set the text to the action
+        transition?.text = "Transition"
+        //setup format of label
+        transition?.numberOfLines = 0
+        transition?.lineBreakMode = .byClipping
+        transition?.textAlignment = .left
         
-        self.addSubview(containerView)
+        self.contentView.addSubview(transition!)
     }
 
 }

@@ -14,8 +14,6 @@
 		D44382A61F5DA840005EBBF7 /* UIButtonBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */; };
 		D44382A81F65BA51005EBBF7 /* CueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382A71F65BA51005EBBF7 /* CueCell.swift */; };
 		D44382AC1F698E61005EBBF7 /* TransitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382AB1F698E60005EBBF7 /* TransitionCell.swift */; };
-		D44382AE1F69B1BC005EBBF7 /* CueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44382AD1F69B1BC005EBBF7 /* CueCell.xib */; };
-		D44382B01F6C6878005EBBF7 /* TransitionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */; };
 		D44382B41F6E0E13005EBBF7 /* CueCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44382B31F6E0E13005EBBF7 /* CueCollectionView.swift */; };
 		D450254C2000252B009A156C /* CueCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D450254B2000252B009A156C /* CueCollectionViewLayout.swift */; };
 		D450254E2002F58C009A156C /* CueEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D450254D2002F58C009A156C /* CueEditVC.swift */; };
@@ -60,8 +58,6 @@
 		D44382A51F5DA840005EBBF7 /* UIButtonBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonBorder.swift; sourceTree = "<group>"; };
 		D44382A71F65BA51005EBBF7 /* CueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCell.swift; sourceTree = "<group>"; };
 		D44382AB1F698E60005EBBF7 /* TransitionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionCell.swift; sourceTree = "<group>"; };
-		D44382AD1F69B1BC005EBBF7 /* CueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CueCell.xib; sourceTree = "<group>"; };
-		D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransitionCell.xib; sourceTree = "<group>"; };
 		D44382B31F6E0E13005EBBF7 /* CueCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueCollectionView.swift; sourceTree = "<group>"; };
 		D450254B2000252B009A156C /* CueCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueCollectionViewLayout.swift; sourceTree = "<group>"; };
 		D450254D2002F58C009A156C /* CueEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueEditVC.swift; sourceTree = "<group>"; };
@@ -145,9 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				D44382A71F65BA51005EBBF7 /* CueCell.swift */,
-				D44382AD1F69B1BC005EBBF7 /* CueCell.xib */,
 				D44382AB1F698E60005EBBF7 /* TransitionCell.swift */,
-				D44382AF1F6C6878005EBBF7 /* TransitionCell.xib */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -324,8 +318,6 @@
 			files = (
 				D4B088E21F5478B7003D2802 /* LaunchScreen.storyboard in Resources */,
 				D48F12961FA0175600D915B6 /* Strings.plist in Resources */,
-				D44382B01F6C6878005EBBF7 /* TransitionCell.xib in Resources */,
-				D44382AE1F69B1BC005EBBF7 /* CueCell.xib in Resources */,
 				D4B088DF1F5478B7003D2802 /* Assets.xcassets in Resources */,
 				D4B088DD1F5478B7003D2802 /* Main.storyboard in Resources */,
 			);

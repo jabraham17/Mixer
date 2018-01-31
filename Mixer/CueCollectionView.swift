@@ -241,7 +241,9 @@ import UIKit
     func highlightCell(atPath indexPath: IndexPath) {
         let cell = cellForItem(at: indexPath)
         highlightedCell = cell
+        log.debug("AT \(indexPath.row) CELL \(highlightedCell?.layer.backgroundColor)")
     }
+    //TODO: fix not highlghting consistently
     //the cell that is to be highlighted
     private var highlightedCell: UICollectionViewCell? {
         didSet {
@@ -249,12 +251,7 @@ import UIKit
             if oldValue != nil {
                 oldValue?.layer.backgroundColor = UIColor.clear.cgColor
             }
-            //highlightedCell?.layer.borderWidth = 2
-            //highlightedCell?.layer.borderColor = UIColor.green.cgColor
-            //reloadData()
-            highlightedCell?.layer.backgroundColor = UIColor.green.cgColor
-            //highlightedCell?.backgroundView?.backgroundColor = .green
-            log.debug("cell is higlighted")
+            highlightedCell?.layer.backgroundColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1).cgColor
         }
     }
     
