@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 //view controller for the view that displays the show when it is running
 class PlayVC: UIViewController {
@@ -30,6 +31,73 @@ class PlayVC: UIViewController {
         }
     }
     
+    //format the time as hh:ss
+    func format(_ time: TimeInterval) -> String {
+        //convert time to int
+        let totalSeconds = Int(time)
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    //returns a value 0 to 1 that displays the current time
+    func computeProgress() -> Float {
+        let currentTime = cuePlayer?.currentTime
+        let totalTime = cuePlayer?.duration
+        return Float(currentTime! / totalTime!)
+    }
+    
+    var cuePlayer: AVAudioPlayer?
+    var cueTimer: Timer?
+    
+    //load audio into the player from a cue
+    func loadAudio(from cue: Cue) {
+        let audioUrl = cue.media.mediaItem?.assetURL
+        do  {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            // TODO: error handle if no audio
+            cuePlayer = try AVAudioPlayer(contentsOf: audioUrl!)
+        }
+        catch {
+            log.warning("Failure to open url")
+        }
+    }
+    
+    //update the progress of the cue for the user
+    @objc func updateProgress() {
+        cueEndTimeLabel?.text = format((cuePlayer?.duration)!)
+        cueCurrentTimeLabel?.text = format((cuePlayer?.currentTime)!)
+        currentCueProgress?.progress = computeProgress()
+    }
+    func resetProgress() {
+        cueEndTimeLabel?.text = "00:00"
+        cueCurrentTimeLabel?.text = "00:00"
+        currentCueProgress?.progress = 0
+    }
+    
+    func playAudio() {
+        //init a timer
+        cueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+        cuePlayer?.play()
+    }
+    
+    func togglePauseAudio() {
+        //if nil not playing. duh
+        if(cuePlayer?.isPlaying ?? false)
+        {
+            cuePlayer?.pause()
+        }
+        else
+        {
+            cuePlayer?.play()
+        }
+    }
+    
+    func stopAudio() {
+        cuePlayer?.stop()
+        cueTimer?.invalidate()
+        resetProgress()
+    }
+    
     //get the lisiting of cues
     var listing: [GenericCue]?
     
@@ -37,10 +105,14 @@ class PlayVC: UIViewController {
     var currentCueIndex: Int? {
         didSet {
             //if new value wont fit
-            //TODO: if value leaves the legnth of the array, end the show
-            if currentCueIndex! >= listing!.count || currentCueIndex! < 0 {
+            //if new value goes below 0, reset to oldValue
+            if currentCueIndex! < 0 {
                 //reset to old value
                 currentCueIndex = oldValue
+            }
+            //if leave the end of the show, end show
+            if currentCueIndex! >= listing!.count {
+                endShow()
             }
             else {
                 currentCue = listing![currentCueIndex!]
@@ -50,9 +122,19 @@ class PlayVC: UIViewController {
     //the currnt cue
     private var currentCue: GenericCue? {
         didSet {
+            //stop the previous cue
+            stopAudio()
+            
             currentCueLabel?.text = "\(currentCue?.name ?? "")"
             
             cueView?.highlightCell(at: currentCueIndex ?? 0)
+            
+            //load a cue and play it
+            if(currentCue is Cue)
+            {
+                loadAudio(from: currentCue as! Cue)
+                playAudio()
+            }
         }
     }
     
@@ -64,24 +146,47 @@ class PlayVC: UIViewController {
         cueView.dataSource = delegate
         
         currentCueLabel?.text = "\(currentCue?.name ?? "")"
+        
+        //set the progress to 0
+        currentCueProgress.progress = 0;
+        
+        //setup custom action on back button
+        let backButton = UIBarButtonItem(title: "End Playback", style: .plain, target: self, action: #selector(endShow))
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.setLeftBarButton(backButton, animated: false)
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        cueView?.highlightCell(at: currentCueIndex ?? 0)
         
+        cueView?.highlightCell(at: currentCueIndex ?? 0)
     }
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
-        //FIXME: just for testing
         currentCueIndex! += 1
     }
     //action for previous button
     @IBAction func previousAction(_ sender: UIButton) {
-        //FIXME: just for testing
         currentCueIndex! -= 1
     }
     //action for pause button
     @IBAction func pauseAction(_ sender: UIButton) {
+        if(sender.titleLabel?.text == "PAUSE") {
+            sender.setTitle("RESUME", for: .normal)
+        }
+        else {
+            sender.setTitle("PAUSE", for: .normal)
+        }
+        togglePauseAudio()
     }
-    @IBOutlet var VerticalOutlets: [NSLayoutConstraint]!
+    
+    @objc func endShow() {
+        stopAudio()
+        cuePlayer = nil
+        print("MEMMES")
+        goBack()
+    }
+    func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

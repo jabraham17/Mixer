@@ -150,8 +150,8 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vui-kv-BFr">
                                 <rect key="frame" x="360" y="315" width="353" height="2"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgG-Il-2FB">
-                                <rect key="frame" x="326" y="324" width="387" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgG-Il-2FB">
+                                <rect key="frame" x="316.66666666666674" y="324" width="396.33333333333326" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -184,10 +184,7 @@
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbL-tO-7uZ">
-                                <rect key="frame" x="360" y="324" width="65" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="65" id="3fM-Ql-Sv5"/>
-                                </constraints>
+                                <rect key="frame" x="360" y="324" width="55.666666666666686" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -278,14 +275,15 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Cue #" id="07H-Xl-kdM"/>
+                    <navigationItem key="navigationItem" title="Cue #" id="07H-Xl-kdM">
+                        <barButtonItem key="backBarButtonItem" title="End Playback" style="plain" id="16g-2x-pZI"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="cueCurrentTimeLabel" destination="ZbL-tO-7uZ" id="EtH-RI-XcT"/>
                         <outlet property="cueEndTimeLabel" destination="BgG-Il-2FB" id="dfr-5Y-pKn"/>
                         <outlet property="cueView" destination="HSg-LF-erU" id="faf-2Y-rZE"/>
                         <outlet property="currentCueLabel" destination="4Y4-r7-0Vq" id="zWD-9C-p33"/>
                         <outlet property="currentCueProgress" destination="vui-kv-BFr" id="Yxe-nr-ekU"/>
-                        <outletCollection property="VerticalOutlets" destination="gZB-6M-EhY" collectionClass="NSMutableArray" id="2x6-CH-Eno"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQC-br-Aaa" userLabel="First Responder" sceneMemberID="firstResponder"/>
