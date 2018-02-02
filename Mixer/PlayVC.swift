@@ -39,34 +39,17 @@ class PlayVC: UIViewController {
         let seconds = totalSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
-    //returns a value 0 to 1 that displays the current time
-    func computeProgress() -> Float {
-        let currentTime = cuePlayer?.currentTime
-        let totalTime = cuePlayer?.duration
-        return Float(currentTime! / totalTime!)
-    }
-    
-    var cuePlayer: AVAudioPlayer?
-    var cueTimer: Timer?
-    
-    //load audio into the player from a cue
-    func loadAudio(from cue: Cue) {
-        let audioUrl = cue.media.mediaItem?.assetURL
-        do  {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            // TODO: error handle if no audio
-            cuePlayer = try AVAudioPlayer(contentsOf: audioUrl!)
-        }
-        catch {
-            log.warning("Failure to open url")
-        }
-    }
+
+    var textTimer: Timer?
     
     //update the progress of the cue for the user
     @objc func updateProgress() {
-        cueEndTimeLabel?.text = format((cuePlayer?.duration)!)
-        cueCurrentTimeLabel?.text = format((cuePlayer?.currentTime)!)
-        currentCueProgress?.progress = computeProgress()
+        if currentCue is Cue {
+            let cue = (currentCue as! Cue)
+            cueEndTimeLabel?.text = format((cue.cuePlayer?.duration)!)
+            cueCurrentTimeLabel?.text = format((cue.cuePlayer?.currentTime)!)
+            currentCueProgress?.progress = cue.computeProgress()
+        }
     }
     func resetProgress() {
         cueEndTimeLabel?.text = "00:00"
@@ -74,28 +57,21 @@ class PlayVC: UIViewController {
         currentCueProgress?.progress = 0
     }
     
-    func playAudio() {
-        //init a timer
-        cueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
-        cuePlayer?.play()
-    }
-    
     func togglePauseAudio() {
-        //if nil not playing. duh
-        if(cuePlayer?.isPlaying ?? false)
-        {
-            cuePlayer?.pause()
-        }
-        else
-        {
-            cuePlayer?.play()
+        if currentCue is Cue {
+            let cue = (currentCue as! Cue)
+            cue.pauseToggle()
         }
     }
     
     func stopAudio() {
-        cuePlayer?.stop()
-        cueTimer?.invalidate()
-        resetProgress()
+        if currentCue is Cue {
+            let cue = (currentCue as! Cue)
+            cue.stop()
+            cue.unload()
+            textTimer?.invalidate()
+            resetProgress()
+        }
     }
     
     //get the lisiting of cues
@@ -129,11 +105,23 @@ class PlayVC: UIViewController {
             
             cueView?.highlightCell(at: currentCueIndex ?? 0)
             
+            //if the previous cue was a Cue, unload it
+            if(oldValue is Cue) {
+                let cue = (oldValue as! Cue)
+                //invalidate stufff
+                textTimer?.invalidate()
+                cue.stop()
+                cue.unload()
+            }
+            
             //load a cue and play it
             if(currentCue is Cue)
             {
-                loadAudio(from: currentCue as! Cue)
-                playAudio()
+                let cue = (currentCue as! Cue)
+                //init a timer
+                textTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+                cue.load()
+                cue.play()
             }
         }
     }
@@ -182,8 +170,6 @@ class PlayVC: UIViewController {
     
     @objc func endShow() {
         stopAudio()
-        cuePlayer = nil
-        print("MEMMES")
         goBack()
     }
     func goBack() {

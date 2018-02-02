@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 //action before cue
 class PreAction: GenericAction {
@@ -35,6 +36,8 @@ class PreAction: GenericAction {
         static let allTypes = [None, FadeIn]
     }
     
+    //the time of this action
+    var time: TimeInterval
     
     //what the type is for this
     var type: ActionType
@@ -46,6 +49,7 @@ class PreAction: GenericAction {
     //init with a type
     required init(type: ActionType) {
         self.type = type
+        self.time = 5.0
     }
     
     //formatted name
@@ -58,5 +62,19 @@ class PreAction: GenericAction {
     
     class func initWith(_ string: String) -> PreAction {
         return PreAction(type: ActionType(name: string))
+    }
+    func applyAction(to player: AVAudioPlayer) {
+        if type == .None {
+            //do nothing
+            player.volume = 1.0
+        }
+        else if type == .FadeIn {
+            //start with 0 volume, go to full over a time
+            print(player.volume)
+            player.volume = 0.0;
+            print(player.volume)
+            player.setVolume(1.0, fadeDuration: time)
+            print(player.volume)
+        }
     }
 }

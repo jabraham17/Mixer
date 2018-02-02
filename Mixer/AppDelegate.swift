@@ -25,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //setup log
         let console = ConsoleDestination()
         console.useTerminalColors = false
+        //filter out certain information, like verbose, to make debbungin easier
+        //can be commented out as nessarcy
+        console.minLevel = .debug
         log.addDestination(console)
         
         return true

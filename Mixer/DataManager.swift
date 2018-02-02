@@ -46,17 +46,17 @@ class DataManager {
                 let raw = FileManager.default.contents(atPath: path)
                 //conditionally read in the data as a string
                 guard let string = String(data: raw!, encoding: .utf8) else { throw Global.ParseError.ParseError(message: "No valid data found in file at path '\(path)'") }
-                log.debug("Full text of save file: \(string)")
+                log.verbose("Full text of save file: \(string)")
                 
                 //regex to get all shows
                 let regex = "\\{(ShowName.*?\\])\\}"
                 let matchs = regex.r!.findAll(in: string)
                 for match in matchs {
                     
-                    log.debug("Match found: \(match.group(at: 1)!)")
+                    log.verbose("Match found: \(match.group(at: 1)!)")
                     //get the next show
                     let nextShow = try Show(decodeWith: match.group(at: 1)!)
-                    log.debug("Match parsed as show: \(nextShow)")
+                    log.verbose("Match parsed as show: \(nextShow)")
                     //add the show to the list
                     shows.append(nextShow)
                 }

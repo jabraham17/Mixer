@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 //action after cue
 class PostAction: GenericAction {
@@ -36,6 +37,9 @@ class PostAction: GenericAction {
         static let allTypes = [None, FadeOut]
     }
     
+    //the time of this action
+    var time: TimeInterval
+    
     //what the type is for this
     var type: ActionType
     
@@ -46,6 +50,7 @@ class PostAction: GenericAction {
     //init with a type
     required init(type: ActionType) {
         self.type = type
+        self.time = 5.0
     }
     
     //formatted name
@@ -58,5 +63,18 @@ class PostAction: GenericAction {
     
     class func initWith(_ string: String) -> PostAction {
         return PostAction(type: ActionType(name: string))
+    }
+    
+    func applyAction(to player: AVAudioPlayer) {
+        if type == .None {
+            //do nothing
+            player.volume = 1.0;
+        }
+        else if type == .FadeOut {
+            print("WE GO")
+            //start with 1 volume, go to silent over a time
+            player.volume = 1.0;
+            player.setVolume(0.0, fadeDuration: time)
+        }
     }
 }
