@@ -73,7 +73,8 @@ class PreAction: GenericAction {
             print(player.volume)
             player.volume = 0.0;
             print(player.volume)
-            player.setVolume(1.0, fadeDuration: time)
+            AudioFader.fadeIn(using: player, over: time)
+            //player.setVolume(1.0, fadeDuration: time)
             print(player.volume)
         }
     }

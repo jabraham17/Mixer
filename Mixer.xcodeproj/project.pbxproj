@@ -36,6 +36,7 @@
 		D492CF5A1FF6ECB300532CBC /* TransActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF581FF6ECB300532CBC /* TransActionField.swift */; };
 		D492CF5C1FF6F07A00532CBC /* ActionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF5B1FF6F07A00532CBC /* ActionField.swift */; };
 		D492CF611FF72CF400532CBC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492CF601FF72CF400532CBC /* DataManager.swift */; };
+		D4A1835D2024B54200EA3F49 /* AudioFader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A1835C2024B54200EA3F49 /* AudioFader.swift */; };
 		D4AC9C151FF9A9D900AB6619 /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AC9C141FF9A9D900AB6619 /* Serializable.swift */; };
 		D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D71F5478B7003D2802 /* AppDelegate.swift */; };
 		D4B088DA1F5478B7003D2802 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B088D91F5478B7003D2802 /* ShowVC.swift */; };
@@ -80,6 +81,7 @@
 		D492CF581FF6ECB300532CBC /* TransActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/TransActionField.swift; sourceTree = "<absolute>"; };
 		D492CF5B1FF6F07A00532CBC /* ActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionField.swift; sourceTree = "<group>"; };
 		D492CF601FF72CF400532CBC /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		D4A1835C2024B54200EA3F49 /* AudioFader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFader.swift; sourceTree = "<group>"; };
 		D4AC9C141FF9A9D900AB6619 /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		D4B088D41F5478B7003D2802 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B088D71F5478B7003D2802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				D44382A31F5DA7A8005EBBF7 /* Global.swift */,
 				D4B088D71F5478B7003D2802 /* AppDelegate.swift */,
 				D492CF601FF72CF400532CBC /* DataManager.swift */,
+				D4A1835C2024B54200EA3F49 /* AudioFader.swift */,
 				D4B088DB1F5478B7003D2802 /* Main.storyboard */,
 				D44382B51F6E0E63005EBBF7 /* ViewControllers */,
 				D44382B61F6E0E81005EBBF7 /* CustomCells */,
@@ -406,6 +409,7 @@
 				D4B088D81F5478B7003D2802 /* AppDelegate.swift in Sources */,
 				D4CA20001FAEC9E7005DC0C0 /* AnyAction.swift in Sources */,
 				D4B979161F9F85D600729E43 /* CueAddVC.swift in Sources */,
+				D4A1835D2024B54200EA3F49 /* AudioFader.swift in Sources */,
 				D45BF8B61F7BF50900DB41AD /* Transition.swift in Sources */,
 				D4B2064B1F55B8FC00D92E9F /* PlayVC.swift in Sources */,
 				D45BF8C31F7C0B0D00DB41AD /* MenuVC.swift in Sources */,

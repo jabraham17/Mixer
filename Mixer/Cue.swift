@@ -84,9 +84,9 @@ class Cue: GenericCue {
         cuePlayer?.play()
         //cuePlayer?.volume = 0.1
         print(cuePlayer?.volume)
-        cuePlayer?.setVolume(1, fadeDuration: 10)
-        print(cuePlayer?.volume)
-        //preAction.applyAction(to: cuePlayer!)
+        //cuePlayer?.setVolume(1, fadeDuration: 10)
+        //print(cuePlayer?.volume)
+        preAction.applyAction(to: cuePlayer!)
         postActionPlaying = false
         //init a timer
         cueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
