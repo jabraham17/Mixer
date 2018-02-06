@@ -82,10 +82,6 @@ class Cue: GenericCue {
         cuePlayer?.numberOfLoops = 0
         cuePlayer?.prepareToPlay()
         cuePlayer?.play()
-        //cuePlayer?.volume = 0.1
-        print(cuePlayer?.volume)
-        //cuePlayer?.setVolume(1, fadeDuration: 10)
-        //print(cuePlayer?.volume)
         preAction.applyAction(to: cuePlayer!)
         postActionPlaying = false
         //init a timer
@@ -95,7 +91,6 @@ class Cue: GenericCue {
     var postActionPlaying: Bool?
     //as cue plays, apply changes as nessacry such as actions
     @objc func update() {
-        print(cuePlayer?.volume)
         //check if it is time to play stop action
         if ((cuePlayer?.duration)! - postAction.time) <= (cuePlayer?.currentTime)! && !postActionPlaying! {
             postActionPlaying = true

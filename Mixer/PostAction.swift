@@ -68,13 +68,10 @@ class PostAction: GenericAction {
     func applyAction(to player: AVAudioPlayer) {
         if type == .None {
             //do nothing
-            player.volume = 1.0;
+            player.volume = 1.0
         }
         else if type == .FadeOut {
-            print("WE GO")
-            //start with 1 volume, go to silent over a time
-            player.volume = 1.0;
-            player.setVolume(0.0, fadeDuration: time)
+            AudioFader.fadeOut(using: player, over: time)
         }
     }
 }

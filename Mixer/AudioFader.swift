@@ -21,11 +21,20 @@ class AudioFader {
     
     //fade an audioplayer in async
     class func fadeIn(using player: AVAudioPlayer, over time: TimeInterval, from startVol: Double = 0.0, to endVol: Double = 1.0) {
+        fade(using: player, over: time, from: startVol, to: endVol)
+    }
+    //fade an audioplayer in async
+    class func fadeOut(using player: AVAudioPlayer, over time: TimeInterval, from startVol: Double = 1.0, to endVol: Double = 0.0) {
+        fade(using: player, over: time, from: startVol, to: endVol)
+    }
+    //fade an audioplayer in async
+    class func fade(using player: AVAudioPlayer, over time: TimeInterval, from startVol: Double, to endVol: Double) {
         
         //number of steps it will take
         let numOfSteps = time * Double(iterationsPerSecond)
+        let sizeOfChange = endVol - startVol
         //how much volume changes per step
-        let sizeOfStep = endVol / numOfSteps
+        let sizeOfStep = (sizeOfChange / numOfSteps)
         
         //set the start volume
         player.volume = Float(startVol)
@@ -33,19 +42,28 @@ class AudioFader {
         var timesRun: Int = 0
         resuseTimer = Timer.scheduledTimer(withTimeInterval: timePerIteration, repeats: true, block: { (self) in
             
-            //incrment the volume
-            var currentVolume = player.volume
-            currentVolume += Float(sizeOfStep)
-            player.volume = currentVolume
+            if !paused {
+                //incrment the volume
+                var currentVolume = player.volume
+                currentVolume += Float(sizeOfStep)
+                player.volume = currentVolume
             
-            //incrmeent the countr
-            timesRun += 1
-            //if done, invalidate timer
-            if timesRun >= Int(numOfSteps) {
-                resuseTimer.invalidate()
+                //incrmeent the countr
+                timesRun += 1
+                //if done, invalidate timer and set to end vol
+                if timesRun >= Int(numOfSteps) {
+                    player.volume = Float(endVol)
+                    resuseTimer.invalidate()
+                }
             }
         })
-        
-        
+    }
+    class func cleanup() {
+        resuseTimer.invalidate()
+        paused = false
+    }
+    static var paused: Bool = false
+    class func toggle() {
+        paused = !paused
     }
 }

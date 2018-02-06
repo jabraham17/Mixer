@@ -69,13 +69,7 @@ class PreAction: GenericAction {
             player.volume = 1.0
         }
         else if type == .FadeIn {
-            //start with 0 volume, go to full over a time
-            print(player.volume)
-            player.volume = 0.0;
-            print(player.volume)
             AudioFader.fadeIn(using: player, over: time)
-            //player.setVolume(1.0, fadeDuration: time)
-            print(player.volume)
         }
     }
 }

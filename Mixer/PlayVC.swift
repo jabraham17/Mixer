@@ -61,10 +61,13 @@ class PlayVC: UIViewController {
         if currentCue is Cue {
             let cue = (currentCue as! Cue)
             cue.pauseToggle()
+            AudioFader.toggle()
         }
     }
     
     func stopAudio() {
+        //cleanup old fader
+        AudioFader.cleanup()
         if currentCue is Cue {
             let cue = (currentCue as! Cue)
             cue.stop()
