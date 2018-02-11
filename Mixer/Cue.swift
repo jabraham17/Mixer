@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 //data structure for cue
-class Cue: GenericCue {
+class Cue: GenericCue, AVAudioPlayerDelegate {
     
     //entries
     var media: Media
@@ -63,7 +63,6 @@ class Cue: GenericCue {
     }
     
     //add audio playing to the code
-    
     var cuePlayer: AVAudioPlayer?
     var cueTimer: Timer?
     func load() {
@@ -72,6 +71,10 @@ class Cue: GenericCue {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             // TODO: error handle if no audio
             cuePlayer = try AVAudioPlayer(contentsOf: audioUrl!)
+            //just started playing
+            isDonePlaying = false
+            //set the delagte
+            cuePlayer?.delegate = self
         }
         catch {
             log.warning("Failure to open url")
@@ -87,7 +90,6 @@ class Cue: GenericCue {
         //init a timer
         cueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
-    //TODO: song cue plays into next cue
     var postActionPlaying: Bool?
     //as cue plays, apply changes as nessacry such as actions
     @objc func update() {
@@ -97,6 +99,12 @@ class Cue: GenericCue {
             postAction.applyAction(to: cuePlayer!)
         }
     }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        isDonePlaying = true
+    }
+    //returns true when the cue is done playing
+    var isDonePlaying = false
+    
     func pauseToggle() {
         if(cuePlayer?.isPlaying ?? false)
         {
@@ -114,6 +122,7 @@ class Cue: GenericCue {
     func unload() {
         cuePlayer = nil
         cueTimer = nil
+        isDonePlaying = false
     }
     //returns a value 0 to 1 that displays the current time
     func computeProgress() -> Float {

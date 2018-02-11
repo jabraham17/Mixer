@@ -75,7 +75,7 @@ import UIKit
         press.minimumPressDuration = 0.2
         addGestureRecognizer(press)
         
-        //TODO: single tap to edit
+        //single tap to edit
         tap = UITapGestureRecognizer.init(target: self, action: #selector(tap(_:)))
         addGestureRecognizer(tap)
         

@@ -46,9 +46,15 @@ class PlayVC: UIViewController {
     @objc func updateProgress() {
         if currentCue is Cue {
             let cue = (currentCue as! Cue)
-            cueEndTimeLabel?.text = format((cue.cuePlayer?.duration)!)
-            cueCurrentTimeLabel?.text = format((cue.cuePlayer?.currentTime)!)
-            currentCueProgress?.progress = cue.computeProgress()
+            if cue.isDonePlaying {
+                resetProgress()
+                currentCueIndex! += 1
+            }
+            else {
+                cueEndTimeLabel?.text = format((cue.cuePlayer?.duration)!)
+                cueCurrentTimeLabel?.text = format((cue.cuePlayer?.currentTime)!)
+                currentCueProgress?.progress = cue.computeProgress()
+            }
         }
     }
     func resetProgress() {
@@ -154,10 +160,12 @@ class PlayVC: UIViewController {
     }
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
+        resetProgress()
         currentCueIndex! += 1
     }
     //action for previous button
     @IBAction func previousAction(_ sender: UIButton) {
+        resetProgress()
         currentCueIndex! -= 1
     }
     //action for pause button

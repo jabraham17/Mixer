@@ -10,14 +10,14 @@ import Foundation
 import Regex
 
 //abstract class for cues
-class GenericCue: Serializable, CustomStringConvertible {    
+class GenericCue: NSObject, Serializable {
     
     //entries
     var name: String
     var script: String
     
     //default init
-    init() {
+    override init() {
         self.name = ""
         self.script = ""
     }
@@ -44,7 +44,7 @@ class GenericCue: Serializable, CustomStringConvertible {
         name = match!.group(at: 1)!
         script = match!.group(at: 2)!
     }
-    var description: String {
+    override var description: String {
         return "Generic Cue named '\(name)' with a script location at '\(script)'"
     }
 }
