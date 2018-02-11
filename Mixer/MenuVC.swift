@@ -25,6 +25,10 @@ class MenuVC: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //sort shows by last run date
+        DataManager.instance.shows.sort(by: { (s1, s2) in
+            return s1.dateLastEdit > s2.dateLastEdit
+        })
         //reload the data
         tableView.reloadData()
     }
