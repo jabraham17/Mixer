@@ -162,6 +162,8 @@ class ShowVC: UIViewController {
     }
     //action for the play button
     @IBAction func playAction(_ sender: UIButton) {
+        //signal show to run
+        DataManager.instance.shows[delegate.index!].run()
         //go to the play view
         self.performSegue(withIdentifier: "ShowToPlaySegue", sender: nil)
     }

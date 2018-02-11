@@ -25,10 +25,14 @@ class Show: Serializable, CustomStringConvertible {
             self.dateLastEdit = Date()
         }
     }
-    //TODO: update last run when show is run
     let dateCreated: Date
     var dateLastRun: Date?
     var dateLastEdit: Date
+    
+    //when the show runs, call this s that last run uodates
+    func run() {
+        dateLastRun = Date()
+    }
     
     //default init
     init() {
