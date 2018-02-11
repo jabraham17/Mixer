@@ -38,7 +38,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHD-xL-GOj">
-                                <rect key="frame" x="338" y="314" width="60" height="80"/>
+                                <rect key="frame" x="328" y="314" width="80" height="80"/>
                                 <state key="normal" image="StartIcon"/>
                                 <connections>
                                     <action selector="playAction:" destination="NnX-KJ-GTY" eventType="touchUpInside" id="Au2-z1-G9C"/>
@@ -50,14 +50,14 @@
                             <constraint firstItem="1oZ-8I-o2q" firstAttribute="top" secondItem="fjG-0I-RjX" secondAttribute="top" id="IMU-kD-b05"/>
                             <constraint firstItem="1oZ-8I-o2q" firstAttribute="centerX" secondItem="SHD-xL-GOj" secondAttribute="centerX" id="O0B-KM-8hD"/>
                             <constraint firstItem="SHD-xL-GOj" firstAttribute="leading" secondItem="fjG-0I-RjX" secondAttribute="leadingMargin" constant="137" id="PPh-H2-iSj">
-                                <variation key="heightClass=compact-widthClass=regular" constant="318"/>
+                                <variation key="heightClass=compact-widthClass=regular" constant="308"/>
                             </constraint>
                             <constraint firstItem="1oZ-8I-o2q" firstAttribute="leading" secondItem="fjG-0I-RjX" secondAttribute="leading" id="XZe-Hh-7az"/>
                             <constraint firstItem="LVF-KG-RyJ" firstAttribute="top" secondItem="SHD-xL-GOj" secondAttribute="bottom" constant="20" id="ZSh-hE-L2y">
                                 <variation key="heightClass=compact-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="SHD-xL-GOj" secondAttribute="trailing" constant="137" id="ixq-Mb-Zr9">
-                                <variation key="heightClass=compact-widthClass=regular" constant="318"/>
+                                <variation key="heightClass=compact-widthClass=regular" constant="308"/>
                             </constraint>
                             <constraint firstItem="1oZ-8I-o2q" firstAttribute="bottom" secondItem="LVF-KG-RyJ" secondAttribute="top" id="nr8-dc-xkP"/>
                             <constraint firstItem="SHD-xL-GOj" firstAttribute="top" secondItem="fc3-rf-rMh" secondAttribute="bottom" constant="552" id="s9G-Ce-VVH">
@@ -111,9 +111,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Nk-0Y-lXo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1046.376811594203" y="635.86956521739137"/>
+            <point key="canvasLocation" x="1045.9239130434783" y="634.78260869565224"/>
         </scene>
-        <!--Cue #-->
+        <!--Show Title-->
         <scene sceneID="UBi-d6-RJY">
             <objects>
                 <viewController id="X8D-f3-Mh2" customClass="PlayVC" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
@@ -275,7 +275,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Cue #" id="07H-Xl-kdM">
+                    <navigationItem key="navigationItem" title="Show Title" id="07H-Xl-kdM">
                         <barButtonItem key="backBarButtonItem" title="End Playback" style="plain" id="16g-2x-pZI"/>
                     </navigationItem>
                     <connections>

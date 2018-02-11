@@ -147,6 +147,9 @@ class PlayVC: UIViewController {
         //set the progress to 0
         currentCueProgress.progress = 0;
         
+        //set title of page
+        self.navigationItem.title = DataManager.instance.shows[delegate!.index!].name
+        
         //setup custom action on back button
         let backButton = UIBarButtonItem(title: "End Playback", style: .plain, target: self, action: #selector(endShow))
         self.navigationItem.hidesBackButton = true
