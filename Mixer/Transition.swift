@@ -51,4 +51,12 @@ class Transition: GenericCue {
     override var description: String {
         return "\(super.description.replacingOccurrences(of: "Generic", with: "Transition")), with a Transition of '\(transition.getFormattedName())'"
     }
+    
+    var currentTime: TimeInterval = 0
+    
+    //returns a value 0 to 1 that displays the current time
+    func computeProgress() -> Float {
+        let totalTime = transition.time
+        return Float(currentTime / totalTime)
+    }
 }

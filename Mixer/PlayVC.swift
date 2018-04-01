@@ -56,6 +56,28 @@ class PlayVC: UIViewController {
                 currentCueProgress?.progress = cue.computeProgress()
             }
         }
+        else if currentCue is Transition {
+            let trans = currentCue as! Transition
+            if trans.transition.type == .Pause {
+                cueEndTimeLabel?.text = "Pause"
+                cueCurrentTimeLabel?.text = "Pause"
+                currentCueProgress?.progress = 0
+            }
+            else if trans.transition.type == .Wait {
+                print(trans.currentTime)
+                if trans.currentTime >= trans.transition.time {
+                    trans.currentTime = 0.0
+                    resetProgress()
+                    currentCueIndex! += 1
+                }
+                else {
+                    cueEndTimeLabel?.text = format(trans.transition.time)
+                    cueCurrentTimeLabel?.text = format(trans.currentTime)
+                    currentCueProgress?.progress = trans.computeProgress()
+                    trans.currentTime += 1.0
+                }
+            }
+        }
     }
     func resetProgress() {
         cueEndTimeLabel?.text = "00:00"
@@ -119,8 +141,15 @@ class PlayVC: UIViewController {
                 let cue = (oldValue as! Cue)
                 //invalidate stufff
                 textTimer?.invalidate()
+                resetProgress()
                 cue.stop()
                 cue.unload()
+            }
+            else if oldValue is Transition {
+                let trans = (oldValue as! Transition)
+                textTimer?.invalidate()
+                resetProgress()
+                trans.currentTime = 0
             }
             
             //load a cue and play it
@@ -131,6 +160,10 @@ class PlayVC: UIViewController {
                 textTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
                 cue.load()
                 cue.play()
+            }
+            else if(currentCue is Transition){
+                //init a timer
+                textTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
             }
         }
     }
@@ -163,16 +196,22 @@ class PlayVC: UIViewController {
     }
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
+        textTimer?.invalidate()
         resetProgress()
         currentCueIndex! += 1
     }
     //action for previous button
     @IBAction func previousAction(_ sender: UIButton) {
+        textTimer?.invalidate()
         resetProgress()
         currentCueIndex! -= 1
     }
     //action for pause button
     @IBAction func pauseAction(_ sender: UIButton) {
+        if currentCue is Transition {
+            //skip if transitoon, cant pause them
+            return
+        }
         if(sender.titleLabel?.text == "PAUSE") {
             sender.setTitle("RESUME", for: .normal)
         }
@@ -183,6 +222,8 @@ class PlayVC: UIViewController {
     }
     
     @objc func endShow() {
+        textTimer?.invalidate()
+        resetProgress()
         stopAudio()
         goBack()
     }

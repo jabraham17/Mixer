@@ -24,10 +24,10 @@ class TransActionField: ActionField {
         super.init(frame: frame)
         
         //action
-        action = TransitionAction(type: .None)
+        action = TransitionAction(type: .Wait)
         
-        //set the placeholder
-        placeholder = "Transition Action: None"
+        //set the text
+        text = "Transition Action: \(action!.getFormattedName())"
         
         //blank data
         data = action?.getTypes().map({
