@@ -229,6 +229,12 @@ class CueAddVC: UIViewController {
             //if no media has been selected, fail
             if(cueMedia?.media == nil)
             {
+                //create an alert with inited info
+                let alert = UIAlertController(title: "Oh no!", message: "It looks like you are trying to make a Cue with no media", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             
