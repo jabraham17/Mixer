@@ -69,7 +69,6 @@ class Cue: GenericCue, AVAudioPlayerDelegate {
         let audioUrl = media.mediaItem?.assetURL
         do  {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            // TODO: error handle if no audio
             cuePlayer = try AVAudioPlayer(contentsOf: audioUrl!)
             //just started playing
             isDonePlaying = false

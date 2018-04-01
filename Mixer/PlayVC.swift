@@ -64,7 +64,6 @@ class PlayVC: UIViewController {
                 currentCueProgress?.progress = 0
             }
             else if trans.transition.type == .Wait {
-                print(trans.currentTime)
                 if trans.currentTime >= trans.transition.time {
                     trans.currentTime = 0.0
                     resetProgress()

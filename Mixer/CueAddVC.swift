@@ -226,6 +226,12 @@ class CueAddVC: UIViewController {
         //if in cue mode, get cue info
         if(mode == .Cue)
         {
+            //if no media has been selected, fail
+            if(cueMedia?.media == nil)
+            {
+                return
+            }
+            
             //get the data
             let name = cueName?.text
             let script = cueScript?.text

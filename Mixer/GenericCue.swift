@@ -19,13 +19,18 @@ class GenericCue: NSObject, Serializable {
     //default init
     override init() {
         self.name = ""
-        self.script = ""
+        self.script = "No Script"
     }
     
     //init
     init(name: String, script: String) {
         self.name = name
-        self.script = script
+        if script == "" {
+            self.script = "No Script"
+        }
+        else {
+            self.script = script
+        }
     }
     
     func encode() -> String {

@@ -19,7 +19,6 @@ class CueCell: UICollectionViewCell {
     
     var data: Cue? {
         didSet {
-            //TODO: make it show text when displaying with no script or no media
             preAction?.text = data?.preAction.getFormattedName()
             cueName?.text = data?.name
             mediaName?.text = "\(data?.media.getFormattedName() ?? "No Media")"
