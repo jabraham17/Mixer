@@ -13,7 +13,7 @@ import UIKit
     var presentingVC: UIViewController?
     
     //the layout to use when in the vertical view
-    final var verticalLayout: CueCollectionViewLayout {
+    var verticalLayout: CueCollectionViewLayout {
         //create layout that fills the view
         let layout = CueCollectionViewLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -27,15 +27,15 @@ import UIKit
         return layout
     }
     //height for cue cell in vertical mode
-    final var verticalCueHeight: CGFloat {
-        return Global.screenHeight / 6
+    var verticalCueHeight: CGFloat {
+        return UIScreen.main.bounds.height / 7
     }
     //height for transition cell in vertical mode
-    final var verticalTransitionHeight: CGFloat {
-        return Global.screenHeight / 16
+    var verticalTransitionHeight: CGFloat {
+        return UIScreen.main.bounds.height / 11
     }
     //the layout to use when in the horizontal view
-    final var horizontalLayout: CueCollectionViewLayout {
+    var horizontalLayout: CueCollectionViewLayout {
         //create layout that fills the view
         let layout = CueCollectionViewLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -49,12 +49,12 @@ import UIKit
         return layout
     }
     //height for cue cell in horizontal mode
-    final var horizontalCueHeight: CGFloat {
-        return Global.screenHeight / 4
+    var horizontalCueHeight: CGFloat {
+        return UIScreen.main.bounds.height / 4
     }
     //height for transition cell in horizontal mode
-    final var horizontalTransitionHeight: CGFloat {
-        return Global.screenHeight / 10
+    var horizontalTransitionHeight: CGFloat {
+        return UIScreen.main.bounds.height / 6
     }
     
     
@@ -65,8 +65,6 @@ import UIKit
         //register cells
         register(CueCell.self, forCellWithReuseIdentifier: "cueCell")
         register(TransitionCell.self, forCellWithReuseIdentifier: "transitionCell")
-        
-        //TODO: setup divider line
         
         
         //setup taps for reordering
@@ -240,6 +238,7 @@ import UIKit
     //highlight cell at indexPath
     func highlightCell(atPath indexPath: IndexPath) {
         let cell = cellForItem(at: indexPath)
+        (delegate as! CueCollectionViewDelegate).highlightedCellIndex = indexPath
         highlightedCell = cell
     }
     //the cell that is to be highlighted
@@ -269,15 +268,29 @@ import UIKit
         //orientaion
         let orientation = UIDevice.current.orientation
         //if vertical
-        if UIDeviceOrientationIsPortrait(orientation) {
+        if orientation.isPortrait {
+            Global.previousOrientation = orientation
             //set the layot to be the vertucal layout
             collectionViewLayout = verticalLayout
         }
             //if horizonatl
-        else if UIDeviceOrientationIsLandscape(orientation) {
+        else if orientation.isLandscape {
+            Global.previousOrientation = orientation
             //set the layot to be the horizontal layout
             collectionViewLayout = horizontalLayout
         }
+        else {
+            //if its flat, use the previous setting
+            //if no previous setting, force one
+            if Global.previousOrientation == nil {
+                let value = UIDeviceOrientation.portrait.rawValue
+                UIDevice.current.setValue(value, forKey: "orientation")
+            }
+            else {
+                UIDevice.current.setValue(Global.previousOrientation?.rawValue, forKey: "orientation")
+            }
+        }
+        
     }
     
 }

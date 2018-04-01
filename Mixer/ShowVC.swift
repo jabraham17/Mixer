@@ -176,6 +176,12 @@ class ShowVC: UIViewController {
         }
         return DataManager.instance.shows[delegate.index!]
     }
+    
+    //refresh layout
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.cueView.collectionViewLayout.invalidateLayout()
+    }
 }
 
 //Menu Delegate

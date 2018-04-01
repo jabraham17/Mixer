@@ -28,19 +28,25 @@ class CueCell: UICollectionViewCell {
             //set the font to bold after text has been set
             let fontSize = cueName?.font.pointSize
             cueName?.font = UIFont.boldSystemFont(ofSize: fontSize!)
+            
+            recolor()
         }
     }
     
     override var isHighlighted: Bool {
         didSet {
-            if(isHighlighted) {
-                //highlight
-                self.backgroundColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
-            }
-            else {
-                //unhighlight
-                self.backgroundColor = UIColor.lightText
-            }
+            recolor()
+        }
+    }
+    
+    func recolor() {
+        if(isHighlighted) {
+            //highlight
+            self.backgroundColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+        }
+        else {
+            //unhighlight
+            self.backgroundColor = UIColor.gray
         }
     }
     
@@ -108,14 +114,11 @@ class CueCell: UICollectionViewCell {
         postAction?.lineBreakMode = .byClipping
         postAction?.textAlignment = .left
         
-        
-        
         //add views to contoller
         self.contentView.addSubviews(preAction!, cueName!, mediaName!, script!, postAction!)
         
-        
-        //default background color
-        self.backgroundColor = UIColor.lightText
+        //set color
+        recolor()
     }
     
 }

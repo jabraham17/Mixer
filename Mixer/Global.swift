@@ -42,4 +42,6 @@ class Global {
     enum ParseError: Error {
         case ParseError(message: String)
     }
+    
+    static var previousOrientation: UIDeviceOrientation?
 }

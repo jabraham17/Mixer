@@ -229,4 +229,10 @@ class PlayVC: UIViewController {
     func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    //refresh layout
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.cueView.collectionViewLayout.invalidateLayout()
+    }
 }

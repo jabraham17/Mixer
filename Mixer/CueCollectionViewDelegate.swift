@@ -23,6 +23,20 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         index = nil
     }
     
+    var highlightedCellIndex: IndexPath?
+    
+    //when a cell is about to be displayed
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if(indexPath == highlightedCellIndex) {
+            if cell is CueCell {
+                (cell as! CueCell).isHighlighted = true
+            }
+            else if cell is TransitionCell {
+                (cell as! TransitionCell).isHighlighted = true
+            }
+        }
+    }
+    
     //number of cues to display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(index == nil) {
@@ -35,9 +49,6 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
     //define the cell at the index
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        //the cell to be returned
-        var cell: UICollectionViewCell
-        
         //get the data
         let cueData = DataManager.instance.shows[index!].listing[indexPath.row]
         
@@ -49,7 +60,7 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
             transCell.data = cueData as? Transition
             
             //change return value
-            cell = transCell
+            return transCell
         }
         else if cueData is Cue {
             //get the cell
@@ -58,19 +69,13 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
             cueCell.data = cueData as? Cue
             
             //change return value
-            cell = cueCell
-        }
-        else {
-            //dont do anything
-            cell = UICollectionViewCell()
+            return cueCell
         }
         
-        return cell
+        return UICollectionViewCell()
     }
     //size for the cell at index
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        
         
         //get the data
         let cueData = DataManager.instance.shows[index!].listing[indexPath.row]
@@ -79,7 +84,7 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
         //first the orietnation must be determined
         let orientation = UIDevice.current.orientation
         //if vertical
-        if UIDeviceOrientationIsPortrait(orientation) {
+        if orientation.isPortrait {
             //if the index is a transition cell, change the size to vertical transuton size, otherwise do nothng
             if isTrans {
                 return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).verticalTransitionHeight)
@@ -91,7 +96,7 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
             
         }
             //if horizonatl
-        else if UIDeviceOrientationIsLandscape(orientation) {
+        else if orientation.isLandscape {
             //if the index is a transition cell, change the size to horizonatl transuton size, otherwise do nothng
             if isTrans {
                 return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).horizontalTransitionHeight)
@@ -101,9 +106,16 @@ class CueCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, U
                 return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).horizontalCueHeight)
             }
         }
-        
-        //if no match is found, then the defualt size is used
-        return CGSize()
+        else {
+            //if the index is a transition cell, change the size to vertical transuton size, otherwise do nothng
+            if isTrans {
+                return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).verticalTransitionHeight)
+            }
+                //otherwise return the vertical cue size
+            else {
+                return CGSize(width: collectionView.frame.width, height: (collectionView as! CueCollectionView).verticalCueHeight)
+            }
+        }
     }
     
     var isEditing: Bool = false
