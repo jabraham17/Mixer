@@ -41,7 +41,7 @@ import UIKit
         }
         else {
             //unhighlight
-            self.backgroundColor = UIColor.lightGray
+            self.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 0.6)
         }
     }
     
