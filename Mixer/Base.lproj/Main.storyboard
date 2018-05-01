@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i99-jT-hK8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i99-jT-hK8">
     <device id="retina5_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -38,7 +38,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHD-xL-GOj">
-                                <rect key="frame" x="328" y="314" width="80" height="80"/>
+                                <rect key="frame" x="328" y="326" width="80" height="68"/>
                                 <state key="normal" image="StartIcon"/>
                                 <connections>
                                     <action selector="playAction:" destination="NnX-KJ-GTY" eventType="touchUpInside" id="Au2-z1-G9C"/>
@@ -72,7 +72,7 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="1Vo-ho-ydc" customClass="CustomUINavigationTitle" customModule="Mixer" customModuleProvider="target">
-                            <rect key="frame" x="268" y="5.6666666666666679" width="200" height="21"/>
+                            <rect key="frame" x="268" y="11.666666666666664" width="200" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfu-PG-qgH">
@@ -105,6 +105,7 @@
                     <connections>
                         <outlet property="addButton" destination="eEs-3M-bZW" id="90Q-1D-Tqa"/>
                         <outlet property="cueView" destination="1oZ-8I-o2q" id="L2o-lb-YGw"/>
+                        <outlet property="hamMenu" destination="JfN-1n-HWa" id="WCc-eH-NbD"/>
                         <outlet property="playButton" destination="SHD-xL-GOj" id="nmE-CA-qe8"/>
                         <segue destination="X8D-f3-Mh2" kind="show" identifier="ShowToPlaySegue" animates="NO" id="Vqu-7F-HK8"/>
                     </connections>
@@ -126,7 +127,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzE-Lb-dAC" customClass="UIButtonBorder" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="341" y="40" width="388" height="224"/>
+                                <rect key="frame" x="341" y="52" width="388" height="212"/>
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="89"/>
                                 <state key="normal" title="GO">
@@ -173,7 +174,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HSg-LF-erU" customClass="CueCollectionView" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="32" width="333" height="374"/>
+                                <rect key="frame" x="0.0" y="44" width="333" height="374"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="0.0" id="p7r-3d-sVE">
                                     <size key="itemSize" width="414" height="130"/>
@@ -340,7 +341,7 @@
             <objects>
                 <navigationController storyboardIdentifier="HamburgerMenuNaviagtionController" id="cCG-6p-mvG" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y1u-eY-QfQ">
-                        <rect key="frame" x="0.0" y="0.0" width="736" height="32"/>
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
@@ -360,7 +361,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i99-jT-hK8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nJS-U2-XOx">
-                        <rect key="frame" x="0.0" y="0.0" width="736" height="32"/>
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

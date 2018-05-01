@@ -314,12 +314,14 @@ extension CueCollectionView: CueEditDelegate {
         let cueDelegate = (delegate as! CueCollectionViewDelegate)
         //update cue at index and reload
         DataManager.instance.shows[cueDelegate.index!].listing[cueIndex] = cue
+        DataManager.instance.save()
         reloadData()
     }
     func delete(cueIndex: Int) {
         //get the delegae
         let cueDelegate = (delegate as! CueCollectionViewDelegate)
         DataManager.instance.shows[cueDelegate.index!].listing.remove(at: cueIndex)
+        DataManager.instance.save()
         reloadData()
     }
 }
@@ -331,12 +333,14 @@ extension CueCollectionView: TransitionEditDelegate {
         let cueDelegate = (delegate as! CueCollectionViewDelegate)
         //update cue at index and reload
         DataManager.instance.shows[cueDelegate.index!].listing[transIndex] = trans
+        DataManager.instance.save()
         reloadData()
     }
     func delete(transIndex: Int) {
         //get the delegae
         let cueDelegate = (delegate as! CueCollectionViewDelegate)
         DataManager.instance.shows[cueDelegate.index!].listing.remove(at: transIndex)
+        DataManager.instance.save()
         reloadData()
     }
 }

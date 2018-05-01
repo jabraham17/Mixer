@@ -18,6 +18,8 @@ class ShowVC: UIViewController {
     @IBOutlet var addButton: UIBarButtonItem!
     //refrence to play button, used to add pulse
     @IBOutlet var playButton: UIButton!
+    //refrence to hamburger button, used to control avaiblility
+    @IBOutlet var hamMenu: UIBarButtonItem!
     
     //wether the show is being edited or not
     var editingMode: Bool = false {
@@ -149,11 +151,15 @@ class ShowVC: UIViewController {
         if(title == "Edit") {
             sender.title = "Done"
             editingMode = true
+            playButton.isEnabled = false
+            hamMenu.isEnabled = false
             addButton.show()
         }
         else if(title == "Done") {
             sender.title = "Edit"
             editingMode = false
+            playButton.isEnabled = true
+            hamMenu.isEnabled = true
             addButton.hide()
             
             //save data
@@ -162,6 +168,8 @@ class ShowVC: UIViewController {
     }
     //action for the play button
     @IBAction func playAction(_ sender: UIButton) {
+        //save all changes
+        DataManager.instance.save()
         //signal show to run
         DataManager.instance.shows[delegate.index!].run()
         //go to the play view
@@ -237,12 +245,13 @@ extension ShowVC: CustomUINavigationTitleDelegate {
 extension ShowVC: CueAddDelegate {
     //recieve the show from the CueAdd
     func closed(cue: GenericCue) {
-       DataManager.instance.shows[delegate.index!].add(cue: cue)
-        
+        DataManager.instance.shows[delegate.index!].add(cue: cue)
+        DataManager.instance.save()
         //refresh
         cueView.reloadData()
     }
 }
+
 
 //ShowInfoDelegate
 extension ShowVC: ShowInfoDelegate {
@@ -250,7 +259,7 @@ extension ShowVC: ShowInfoDelegate {
     func closed() {
         //refresh
         cueView.reloadData()
-        
+        DataManager.instance.save()
         //set title of screen to show
         (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
     }

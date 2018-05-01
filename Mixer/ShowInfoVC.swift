@@ -145,6 +145,7 @@ class ShowInfoVC: UIViewController {
         let newTitle = titleEdit?.text
         //reset the show
         DataManager.instance.shows[index!].name = newTitle!
+        DataManager.instance.save()
         
         //dismiss the view
         self.dismiss(animated: true, completion: {
