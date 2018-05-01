@@ -77,8 +77,8 @@
 		D46ED1421F83EC5300F7D728 /* CustomUINavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUINavigationTitle.swift; sourceTree = "<group>"; };
 		D48F12951FA0175600D915B6 /* Strings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
 		D48F12971FA25A1300D915B6 /* MediaField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaField.swift; sourceTree = "<group>"; };
-		D492CF571FF6ECB300532CBC /* PostActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/PostActionField.swift; sourceTree = "<absolute>"; };
-		D492CF581FF6ECB300532CBC /* TransActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransActionField.swift; path = /Users/s18400508/Documents/MobileAppsAbraham/Mixer/Mixer/TransActionField.swift; sourceTree = "<absolute>"; };
+		D492CF571FF6ECB300532CBC /* PostActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionField.swift; sourceTree = "<group>"; };
+		D492CF581FF6ECB300532CBC /* TransActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransActionField.swift; sourceTree = "<group>"; };
 		D492CF5B1FF6F07A00532CBC /* ActionField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionField.swift; sourceTree = "<group>"; };
 		D492CF601FF72CF400532CBC /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D4A1835C2024B54200EA3F49 /* AudioFader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFader.swift; sourceTree = "<group>"; };

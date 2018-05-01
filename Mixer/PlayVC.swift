@@ -196,6 +196,10 @@ class PlayVC: UIViewController {
     //action for go button
     @IBAction func goAction(_ sender: UIButton) {
         textTimer?.invalidate()
+        //reset pause button so it doesnt get screwed up
+        if(sender.titleLabel?.text == "RESUME") {
+            sender.setTitle("PAUSE", for: .normal)
+        }
         resetProgress()
         currentCueIndex! += 1
     }
