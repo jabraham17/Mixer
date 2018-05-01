@@ -9,6 +9,7 @@
 import Foundation
 import Regex
 
+//FEAT: make each show a seperate file with a plist containg all the files
 //data management class, singleton
 class DataManager {
     
