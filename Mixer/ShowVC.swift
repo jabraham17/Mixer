@@ -58,7 +58,6 @@ class ShowVC: UIViewController {
         //add pulse to layer of button
         playButton.layer.add(pulseAnimation, forKey: nil)
         
-        
         checkNoShow()
     }
     
