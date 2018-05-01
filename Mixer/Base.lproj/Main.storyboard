@@ -105,6 +105,7 @@
                     <connections>
                         <outlet property="addButton" destination="eEs-3M-bZW" id="90Q-1D-Tqa"/>
                         <outlet property="cueView" destination="1oZ-8I-o2q" id="L2o-lb-YGw"/>
+                        <outlet property="editButton" destination="CRn-m7-n18" id="0ul-97-4vW"/>
                         <outlet property="hamMenu" destination="JfN-1n-HWa" id="WCc-eH-NbD"/>
                         <outlet property="playButton" destination="SHD-xL-GOj" id="nmE-CA-qe8"/>
                         <segue destination="X8D-f3-Mh2" kind="show" identifier="ShowToPlaySegue" animates="NO" id="Vqu-7F-HK8"/>

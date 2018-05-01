@@ -29,6 +29,7 @@ class MenuVC: UITableViewController {
         DataManager.instance.shows.sort(by: { (s1, s2) in
             return s1.dateLastEdit > s2.dateLastEdit
         })
+        DataManager.instance.save()
         //reload the data
         tableView.reloadData()
     }
@@ -51,6 +52,7 @@ class MenuVC: UITableViewController {
     //add a new show
     @IBAction func addButton(_ sender: UIBarButtonItem) {
         DataManager.instance.shows.append(Show())
+        DataManager.instance.save()
         tableView.reloadData()
     }
 }

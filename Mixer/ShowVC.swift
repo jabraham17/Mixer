@@ -16,6 +16,8 @@ class ShowVC: UIViewController {
     @IBOutlet var cueView: CueCollectionView!
     //refrence to add button, used to toggle appearnace
     @IBOutlet var addButton: UIBarButtonItem!
+        //refrence to edit button, used to control avaiblility
+    @IBOutlet var editButton: UIBarButtonItem!
     //refrence to play button, used to add pulse
     @IBOutlet var playButton: UIButton!
     //refrence to hamburger button, used to control avaiblility
@@ -29,6 +31,7 @@ class ShowVC: UIViewController {
             cueView.reloadData()
         }
     }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -50,6 +53,24 @@ class ShowVC: UIViewController {
         pulseAnimation.repeatCount = .infinity
         //add pulse to layer of button
         playButton.layer.add(pulseAnimation, forKey: nil)
+        
+        
+        checkNoShow()
+    }
+    
+    //check for no show
+    func checkNoShow() {
+        //if show is nil, diabled all buttons except menu
+        if getShow() == nil {
+            playButton.isEnabled = false
+            addButton.isEnabled = false
+            editButton.isEnabled = false
+        }
+        else {
+            playButton.isEnabled = true
+            addButton.isEnabled = true
+            editButton.isEnabled = true
+        }
     }
     
     //deleagte for cueView
@@ -83,6 +104,8 @@ class ShowVC: UIViewController {
         SideMenuManager.default.menuWidth = Global.screenWidth * 0.8
         
         delegate.index = nil
+        
+        checkNoShow()
         
         //set the coolection view deleagtes
         cueView.delegate = delegate
@@ -197,6 +220,7 @@ extension ShowVC: MenuVCDelegate {
     //deleagte from Menu
     func showSelected(index: Int) {
         delegate.index = index
+        
         //set title of screen to show
         (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
         //reload the data
