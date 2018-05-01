@@ -32,6 +32,10 @@ class ShowVC: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.cueView.unhighlightCells()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -90,6 +94,8 @@ class ShowVC: UIViewController {
         (menuNC.topViewController as! MenuVC).passingDelegate = self
         //set the menu as a left side menu
         menuNC.leftSide = true
+        
+        menuNC.sideMenuDelegate = self
         
         //add the menu to the manager
         SideMenuManager.default.menuLeftNavigationController = menuNC
@@ -202,11 +208,15 @@ class ShowVC: UIViewController {
     
     //get the show from the delegate
     func getShow() -> Show? {
-        if(delegate.index == nil)
-        {
+        //check if the index is nil, store it if not nil
+        guard let currentIndex = delegate.index else {
             return nil
         }
-        return DataManager.instance.shows[delegate.index!]
+        //if selelcted show is beyond range of length of shows, return nil
+        if(currentIndex >= DataManager.instance.shows.count) {
+            return nil
+        }
+        return DataManager.instance.shows[currentIndex]
     }
     
     //refresh layout
@@ -217,15 +227,19 @@ class ShowVC: UIViewController {
 }
 
 //Menu Delegate
-extension ShowVC: MenuVCDelegate {
+extension ShowVC: MenuVCDelegate, UISideMenuNavigationControllerDelegate {
     //deleagte from Menu
     func showSelected(index: Int) {
         delegate.index = index
-        
+        checkNoShow()
         //set title of screen to show
         (self.navigationItem.titleView as! CustomUINavigationTitle).title.text = getShow() == nil ? "" : getShow()?.name
         //reload the data
         cueView.reloadData()
+    }
+    
+    func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool) {
+        checkNoShow()
     }
 }
 

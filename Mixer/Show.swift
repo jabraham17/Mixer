@@ -60,7 +60,7 @@ class Show: Serializable, CustomStringConvertible {
     
     func encode() -> String {
         let cueStr = listing.reduce("") {result, next in "\(result){\(next.encode())}"}
-        let encoded = "ShowName:<\(name)>,DateCreated:<\(dateCreated.timeIntervalSince1970)>,DateLastEdit:<\(dateLastEdit.timeIntervalSince1970)>,DateLastRun:<\(String(describing: dateLastRun))>,CueListing:[\(cueStr)]"
+        let encoded = "ShowName:<\(name)>,DateCreated:<\(dateCreated.timeIntervalSince1970)>,DateLastEdit:<\(dateLastEdit.timeIntervalSince1970)>,DateLastRun:<\(dateLastRun?.timeIntervalSince1970 ?? 0)>,CueListing:[\(cueStr)]"
         return encoded
     }
     required init(decodeWith string: String) throws {

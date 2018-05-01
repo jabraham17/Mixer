@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>$(EXECUTABLE_NAME) needs access to media files on your phone to create cues with media in them</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -41,7 +43,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>$(EXECTUTABLE_NAME) needs access to media files on your phone to create cues with media in them</string>
 </dict>
 </plist>
