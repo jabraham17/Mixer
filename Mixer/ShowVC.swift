@@ -90,6 +90,7 @@ class ShowVC: UIViewController {
         (menuNC.topViewController as! MenuVC).passingDelegate = self
         //set the menu as a left side menu
         menuNC.leftSide = true
+        
         //add the menu to the manager
         SideMenuManager.default.menuLeftNavigationController = menuNC
         

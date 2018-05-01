@@ -326,12 +326,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Shows" id="mZj-R2-CKg">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="3a6-5a-Dyh">
+                            <connections>
+                                <action selector="editButton:" destination="AUX-hM-ibo" id="zUu-hm-Fri"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="SSA-8F-hUe">
                             <connections>
                                 <action selector="addButton:" destination="AUX-hM-ibo" id="ga5-Vq-vg3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="SSA-8F-hUe" id="Bjo-bu-q7u"/>
+                        <outlet property="editButton" destination="3a6-5a-Dyh" id="MA9-aC-oTR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82j-6R-89y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
